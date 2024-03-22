@@ -1,20 +1,50 @@
+import { Request, Response } from "express";
+import UserModel from "../models/user.model";
 
-import { Request, Response } from "express"
+export const getAllUser = async (req: Request, res: Response) => {
+  try {
+    const allUsers = await UserModel.find().populate("movies");
+    res.status(200).send(allUsers);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
 
-export const getAllUser = (req:Request, res:Response) => {
-    res.send("All user")
-}
+export const createUser = async (req: Request, res: Response) => {
+  const { name, email, password } = req.body;
 
-export const createUser = (req:Request, res:Response) => {
-    res.send("User created")
-}
+  try {
+    const newUser = await UserModel.create({ name, email, password });
+    res.status(201).send(newUser);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
 
-export const updateUser = (req:Request, res:Response) => {
-    res.send("user updated")
-}
+export const updateUser = async (req: Request, res: Response) => {
+  const { name, email, password } = req.body;
+  const { userId } = req.params;
 
-export const deleteUser = (req:Request, res:Response) => {
-    const {userId} = req.params
+  try {
+    const userUpdated = await UserModel.findByIdAndUpdate(
+      { _id: userId },
+      { name, email, password },
+      { new: true }
+    )
+    res.status(201).send(userUpdated)
+  } catch (error) {
+    res.status(400).send(error)
+    console.log(error)
+  }
+};
 
-    res.send(`User with id "${userId} has been deleted`)
-}
+export const deleteUser = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  try {
+    const userDeleted = await UserModel.findByIdAndDelete( { _id: userId})
+    res.status(200).send(userDeleted)
+  } catch (error) {
+    res.status(400).send(error)
+  }
+
+};
