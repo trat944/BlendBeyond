@@ -1,36 +1,54 @@
 import { useForm } from 'react-hook-form';
 import { InputField } from '../../../../styled_components/inputField'
-import './signUpForm.css'
+import './loginForm.css'
 import { User, fetchUsers } from '../../../../utils/fetchUsers';
 import { useNavigate } from 'react-router-dom'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../../../../hooks/userContext';
+import { Modal } from '../Modal';
+import { ModalSetting } from '../../../../styled_components/modalSetting';
 
 export const LoginForm = () => {
 
   const {register, handleSubmit, formState: {errors}, reset} = useForm();
   const navigate = useNavigate();
   const { dispatch } = useContext(UserContext);
+  const [noMatchedUserError, setNoMatchedUserError] = useState(false);
+  const [resetPasswordModal, setResetPasswordModal] = useState(false);
+  const [resetMessage, setresetMessage] = useState(false)
+
+  const onChangeResetPassWordModal = () => {
+    setResetPasswordModal(true);
+    setresetMessage(false)
+  }
 
   const onSubmit = handleSubmit(async (data) => {
     if (Object.keys(errors).length === 0) {
-      reset();
       const users: User[] = await fetchUsers();
-      if (users) console.log(users)
-        const loggedUser = users.find(userFetched => (
-          userFetched.username.trim().toLowerCase() === data.username.trim().toLowerCase() && userFetched.password
-          === data.password
+      const loggedUser = users.find(userFetched => (
+        userFetched.username.trim().toLowerCase() === data.username.trim().toLowerCase() && userFetched.password
+        === data.password
       ))
-      console.log(users)
       if (loggedUser) {
+        reset()
         navigate('/homepage')
-        dispatch({ type: "LOGIN", payload: loggedUser });
-      } 
+        dispatch({ type: "LOGIN", payload: loggedUser })
+      } else {
+        setNoMatchedUserError(true)
+      }
     }})
+
+    const onSubmitForRecovery = handleSubmit(async () => {
+      if (Object.keys(errors).length === 0) {
+        reset()
+        setresetMessage(true)
+        setNoMatchedUserError(false)
+        setResetPasswordModal(false)
+      }}
+    )
   
   return (
     <form className='form-container' onSubmit={onSubmit}>
-      <div className="form-container">
         <InputField 
           placeholder="Username"
           {...register('username', {
@@ -61,7 +79,40 @@ export const LoginForm = () => {
         ></InputField>
 
         {errors.password && typeof errors.password.message === 'string' && <span className='error-msg'>{errors.password.message}</span>}
-      </div>
+
+      {noMatchedUserError && (
+        <>
+          <span>No user matched</span>
+          <span onClick={onChangeResetPassWordModal} className='password-reset'>Forget your password?</span>
+
+          {resetPasswordModal && (
+            <ModalSetting>
+              <Modal onOpen={setResetPasswordModal}>
+                <div onClick={onSubmitForRecovery} className="reset-password-container">
+                  <InputField 
+                    type='email'
+                    placeholder="name@hotmail.com"
+                    {...register('emailForRecovery', {
+                      required: {
+                        value: true,
+                        message: "Email is required"
+                      },  pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "Invalid email address"
+                      } 
+                    })}
+                  ></InputField>
+                  {errors.emailForRecovery && typeof errors.emailForRecovery.message === 'string' && <span className='error-msg'>{errors.emailForRecovery.message}</span>}
+                  
+                  {resetMessage && <span>An email has been sent to reset the password.</span>}
+
+                  <button className='signBtn' type='submit'>Send</button>
+                </div>
+              </Modal>
+            </ModalSetting>
+          )}
+        </>
+      )}
       <button className='signBtn' type='submit'>Sign In</button>
     </form>
   )

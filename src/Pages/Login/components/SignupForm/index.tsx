@@ -13,7 +13,6 @@ export const SignupForm = () => {
   
   return (
     <form className='form-container' onSubmit={onSubmit}>
-      <div className="form-container">
         <InputField 
           placeholder="Username"
           {...register('username', {
@@ -81,7 +80,6 @@ export const SignupForm = () => {
         ></InputField>
 
         {errors.repeatPassword && typeof errors.repeatPassword.message === 'string' && <span className='error-msg'>{errors.repeatPassword.message}</span>}
-      </div>
       <button className='signBtn' type='submit'>Sign Up</button>
     </form>
   )

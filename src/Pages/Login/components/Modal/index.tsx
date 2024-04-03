@@ -16,7 +16,7 @@ export const Modal = ({children, onOpen}: Props) => {
       <div className="modal-container" >
         <FontAwesomeIcon className='closeBtn' icon={faXmark} onClick={() => {closeModal(onOpen)}} />
         <img className="modal-img" src="/src/assets/logo.webp" alt="" />
-          <div className="form-container">
+          <div>
             {children}
           </div>
       </div>
