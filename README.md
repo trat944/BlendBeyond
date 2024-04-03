@@ -1,6 +1,6 @@
 # Welcome to Blend Beyond 🚀
 
-<p align="center">
+<p align="left">
   <img src="/src/assets/logo-background.png" alt="Blend Beyond Logo" width="200" />
 </p>
 
