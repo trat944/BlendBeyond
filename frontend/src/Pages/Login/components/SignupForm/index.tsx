@@ -17,7 +17,7 @@ export const SignupForm = () => {
       const response = await UserService.createUser(data);
       if (response) {
         reset()
-        navigate('/homepage')
+        navigate('/configpage')
         dispatch({ type: "LOGIN", payload: response })
         window.localStorage.setItem('userLogged', JSON.stringify(response))
       }

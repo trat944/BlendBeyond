@@ -24,13 +24,11 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-  const { userId } = req.params;
-
+  const { name, email, password, birthdate, id } = req.body;
   try {
     const userUpdated = await prisma.user.update({
-      where: {id:userId},
-      data:{name, email, password}
+      where: {id: id},
+      data:{name, email, password, birthdate}
     })
     res.status(201).send(userUpdated)
   } catch (error) {

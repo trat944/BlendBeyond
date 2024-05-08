@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { UserContext } from "../../hooks/userContext";
+import { User } from "../../interfaces/userInterface";
+import './homepage.css'
 
 export const HomePage = () => {
-  const user = useContext(UserContext);
+  const user: User = useContext(UserContext).state.user;
   console.log({user})
   return (
-    <div>index</div>
+    <div>HOMEPAGE</div>
   )
 }

@@ -18,4 +18,14 @@ export class UserService {
             console.log(error)
         }
     }
+
+    static async updateUser(user: any) {
+        try {
+            const response = await axios.patch(VITE_BASE_URL + 'users/' + 'config', user)
+            console.log({response})
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

@@ -31,9 +31,11 @@ export const LoginForm = () => {
         === data.password
       ))
       if (loggedUser) {
+        const profileProperties = 10
         window.localStorage.setItem('userLogged', JSON.stringify(loggedUser))
         reset()
-        navigate('/homepage')
+        if (Object.keys(loggedUser).length === profileProperties) navigate('/homepage')
+        if (Object.keys(loggedUser).length !== profileProperties) navigate('/configpage')
         dispatch({ type: "LOGIN", payload: loggedUser })
       } else {
         setNoMatchedUserError(true)
