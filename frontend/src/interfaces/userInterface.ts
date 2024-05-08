@@ -6,7 +6,8 @@ export interface User {
   birthdate:     Date;
   password:      string;
   city:          string;
-  selfImage:     string;
+  pictureId:     string;
+  pictureUrl:    string;
   foodImage:     string;
   song:          Song;
   book:          Book;

@@ -1,10 +1,44 @@
 .userProfile_container {
+  margin: 4rem auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profilePicContainer {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%; 
+  overflow: hidden; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .profilePic {
-  border: solid black 1px;
-  border-radius: 50%;
+  width: 100%; 
+  height: auto;
+  display: block; 
+  clip-path: circle(70%);
+}
+
+.img-input {
+  display: none;
+}
+
+.user-name-age {
+  font-size: 1.4rem;
+  margin: 1rem;
+  letter-spacing: 2px;
+}
+
+.input-container {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }

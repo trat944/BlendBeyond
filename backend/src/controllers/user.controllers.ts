@@ -29,7 +29,6 @@ export const createUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   const { name, email, password, birthdate, id } = req.body;
   const file = req.files?.selfImage;
-  console.log(file)
   try {
     if (file) {
       if (Array.isArray(file)) return res.status(400)
