@@ -34,7 +34,6 @@ export const updateUser = async (req: Request, res: Response) => {
       if (Array.isArray(file)) return res.status(400)
       else {
         const responsecloud = await uploadCoverImg(file.tempFilePath)
-        console.log(responsecloud)
         const userUpdated = await prisma.user.update({
           where: {id: id},
           data:{pictureId: responsecloud.public_id, pictureUrl: responsecloud.secure_url}
