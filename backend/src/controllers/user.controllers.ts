@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import prisma from "../db/client";
+import { uploadCoverImg } from "../utils/cloudinaryConfig";
+import { error } from "console";
+import fs from 'fs-extra'
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -25,7 +28,21 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
   const { name, email, password, birthdate, id } = req.body;
+  const file = req.files?.selfImage;
+  console.log(file)
   try {
+    if (file) {
+      if (Array.isArray(file)) return res.status(400)
+      else {
+        const responsecloud = await uploadCoverImg(file.tempFilePath)
+        console.log(responsecloud)
+        const userUpdated = await prisma.user.update({
+          where: {id: id},
+          data:{pictureId: responsecloud.public_id, pictureUrl: responsecloud.secure_url}
+        })
+        await fs.unlink(file.tempFilePath)
+      }
+    }
     const userUpdated = await prisma.user.update({
       where: {id: id},
       data:{name, email, password, birthdate}
