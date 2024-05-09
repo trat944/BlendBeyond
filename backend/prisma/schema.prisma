@@ -21,6 +21,9 @@ model User {
   pictureId String?
   pictureUrl String?
   birthdate DateTime?
+  city      String?
+  sex       String?
+  lookingFor String?
   createAt  DateTime @default(now())
   updateAt  DateTime @updatedAt
 }

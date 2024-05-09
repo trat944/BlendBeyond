@@ -27,7 +27,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-  const { name, email, password, birthdate, id } = req.body;
+  const { name, email, password, birthdate, city, sex, lookingFor, id } = req.body;
   const file = req.files?.selfImage;
   try {
     if (file) {
@@ -43,7 +43,7 @@ export const updateUser = async (req: Request, res: Response) => {
     }
     const userUpdated = await prisma.user.update({
       where: {id: id},
-      data:{name, email, password, birthdate}
+      data:{name, email, password, birthdate, city, sex, lookingFor}
     })
     res.status(201).send(userUpdated)
   } catch (error) {
