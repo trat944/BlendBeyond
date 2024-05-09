@@ -6,6 +6,8 @@ export interface User {
   birthdate:     Date;
   password:      string;
   city:          string;
+  sex:           string;
+  lookingFor:    string;
   pictureId:     string;
   pictureUrl:    string;
   foodImage:     string;

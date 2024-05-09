@@ -9,6 +9,12 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #baacac;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .profilePicContainer {
@@ -26,6 +32,17 @@ form {
   clip-path: circle(70%);
 }
 
+.change-pic {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.343);
+  padding: 0.6rem;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  z-index: 1;
+  left: 56%;
+}
+
 .img-input {
   display: none;
 }
@@ -41,4 +58,57 @@ form {
   display: flex;
   flex-direction: column;
   text-align: left;
+  gap: 1rem;
+}
+
+.input-container input, .input-container select {
+  width: 90%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pair-of-inputs-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Button styles */
+.localization-btn {
+  display: inline-block;
+  padding: 5px 5px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #007bff; /* Blue color, you can change this to match your design */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.localization-btn:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+/* Active/focus effect */
+.localization-btn:active,
+.localization-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Blue shadow on focus/active */
+}
+
+/* Disabled state */
+.localization-btn:disabled {
+  background-color: #ccc; /* Light gray for disabled state */
+  cursor: not-allowed;
+}
+
+/* Text color for disabled state */
+.localization-btn:disabled span {
+  color: #666;
 }

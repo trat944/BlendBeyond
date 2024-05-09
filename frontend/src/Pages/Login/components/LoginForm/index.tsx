@@ -31,7 +31,7 @@ export const LoginForm = () => {
         === data.password
       ))
       if (loggedUser) {
-        const profileProperties = 10
+        const profileProperties = 20
         window.localStorage.setItem('userLogged', JSON.stringify(loggedUser))
         reset()
         if (Object.keys(loggedUser).length === profileProperties) navigate('/homepage')

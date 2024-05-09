@@ -24,3 +24,12 @@ export const citiesInSpain = [
   "Santiago de Compostela", "Palma", "Tarragona", "Vitoria-Gasteiz", "A Coruña", "Vigo", "Elche", "Gijón", "Oviedo", "Santa Cruz de Tenerife",
   "Pamplona", "Málaga", "Sabadell", "Donostia", "Bilbao", "Murcia", "Valencia", "Sevilla", "Zaragoza"
 ];
+
+export const cityValidator = (inputValue: string) => {
+  for (const city of citiesInSpain) {
+    if (city.toLowerCase() === inputValue.toLowerCase()) {
+      return city;
+    }
+  }
+  return false;
+};

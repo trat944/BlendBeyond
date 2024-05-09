@@ -2,11 +2,13 @@ import { useForm } from 'react-hook-form'
 import { User } from '../../../interfaces/userInterface'
 import './profileSumUp.css'
 import { UserService } from '../../../services/UserService'
-import { useState } from 'react'
-import { InputField } from '../../../styled_components/inputField'
+import { useEffect, useState } from 'react'
 import { getAge } from '../../../utils/getAge'
 import { handleGetLocation } from '../../../utils/getLocation'
-import { citiesInSpain } from '../../../utils/citiesInSpain'
+import { cityValidator } from '../../../utils/cityValidation'
+import { RegisterOptions } from 'react-hook-form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   user: User | null
@@ -21,15 +23,15 @@ export const ProfileSumUp = ({user}: Props) => {
   const [userAge, setUserAge] = useState<number>()
   const [location, setLocation] = useState<Location>({ latitude: null, longitude: null });
   const [nearestCity, setNearestCity] = useState<string>('');
-
   const {register, handleSubmit, formState: {errors}, reset} = useForm();
+  
   const onSubmit = handleSubmit(async (data) => {
     if (Object.keys(errors).length === 0) {
       const age = getAge(data.birthdate)
       if (age) setUserAge(age)
+      console.log({data})
       data.birthdate = data.birthdate + 'T00:00:00.000Z'
       const updatedUser = { ...user, ...data }; 
-      console.log({updatedUser})
       const response = await UserService.updateUser(updatedUser);
       console.log({response})
       if (response) {
@@ -37,30 +39,39 @@ export const ProfileSumUp = ({user}: Props) => {
         window.localStorage.setItem('userLogged', JSON.stringify(response))
       }
     }})
-  
+
+    useEffect(() => {
+      const inputElement = document.getElementById('city') as HTMLInputElement;
+      if (inputElement) {
+        inputElement.value = '';
+        inputElement.value = nearestCity
+      }
+    }, [nearestCity]);
+    
 
   return (
     <div className="userProfile_container">
       <form action="" onSubmit={onSubmit}>
         <div className="profilePicContainer">
-        <label htmlFor="fileInput" className="profilePicContainer">
-          <img className='profilePic' src={user?.pictureUrl} alt="" />
-          <input 
-            className='img-input'
-            id="fileInput"
-            type='file'
-            {...register('selfImage', {
-              required: {
-                value: true,
-                message: "selfImage is required"
-              }
-            })}
-          />
-        </label>
+          <label htmlFor="fileInput" className="profilePicContainer">
+            <FontAwesomeIcon className='change-pic' icon={faPen} />
+            <img className='profilePic' src={user?.pictureUrl} alt="" />
+            <input 
+              className='img-input'
+              id="fileInput"
+              type='file'
+              {...register('selfImage', {
+                required: {
+                  value: true,
+                  message: "selfImage is required"
+                }
+              })}
+            />
+          </label>
         </div>
         <span className='user-name-age'>{user?.name}, {userAge}</span>
         <div className="input-container">
-          <InputField 
+          <input 
           type="date"
           {...register('birthdate', {
             required: {
@@ -68,22 +79,55 @@ export const ProfileSumUp = ({user}: Props) => {
               message: "Birthdate is required"
             }
           })} />
-          <label htmlFor="city">Busca tu ciudad:</label>
-          <InputField
+          <div className="pair-of-inputs-container">
+            <input
+            id='city'
             type="text"
-            placeholder="Escribe el nombre de tu ciudad"
+            placeholder="Ciudad"
             {...register('city', {
               required: {
                 value: true,
-                message: "City is required"
+                message: "City is required",
+                // validate: (value) => cityValidator(value) || "Invalid city"
               }
             })} />
+            <button 
+            className='localization-btn'
+            onClick={() => handleGetLocation(setLocation, setNearestCity)}>
+            Get Location</button>
           </div>
+          <div className="pair-of-inputs-container">
+            <label htmlFor="sex">How do you identify yourself?</label>
+            <select id="sex"
+            {...register('sex', {
+              required: {
+                value: true,
+                message: "Sex is required",
+              }
+            })}>
+              <option value="man">Man</option>
+              <option value="woman">Woman</option>
+              <option value="non-binary">Non-binary</option>
+              <option value="transgender">Transgender</option>
+            </select>
+          </div>
+          <div className="pair-of-inputs-container">
+            <label htmlFor="lookingFor">What are you looking for?</label>
+            <select id="lookingFor"
+            {...register('lookingFor', {
+              required: {
+                value: true,
+                message: "Your preference is required",
+              }
+            })}>
+              <option value="man">Man</option>
+              <option value="woman">Woman</option>
+            </select>
+          </div>
+        </div>
         <button>submit</button>
       </form>
       <div>
-      <button onClick={() => handleGetLocation(setLocation, setNearestCity)}>Obtener ubicación GPS</button>
-      {nearestCity && <p>Ciudad más cercana: {nearestCity}</p>}
     </div>
     
     </div>

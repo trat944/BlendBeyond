@@ -29,8 +29,9 @@ const fetchNearestCity = async (setNearestCity: React.Dispatch<React.SetStateAct
       `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
     );
     const data = await response.json();
-    const city = data.address.city;
-    setNearestCity(city);
+    console.log(data)
+    if (data.address.city) setNearestCity(data.address.city)
+    else setNearestCity(data.address.town)
   } catch (error) {
     console.error('Error fetching nearest city:', error);
   }
