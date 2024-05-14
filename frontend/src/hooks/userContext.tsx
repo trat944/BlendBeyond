@@ -1,6 +1,5 @@
-import React, { createContext, useReducer, FC, PropsWithChildren } from "react";
-import { User } from "../utils/fetchUsers";
-
+import React, { createContext, useReducer, FC, PropsWithChildren, useEffect } from "react";
+import { User } from "../interfaces/userInterface";
 
 // Definir el tipo de estado del usuario
 type UserState = {
@@ -29,7 +28,16 @@ export const UserContext = createContext<{ state: UserState; dispatch: React.Dis
 
 // Proveedor de contexto de usuario
 export const UserProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
-  const [state, dispatch] = useReducer(userReducer, { user: null });
+  // Inicializar el estado desde localStorage
+  const [state, dispatch] = useReducer(userReducer, { user: JSON.parse(localStorage.getItem('userLogged') || 'null') });
+
+  // useEffect para sincronizar el estado con localStorage
+  useEffect(() => {
+    const storedUser = localStorage.getItem('userLogged');
+    if (storedUser) {
+      dispatch({ type: 'LOGIN', payload: JSON.parse(storedUser) });
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>

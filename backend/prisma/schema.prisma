@@ -21,6 +21,7 @@ model User {
   pictureId String?
   pictureUrl String?
   birthdate DateTime?
+  age       Int?
   city      String?
   sex       String?
   lookingFor String?

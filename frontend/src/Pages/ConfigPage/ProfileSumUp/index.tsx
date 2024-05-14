@@ -27,11 +27,13 @@ export const ProfileSumUp = ({user}: Props) => {
   
   const onSubmit = handleSubmit(async (data) => {
     if (Object.keys(errors).length === 0) {
-      const age = getAge(data.birthdate)
-      if (age) setUserAge(age)
-      console.log({data})
+      const userAge = getAge(data.birthdate)
+      if (userAge) {
+        setUserAge(userAge)
+      }
       data.birthdate = data.birthdate + 'T00:00:00.000Z'
-      const updatedUser = { ...user, ...data }; 
+      const updatedUser = { ...user, ...data, age: userAge }; 
+      console.log({data})
       const response = await UserService.updateUser(updatedUser);
       console.log({response})
       if (response) {
@@ -69,7 +71,7 @@ export const ProfileSumUp = ({user}: Props) => {
             />
           </label>
         </div>
-        <span className='user-name-age'>{user?.name}, {userAge}</span>
+        <span className='user-name-age'>{user?.name}, {user?.age}</span>
         <div className="input-container">
           <input 
           type="date"

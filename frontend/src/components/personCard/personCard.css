@@ -1,0 +1,24 @@
+.personCard-container {
+    width: 90%;
+    margin: auto;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.personCard-container img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10%;
+}
+
+.personCard-container .user_specifics {
+    position: absolute;
+    bottom: 4%;
+    left: 8%;
+    z-index: 1;
+    color: white;
+    font-size: 1.3rem;
+    background-color: gray;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
