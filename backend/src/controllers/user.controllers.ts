@@ -13,6 +13,30 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+export const getDesiredUsers = async (req: Request, res: Response) => {
+  const { city, lookingFor, sex } = req.query;
+  console.log({city})
+  console.log({lookingFor})
+  console.log({sex})
+
+  if (typeof city !== 'string' || typeof lookingFor !== 'string' || typeof sex !== 'string') {
+    return res.status(400).send("Invalid query parameters");
+  }
+
+  try {
+    const desiredUsers = await prisma.user.findMany({
+      where: {
+        city: city,
+        lookingFor: sex,
+        sex: lookingFor
+      }
+    });
+    res.status(200).send(desiredUsers);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 export const createUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
 

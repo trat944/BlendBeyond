@@ -10,6 +10,14 @@ export class UserService {
             console.log(error)
         }
     }
+    static async getDesiredUsers(loggedUser: any) {
+        try {
+            const response = await axios.get(`${VITE_BASE_URL}users/desired?city=${loggedUser.city}&lookingFor=${loggedUser.lookingFor}&sex=${loggedUser.sex}`);
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
     static async createUser(user: any) {
         try {
             const response = await axios.post(VITE_BASE_URL + 'users', user)
