@@ -10,38 +10,38 @@ export class UserService {
             console.log(error)
         }
     }
-    // static async getDesiredUsers(loggedUser: any) {
-    //     const { city, lookingFor, sex, likedUsers, dislikedUsers } = loggedUser;
-      
-    //     try {
-    //       const response = await axios.post(VITE_BASE_URL + 'users/desired', {
-    //         city,
-    //         lookingFor,
-    //         sex,
-    //         likedUsers,
-    //         dislikedUsers,
-    //       });
-    //       return response.data;
-    //     } catch (error) {
-    //       console.error(error);
-    //       throw error;
-    //     }
-    //   };
     static async getDesiredUsers(loggedUser: any) {
-        const { city, lookingFor, sex, likedUsers } = loggedUser;
+        const { city, lookingFor, sex, likedUsers, dislikedUsers } = loggedUser;
+      
         try {
-          const response = await axios.post(VITE_BASE_URL + 'users/' + 'desired', {
+          const response = await axios.post(VITE_BASE_URL + 'users/desired', {
             city,
             lookingFor,
             sex,
             likedUsers,
+            dislikedUsers,
           });
           return response.data;
         } catch (error) {
           console.error(error);
           throw error;
         }
-    }
+      };
+    // static async getDesiredUsers(loggedUser: any) {
+    //     const { city, lookingFor, sex, likedUsers } = loggedUser;
+    //     try {
+    //       const response = await axios.post(VITE_BASE_URL + 'users/' + 'desired', {
+    //         city,
+    //         lookingFor,
+    //         sex,
+    //         likedUsers,
+    //       });
+    //       return response.data;
+    //     } catch (error) {
+    //       console.error(error);
+    //       throw error;
+    //     }
+    // }
     static async createUser(user: any) {
         try {
             const response = await axios.post(VITE_BASE_URL + 'users', user)

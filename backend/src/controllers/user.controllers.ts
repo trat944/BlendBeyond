@@ -10,8 +10,8 @@ export const getAllUsers = async (req: Request, res: Response) => {
       include: {
         likedUsers: true,
         likedBy: true,
-        dislikedBy: true,
-        dislikedUsers: true
+        dislikedUsers: true,
+        dislikedBy: true
       }
     });
     res.status(200).send(allUsers);
@@ -20,44 +20,17 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-// export const getDesiredUsers = async (req: Request, res: Response) => {
-//   const { city, lookingFor, sex, likedUsers, dislikedUsers } = req.body;
-//   console.log("Received data:", { city, lookingFor, sex, likedUsers, dislikedUsers });
-
-//   if (!city || !lookingFor || !sex || !likedUsers || !dislikedUsers) {
-//     return res.status(400).send("Missing required parameters");
-//   }
-
-//   // Extraer los IDs de los usuarios a los que ya se les ha dado "like" o "dislike"
-//   const likedUserIds = likedUsers.map((like: any) => like.toId);
-//   const dislikedUserIds = dislikedUsers.map((dislike: any) => dislike.toId);
-
-//   try {
-//     const desiredUsers = await prisma.user.findMany({
-//       where: {
-//         city,
-//         sex: lookingFor,
-//         lookingFor: sex,
-//         id: {
-//           notIn: [...likedUserIds, ...dislikedUserIds], // Filtrar los usuarios que no están en la lista de "likes" o "dislikes"
-//         },
-//       },
-//     });
-//     res.status(200).send(desiredUsers);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// };
-
 export const getDesiredUsers = async (req: Request, res: Response) => {
-  const { city, lookingFor, sex, likedUsers } = req.body;
+  const { city, lookingFor, sex, likedUsers, dislikedUsers } = req.body;
+  console.log("Received data:", { city, lookingFor, sex, likedUsers, dislikedUsers });
 
-  if (!city || !lookingFor || !sex || !likedUsers) {
+  if (!city || !lookingFor || !sex || !likedUsers || !dislikedUsers) {
     return res.status(400).send("Missing required parameters");
   }
 
-  // Extraer los IDs de los usuarios a los que ya se les ha dado "like"
+  // Extraer los IDs de los usuarios a los que ya se les ha dado "like" o "dislike"
   const likedUserIds = likedUsers.map((like: any) => like.toId);
+  const dislikedUserIds = dislikedUsers.map((dislike: any) => dislike.toId);
 
   try {
     const desiredUsers = await prisma.user.findMany({
@@ -66,7 +39,7 @@ export const getDesiredUsers = async (req: Request, res: Response) => {
         sex: lookingFor,
         lookingFor: sex,
         id: {
-          notIn: likedUserIds, // Filtrar los usuarios que no están en la lista de "likes"
+          notIn: [...likedUserIds, ...dislikedUserIds], // Filtrar los usuarios que no están en la lista de "likes" o "dislikes"
         },
       },
     });
@@ -75,6 +48,33 @@ export const getDesiredUsers = async (req: Request, res: Response) => {
     res.status(400).send(error);
   }
 };
+
+// export const getDesiredUsers = async (req: Request, res: Response) => {
+//   const { city, lookingFor, sex, likedUsers } = req.body;
+
+//   if (!city || !lookingFor || !sex || !likedUsers) {
+//     return res.status(400).send("Missing required parameters");
+//   }
+
+//   // Extraer los IDs de los usuarios a los que ya se les ha dado "like"
+//   const likedUserIds = likedUsers.map((like: any) => like.toId);
+
+//   try {
+//     const desiredUsers = await prisma.user.findMany({
+//       where: {
+//         city,
+//         sex: lookingFor,
+//         lookingFor: sex,
+//         id: {
+//           notIn: likedUserIds, // Filtrar los usuarios que no están en la lista de "likes"
+//         },
+//       },
+//     });
+//     res.status(200).send(desiredUsers);
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// };
 
 export const createUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;

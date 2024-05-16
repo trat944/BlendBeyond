@@ -44,9 +44,9 @@ model Like {
 
 model Dislike {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  from      User     @relation("DislikedUsers", fields: [fromId], references: [id])
+  from      User     @relation("DislikedBy", fields: [fromId], references: [id])
   fromId    String
-  to        User     @relation("DislikedBy", fields: [toId], references: [id])
+  to        User     @relation("DislikedUsers", fields: [toId], references: [id])
   toId      String
   createdAt DateTime @default(now())
 }

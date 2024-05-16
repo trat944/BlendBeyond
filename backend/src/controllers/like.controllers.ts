@@ -3,8 +3,6 @@ import prisma from "../db/client";
 
 export const createLike = async (req: Request, res: Response) => {
     const { fromUserId, toUserId } = req.body;
-    console.log(fromUserId)
-    console.log(toUserId)
   
     if (!fromUserId || !toUserId) {
         return res.status(400).send("Invalid id parameters");
