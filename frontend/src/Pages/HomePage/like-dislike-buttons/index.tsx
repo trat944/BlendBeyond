@@ -5,6 +5,7 @@ import { User } from "../../../interfaces/userInterface"
 import { MouseEventHandler, useContext } from "react"
 import { UserContext } from "../../../hooks/userContext"
 import { LikeService } from "../../../services/LikeService"
+import { DislikeService } from "../../../services/DislikeService"
 
 type Props = {
     user: User | null
@@ -24,18 +25,22 @@ export const LikeDislikeButtons = ({user, onHandleCard}: Props) => {
         }
     }
 
-    // const createDislike: MouseEventHandler<SVGSVGElement> | undefined = async () => {
-    //     if (loggedUser?.id || user?.id) {
-    //         const response = await LikeService.createDislike(loggedUser?.id, user?.id)
-    //         // dispatch({ type: 'UPDATE_LIKED_USERS', payload: response });
-    //         console.log(response)
-    //         onHandleCard()
-    //     }
-    // }
+    const createDislike: MouseEventHandler<SVGSVGElement> | undefined = async () => {
+        if (loggedUser?.id || user?.id) {
+            const response = await DislikeService.createDislike(loggedUser?.id, user?.id)
+            // dispatch({ type: 'UPDATE_LIKED_USERS', payload: response });
+            console.log(response)
+            onHandleCard()
+        }
+    }
 
     return (
         <div className="button-container">
-            <FontAwesomeIcon className="button dislike-button" icon={faHeartCrack} />
+            <FontAwesomeIcon 
+            className="button dislike-button" 
+            onClick={createDislike}
+            icon={faHeartCrack} />
+
             <FontAwesomeIcon 
             className="button like-button"
             onClick={createLike}

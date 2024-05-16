@@ -3,6 +3,7 @@ import userRouter from './routes/user.routes';
 import likeRouter from './routes/like.routes';
 import cors from 'cors'
 import fileUpload from 'express-fileupload'
+import dislikeRouter from './routes/dislike.routes';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(fileUpload({useTempFiles: true, tempFileDir: './uploads'}))
 app.use(express.json())
 app.use("/users", userRouter )
 app.use("/likes", likeRouter )
+app.use("/dislikes", dislikeRouter )
 
 
 export default app;
