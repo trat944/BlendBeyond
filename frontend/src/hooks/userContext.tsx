@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, FC, PropsWithChildren, useEffect } from "react";
-import { User } from "../interfaces/userInterface";
+import { LikedUsers, User } from "../interfaces/userInterface";
 
 // Definir el tipo de estado del usuario
 type UserState = {
@@ -9,15 +9,29 @@ type UserState = {
 // Definir las acciones para modificar el estado del usuario
 type UserAction = 
   | { type: 'LOGIN'; payload: User }
-  | { type: 'LOGOUT' };
+  | { type: 'LOGOUT' }
+  | { type: 'UPDATE_LIKED_USERS'; payload: LikedUsers };
+
 
 // Función reductora para modificar el estado del usuario
 const userReducer = (state: UserState, action: UserAction): UserState => {
   switch (action.type) {
     case "LOGIN":
+      localStorage.setItem('userLogged', JSON.stringify(action.payload));
       return { ...state, user: action.payload };
     case 'LOGOUT':
+      localStorage.removeItem('userLogged');
       return { ...state, user: null };
+    case 'UPDATE_LIKED_USERS':
+      if (state.user) {
+        const updatedUser = {
+          ...state.user,
+          likedUsers: [...(state.user.likedUsers || []), action.payload]
+        };
+        localStorage.setItem('userLogged', JSON.stringify(updatedUser));
+        return { ...state, user: updatedUser };
+      }
+      return state;
     default:
       return state;
   }

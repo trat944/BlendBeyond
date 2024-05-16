@@ -1,15 +1,19 @@
 import { User } from "../../interfaces/userInterface";
 import './homepage.css'
-import { PersonCard } from "../../components/personCard";
+import { PersonCard } from "./personCard";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../hooks/userContext";
 import { Layout } from "../../components/layout";
 import { UserService } from "../../services/UserService";
+import { LikeDislikeButtons } from "./like-dislike-buttons";
+import { NoUsers } from "./no-users";
 
 
 export const HomePage = () => {
   const user: User | null = useContext(UserContext).state.user
+  console.log({user})
   const [users, setUsers] = useState<User[]>([])
+  const [currentIndex, setCurrentIndex] = useState(0); 
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -23,11 +27,29 @@ export const HomePage = () => {
       }
     };
     fetchUsers();
-  }, []);
+  }, [user?.likedUsers]);
+
+  const handlePersonCard = () => {
+    setCurrentIndex((prevIndex) => prevIndex);
+  };
 
   return (
     <Layout>
-      <PersonCard user={users[0]} />
+      {users && users.length > 0 && currentIndex < users.length ? (
+        <>
+        <PersonCard 
+          key={users[currentIndex].id} 
+          user={users[currentIndex]}  
+        />
+        <LikeDislikeButtons 
+          user={users[currentIndex]} 
+          onHandleCard={handlePersonCard} 
+        />
+        </>
+      ): (
+        <NoUsers user={user} />
+      )}
+
     </Layout>
   )
 }

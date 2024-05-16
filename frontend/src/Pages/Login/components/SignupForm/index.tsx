@@ -19,7 +19,6 @@ export const SignupForm = () => {
         reset()
         navigate('/configpage')
         dispatch({ type: "LOGIN", payload: response })
-        window.localStorage.setItem('userLogged', JSON.stringify(response))
       }
     }})
   
