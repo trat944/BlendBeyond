@@ -6,6 +6,7 @@ const likeRouter = Router();
 // userRouter.get("/", getAllUsers)
 // userRouter.get("/desired", getDesiredUsers)
 likeRouter.post("/", createLike)
+// likeRouter.post("/dislikes", createDislike)
 // userRouter.patch("/config", updateUser)
 // userRouter.delete("/:userId", deleteUser)
 

@@ -27,6 +27,8 @@ model User {
   lookingFor  String?
   likedBy     Like[]   @relation("LikedUsers")
   likedUsers  Like[]   @relation("LikedBy")
+  dislikedBy  Dislike[]   @relation("DislikedUsers")
+  dislikedUsers      Dislike[] @relation("DislikedBy")
   createAt    DateTime @default(now())
   updateAt    DateTime @updatedAt
 }
@@ -36,6 +38,15 @@ model Like {
   from      User     @relation("LikedBy", fields: [fromId], references: [id])
   fromId    String
   to        User     @relation("LikedUsers", fields: [toId], references: [id])
+  toId      String
+  createdAt DateTime @default(now())
+}
+
+model Dislike {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  from      User     @relation("DislikedBy", fields: [fromId], references: [id])
+  fromId    String
+  to        User     @relation("DislikedUsers", fields: [toId], references: [id])
   toId      String
   createdAt DateTime @default(now())
 }
