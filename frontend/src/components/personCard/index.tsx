@@ -1,5 +1,6 @@
 import './personCard.css'
 import { User } from "../../interfaces/userInterface";
+import { LikeDislikeButtons } from '../like-dislike-buttons';
 
 type Props = {
     user: User | null
@@ -7,9 +8,12 @@ type Props = {
 
 export const PersonCard = ({user}: Props) => {
     return (
-        <div className="personCard-container">
-            <img src={user?.pictureUrl} alt="" />
-            <span className='user_specifics'>{user?.name}, {user?.age}</span>
-        </div>
+        <>
+            <div className="personCard-container">
+                <img src={user?.pictureUrl} alt="" />
+                <span className='user_specifics'>{user?.name}, {user?.age}</span>
+            </div>
+            <LikeDislikeButtons user={user} />
+        </>
     )
 }

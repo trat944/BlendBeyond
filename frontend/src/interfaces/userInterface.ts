@@ -11,6 +11,7 @@ export interface User {
   lookingFor:    string;
   pictureId:     string;
   pictureUrl:    string;
+  likedUsers:    LikedUsers[];
   foodImage:     string;
   song:          Song;
   book:          Book;
@@ -19,6 +20,13 @@ export interface User {
   bucketlList:   { [key: string]: string };
   createAt: Date
   updateAt: Date
+}
+
+export interface LikedUsers {
+  id: string,
+  fromId: string,
+  toId: string,
+  createdAt: string
 }
 
 export interface Book {

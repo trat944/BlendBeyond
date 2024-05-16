@@ -6,7 +6,12 @@ import fs from 'fs-extra'
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const allUsers = await prisma.user.findMany();
+    const allUsers = await prisma.user.findMany({
+      include: {
+        likedUsers: true,
+        likedBy: true
+      }
+    });
     res.status(200).send(allUsers);
   } catch (error) {
     res.status(400).send(error);
@@ -14,22 +19,25 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 export const getDesiredUsers = async (req: Request, res: Response) => {
-  const { city, lookingFor, sex } = req.query;
-  console.log({city})
-  console.log({lookingFor})
-  console.log({sex})
+  const { city, lookingFor, sex, likedUsers } = req.body;
 
-  if (typeof city !== 'string' || typeof lookingFor !== 'string' || typeof sex !== 'string') {
-    return res.status(400).send("Invalid query parameters");
+  if (!city || !lookingFor || !sex || !likedUsers) {
+    return res.status(400).send("Missing required parameters");
   }
+
+  // Extraer los IDs de los usuarios a los que ya se les ha dado "like"
+  const likedUserIds = likedUsers.map((like: any) => like.toId);
 
   try {
     const desiredUsers = await prisma.user.findMany({
       where: {
-        city: city,
+        city,
+        sex: lookingFor,
         lookingFor: sex,
-        sex: lookingFor
-      }
+        id: {
+          notIn: likedUserIds, // Filtrar los usuarios que no están en la lista de "likes"
+        },
+      },
     });
     res.status(200).send(desiredUsers);
   } catch (error) {

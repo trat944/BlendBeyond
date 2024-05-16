@@ -4,7 +4,7 @@ import { createUser, deleteUser, getAllUsers, getDesiredUsers, updateUser } from
 const userRouter = Router();
 
 userRouter.get("/", getAllUsers)
-userRouter.get("/desired", getDesiredUsers)
+userRouter.post("/desired", getDesiredUsers)
 userRouter.post("/", createUser)
 userRouter.patch("/config", updateUser)
 userRouter.delete("/:userId", deleteUser)

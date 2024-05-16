@@ -9,14 +9,13 @@ import { UserService } from "../../services/UserService";
 
 export const HomePage = () => {
   const user: User | null = useContext(UserContext).state.user
-  console.log({user})
   const [users, setUsers] = useState<User[]>([])
+
   useEffect(() => {
     const fetchUsers = async () => {
       if (user) {
         try {
           const fetchedUsers: User[] = await UserService.getDesiredUsers(user);
-          console.log({ fetchedUsers });
           setUsers(fetchedUsers);
         } catch (error) {
           console.error('Error fetching desired users:', error);
@@ -25,10 +24,10 @@ export const HomePage = () => {
     };
     fetchUsers();
   }, []);
-  console.log({users})
+
   return (
     <Layout>
-      <PersonCard user={user} />
+      <PersonCard user={users[0]} />
     </Layout>
   )
 }
