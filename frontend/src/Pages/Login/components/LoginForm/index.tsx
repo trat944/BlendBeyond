@@ -25,11 +25,7 @@ export const LoginForm = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     if (Object.keys(errors).length === 0) {
-      const users: User[] = await UserService.getUsers();
-      const loggedUser = users.find(userInDataBase => (
-        userInDataBase.email.trim().toLowerCase() === data.email.trim().toLowerCase() && userInDataBase.password
-        === data.password
-      ))
+      const loggedUser: User = await UserService.loginUser(data);
       if (loggedUser) {
         const profileProperties = 20
         reset()

@@ -67,6 +67,30 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
+export const loginUser = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email }
+    });
+
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).send({ message: 'Invalid password' });
+    }
+
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const updateUser = async (req: Request, res: Response) => {
   const { name, email, password, birthdate, city, sex, lookingFor, id, age } = req.body;
   const file = req.files?.selfImage;

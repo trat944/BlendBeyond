@@ -34,8 +34,15 @@ export class UserService {
         } catch (error) {
             console.log(error)
         }
-    }
-
+    };
+    static async loginUser(user: any) {
+        try {
+            const response = await axios.post(VITE_BASE_URL + 'users/' + 'login', user)
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    };
     static async updateUser(user: any) {
         try {
             const response = await axios.patch(VITE_BASE_URL + 'users/' + 'config', user)
