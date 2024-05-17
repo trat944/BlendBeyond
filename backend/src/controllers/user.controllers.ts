@@ -22,7 +22,6 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const getDesiredUsers = async (req: Request, res: Response) => {
   const { city, lookingFor, sex, likedUsers, dislikedUsers } = req.body;
-  console.log("Received data:", { city, lookingFor, sex, likedUsers, dislikedUsers });
 
   if (!city || !lookingFor || !sex || !likedUsers || !dislikedUsers) {
     return res.status(400).send("Missing required parameters");

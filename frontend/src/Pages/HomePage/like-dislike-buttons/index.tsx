@@ -9,10 +9,11 @@ import { DislikeService } from "../../../services/DislikeService"
 
 type Props = {
     user: User | null
-    onHandleCard: () => void;
+    onHandleCardWhenLiked: () => void;
+    onHandleCardWhenDisliked: () => void;
 }
 
-export const LikeDislikeButtons = ({user, onHandleCard}: Props) => {
+export const LikeDislikeButtons = ({user, onHandleCardWhenLiked, onHandleCardWhenDisliked}: Props) => {
     const { state, dispatch } = useContext(UserContext);
     const loggedUser: User | null = state.user;
 
@@ -20,17 +21,16 @@ export const LikeDislikeButtons = ({user, onHandleCard}: Props) => {
         if (loggedUser?.id || user?.id) {
             const response = await LikeService.createLike(loggedUser?.id, user?.id)
             dispatch({ type: 'UPDATE_LIKED_USERS', payload: response });
-            console.log(response)
-            onHandleCard()
+            onHandleCardWhenLiked()
         }
     }
 
     const createDislike: MouseEventHandler<SVGSVGElement> | undefined = async () => {
         if (loggedUser?.id || user?.id) {
             const response = await DislikeService.createDislike(loggedUser?.id, user?.id)
-            // dispatch({ type: 'UPDATE_LIKED_USERS', payload: response });
+            dispatch({ type: 'UPDATE_DISLIKED_USERS', payload: response });
             console.log(response)
-            onHandleCard()
+            onHandleCardWhenDisliked()
         }
     }
 

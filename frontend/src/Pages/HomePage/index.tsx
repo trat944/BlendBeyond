@@ -29,8 +29,12 @@ export const HomePage = () => {
     fetchUsers();
   }, [user?.likedUsers]);
 
-  const handlePersonCard = () => {
+  const handleNextCardWhenLiked = () => {
     setCurrentIndex((prevIndex) => prevIndex);
+  };
+
+  const handleNextCardWhenDisliked = () => {
+    setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
   return (
@@ -43,7 +47,8 @@ export const HomePage = () => {
         />
         <LikeDislikeButtons 
           user={users[currentIndex]} 
-          onHandleCard={handlePersonCard} 
+          onHandleCardWhenLiked={handleNextCardWhenLiked} 
+          onHandleCardWhenDisliked={handleNextCardWhenDisliked}
         />
         </>
       ): (

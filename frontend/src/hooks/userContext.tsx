@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, FC, PropsWithChildren, useEffect } from "react";
-import { LikedUsers, User } from "../interfaces/userInterface";
+import { DislikedUsers, LikedUsers, User } from "../interfaces/userInterface";
 
 // Definir el tipo de estado del usuario
 type UserState = {
@@ -10,7 +10,8 @@ type UserState = {
 type UserAction = 
   | { type: 'LOGIN'; payload: User }
   | { type: 'LOGOUT' }
-  | { type: 'UPDATE_LIKED_USERS'; payload: LikedUsers };
+  | { type: 'UPDATE_LIKED_USERS'; payload: LikedUsers }
+  | { type: 'UPDATE_DISLIKED_USERS'; payload: DislikedUsers };
 
 
 // Función reductora para modificar el estado del usuario
@@ -27,6 +28,16 @@ const userReducer = (state: UserState, action: UserAction): UserState => {
         const updatedUser = {
           ...state.user,
           likedUsers: [...(state.user.likedUsers || []), action.payload]
+        };
+        localStorage.setItem('userLogged', JSON.stringify(updatedUser));
+        return { ...state, user: updatedUser };
+      }
+      return state;
+    case 'UPDATE_DISLIKED_USERS':
+      if (state.user) {
+        const updatedUser = {
+          ...state.user,
+          dislikedUsers: [...(state.user.dislikedUsers || []), action.payload]
         };
         localStorage.setItem('userLogged', JSON.stringify(updatedUser));
         return { ...state, user: updatedUser };

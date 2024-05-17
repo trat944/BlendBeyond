@@ -35,9 +35,7 @@ export const ProfileSumUp = ({user}: Props) => {
       }
       data.birthdate = data.birthdate + 'T00:00:00.000Z'
       const updatedUser = { ...user, ...data, age: userAge }; 
-      console.log({data})
       const response = await UserService.updateUser(updatedUser);
-      console.log({response})
       if (response) {
         dispatch({ type: 'LOGIN', payload: response });
         reset()

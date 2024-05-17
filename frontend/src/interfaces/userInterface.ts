@@ -12,6 +12,9 @@ export interface User {
   pictureId:     string;
   pictureUrl:    string;
   likedUsers:    LikedUsers[];
+  likedBy:       LikedUsers[];
+  dislikedUsers: DislikedUsers[];
+  dislikedBy:    DislikedUsers[];
   foodImage:     string;
   song:          Song;
   book:          Book;
@@ -23,6 +26,13 @@ export interface User {
 }
 
 export interface LikedUsers {
+  id: string,
+  fromId: string,
+  toId: string,
+  createdAt: string
+}
+
+export interface DislikedUsers {
   id: string,
   fromId: string,
   toId: string,
