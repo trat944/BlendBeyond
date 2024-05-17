@@ -11,7 +11,6 @@ import { NoUsers } from "./no-users";
 
 export const HomePage = () => {
   const user: User | null = useContext(UserContext).state.user
-  console.log({user})
   const [users, setUsers] = useState<User[]>([])
   const [currentIndex, setCurrentIndex] = useState(0); 
 
@@ -19,7 +18,9 @@ export const HomePage = () => {
     const fetchUsers = async () => {
       if (user) {
         try {
+          console.log({user})
           const fetchedUsers: User[] = await UserService.getDesiredUsers(user);
+          console.log({fetchedUsers})
           setUsers(fetchedUsers);
         } catch (error) {
           console.error('Error fetching desired users:', error);
