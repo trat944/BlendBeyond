@@ -72,7 +72,13 @@ export const loginUser = async (req: Request, res: Response) => {
 
   try {
     const user = await prisma.user.findUnique({
-      where: { email }
+      where: { email },
+      include: {
+        likedBy: true,
+        likedUsers: true,
+        dislikedBy: true,
+        dislikedUsers: true,
+      }
     });
 
     if (!user) {
@@ -84,6 +90,11 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!isPasswordValid) {
       return res.status(401).send({ message: 'Invalid password' });
     }
+
+    if (!user.likedBy) user.likedBy = [];
+    if (!user.likedUsers) user.likedUsers = [];
+    if (!user.dislikedBy) user.dislikedBy = [];
+    if (!user.dislikedUsers) user.dislikedUsers = [];
 
     res.status(200).send(user);
   } catch (error) {
