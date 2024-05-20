@@ -2,12 +2,13 @@ import { useForm } from 'react-hook-form'
 import { User } from '../../../interfaces/userInterface'
 import './profileSumUp.css'
 import { UserService } from '../../../services/UserService'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { getAge } from '../../../utils/getAge'
 import { handleGetLocation } from '../../../utils/getLocation'
 import { cityValidator } from '../../../utils/cityValidation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { UserContext } from '../../../hooks/userContext'
 
 type Props = {
   user: User | null
@@ -31,7 +32,6 @@ export const ProfileSumUp = ({user}: Props) => {
       data.birthdate = data.birthdate + 'T00:00:00.000Z'
       const updatedUser = { ...user, ...data}; 
       const response = await UserService.updateUser(updatedUser);
-      console.log({response})
       if (response) {
         window.localStorage.setItem('userLogged', JSON.stringify(response))
       }

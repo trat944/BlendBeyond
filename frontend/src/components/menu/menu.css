@@ -1,0 +1,10 @@
+.menu-container {
+    margin: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu_icon {
+    font-size: 1.7rem;
+    color: black    ;
+}

@@ -14,16 +14,39 @@ datasource db {
 }
 
 model User {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String   @unique
+  password    String
+  pictureId   String?
+  pictureUrl  String?
+  birthdate   DateTime?
+  age         Int?
+  city        String?
+  sex         String?
+  lookingFor  String?
+  likedBy     Like[]   @relation("LikedUsers")
+  likedUsers  Like[]   @relation("LikedBy")
+  dislikedBy  Dislike[]   @relation("DislikedUsers")
+  dislikedUsers      Dislike[] @relation("DislikedBy")
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+model Like {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String   @unique
-  password  String
-  pictureId String?
-  pictureUrl String?
-  birthdate DateTime?
-  city      String?
-  sex       String?
-  lookingFor String?
-  createAt  DateTime @default(now())
-  updateAt  DateTime @updatedAt
+  from      User     @relation("LikedBy", fields: [fromId], references: [id])
+  fromId    String
+  to        User     @relation("LikedUsers", fields: [toId], references: [id])
+  toId      String
+  createdAt DateTime @default(now())
+}
+
+model Dislike {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  from      User     @relation("DislikedBy", fields: [fromId], references: [id])
+  fromId    String
+  to        User     @relation("DislikedUsers", fields: [toId], references: [id])
+  toId      String
+  createdAt DateTime @default(now())
 }

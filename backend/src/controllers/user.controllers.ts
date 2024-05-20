@@ -3,11 +3,47 @@ import prisma from "../db/client";
 import { uploadCoverImg } from "../utils/cloudinaryConfig";
 import { error } from "console";
 import fs from 'fs-extra'
+import bcrypt from 'bcrypt';
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const allUsers = await prisma.user.findMany();
+    const allUsers = await prisma.user.findMany({
+      include: {
+        likedUsers: true,
+        likedBy: true,
+        dislikedUsers: true,
+        dislikedBy: true
+      }
+    });
     res.status(200).send(allUsers);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+export const getDesiredUsers = async (req: Request, res: Response) => {
+  const { city, lookingFor, sex, likedUsers, dislikedUsers } = req.body;
+
+  if (!city || !lookingFor || !sex || !likedUsers || !dislikedUsers) {
+    return res.status(400).send("Missing required parameters");
+  }
+
+  // Extraer los IDs de los usuarios a los que ya se les ha dado "like" o "dislike"
+  const likedUserIds = likedUsers.map((like: any) => like.toId);
+  const dislikedUserIds = dislikedUsers.map((dislike: any) => dislike.toId);
+
+  try {
+    const desiredUsers = await prisma.user.findMany({
+      where: {
+        city,
+        sex: lookingFor,
+        lookingFor: sex,
+        id: {
+          notIn: [...likedUserIds, ...dislikedUserIds], // Filtrar los usuarios que no están en la lista de "likes" o "dislikes"
+        },
+      },
+    });
+    res.status(200).send(desiredUsers);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -17,8 +53,13 @@ export const createUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
 
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await prisma.user.create({
-      data:{ name, email, password }
+      data: {
+        name,
+        email,
+        password: hashedPassword
+      }
     });
     res.status(201).send(newUser);
   } catch (error) {
@@ -26,8 +67,43 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
+export const loginUser = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: {
+        likedBy: true,
+        likedUsers: true,
+        dislikedBy: true,
+        dislikedUsers: true,
+      }
+    });
+
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).send({ message: 'Invalid password' });
+    }
+
+    if (!user.likedBy) user.likedBy = [];
+    if (!user.likedUsers) user.likedUsers = [];
+    if (!user.dislikedBy) user.dislikedBy = [];
+    if (!user.dislikedUsers) user.dislikedUsers = [];
+
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const updateUser = async (req: Request, res: Response) => {
-  const { name, email, password, birthdate, city, sex, lookingFor, id } = req.body;
+  const { name, email, password, birthdate, city, sex, lookingFor, id, age } = req.body;
   const file = req.files?.selfImage;
   try {
     if (file) {
@@ -43,7 +119,7 @@ export const updateUser = async (req: Request, res: Response) => {
     }
     const userUpdated = await prisma.user.update({
       where: {id: id},
-      data:{name, email, password, birthdate, city, sex, lookingFor}
+      data:{name, email, password, birthdate, city, sex, lookingFor, age}
     })
     res.status(201).send(userUpdated)
   } catch (error) {

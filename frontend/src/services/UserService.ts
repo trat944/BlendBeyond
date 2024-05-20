@@ -10,6 +10,23 @@ export class UserService {
             console.log(error)
         }
     }
+    static async getDesiredUsers(loggedUser: any) {
+        const { city, lookingFor, sex, likedUsers, dislikedUsers } = loggedUser;
+      
+        try {
+          const response = await axios.post(VITE_BASE_URL + 'users/desired', {
+            city,
+            lookingFor,
+            sex,
+            likedUsers,
+            dislikedUsers,
+          });
+          return response.data;
+        } catch (error) {
+          console.error(error);
+          throw error;
+        }
+      };
     static async createUser(user: any) {
         try {
             const response = await axios.post(VITE_BASE_URL + 'users', user)
@@ -17,8 +34,15 @@ export class UserService {
         } catch (error) {
             console.log(error)
         }
-    }
-
+    };
+    static async loginUser(user: any) {
+        try {
+            const response = await axios.post(VITE_BASE_URL + 'users/' + 'login', user)
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    };
     static async updateUser(user: any) {
         try {
             const response = await axios.patch(VITE_BASE_URL + 'users/' + 'config', user)

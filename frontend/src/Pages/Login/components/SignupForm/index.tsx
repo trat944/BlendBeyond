@@ -4,24 +4,27 @@ import './signupForm.css'
 import { UserService } from '../../../../services/UserService';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../../hooks/userContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 export const SignupForm = () => {
   const {register, handleSubmit, formState: {errors}, reset, getValues} = useForm();
   const navigate = useNavigate();
   const { dispatch } = useContext(UserContext);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
     if (Object.keys(errors).length === 0) {
-      delete data.repeatPassword
+      setIsSubmitting(true); 
+      delete data.repeatPassword;
       const response = await UserService.createUser(data);
       if (response) {
-        reset()
-        navigate('/configpage')
+        reset();
+        navigate('/configpage');
         dispatch({ type: "LOGIN", payload: response })
-        window.localStorage.setItem('userLogged', JSON.stringify(response))
       }
-    }})
+      setIsSubmitting(false); 
+    }
+  });
   
   return (
     <form className='form-container' onSubmit={onSubmit}>
@@ -92,7 +95,9 @@ export const SignupForm = () => {
         ></InputField>
 
         {errors.repeatPassword && typeof errors.repeatPassword.message === 'string' && <span className='error-msg'>{errors.repeatPassword.message}</span>}
-      <button className='signBtn' type='submit'>Sign Up</button>
+        <button className='signBtn' type='submit' disabled={isSubmitting}>
+          {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+        </button>
     </form>
   )
 }

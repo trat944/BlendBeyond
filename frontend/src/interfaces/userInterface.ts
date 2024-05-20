@@ -4,12 +4,17 @@ export interface User {
   surname:       string;
   email:         string;
   birthdate:     Date;
+  age:           number;
   password:      string;
   city:          string;
   sex:           string;
   lookingFor:    string;
   pictureId:     string;
   pictureUrl:    string;
+  likedUsers:    LikedUsers[];
+  likedBy:       LikedUsers[];
+  dislikedUsers: DislikedUsers[];
+  dislikedBy:    DislikedUsers[];
   foodImage:     string;
   song:          Song;
   book:          Book;
@@ -18,6 +23,20 @@ export interface User {
   bucketlList:   { [key: string]: string };
   createAt: Date
   updateAt: Date
+}
+
+export interface LikedUsers {
+  id: string,
+  fromId: string,
+  toId: string,
+  createdAt: string
+}
+
+export interface DislikedUsers {
+  id: string,
+  fromId: string,
+  toId: string,
+  createdAt: string
 }
 
 export interface Book {
