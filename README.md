@@ -1,7 +1,7 @@
 # Welcome to Blend Beyond 🚀
 
 <p align="left">
-  <img src="/src/assets/logo-background.png" alt="Blend Beyond Logo" width="200" />
+  <img src="fronted/src/assets/logo-background.png" alt="Blend Beyond Logo" width="200" />
 </p>
 
 ## 🌟 **A New Era of Dating**
