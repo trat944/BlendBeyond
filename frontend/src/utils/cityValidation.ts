@@ -28,7 +28,7 @@ export const citiesInSpain = [
 export const cityValidator = (inputValue: string) => {
   for (const city of citiesInSpain) {
     if (city.toLowerCase() === inputValue.toLowerCase()) {
-      return city;
+      return true;
     }
   }
   return false;

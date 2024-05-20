@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import { getAge } from '../../../utils/getAge'
 import { handleGetLocation } from '../../../utils/getLocation'
 import { cityValidator } from '../../../utils/cityValidation'
-import { RegisterOptions } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 
@@ -23,19 +22,17 @@ export const ProfileSumUp = ({user}: Props) => {
   const [userAge, setUserAge] = useState<number>()
   const [location, setLocation] = useState<Location>({ latitude: null, longitude: null });
   const [nearestCity, setNearestCity] = useState<string>('');
-  const {register, handleSubmit, formState: {errors}, reset} = useForm();
+  const {register, handleSubmit, formState: {errors}} = useForm();
   
   const onSubmit = handleSubmit(async (data) => {
     if (Object.keys(errors).length === 0) {
       const age = getAge(data.birthdate)
       if (age) setUserAge(age)
-      console.log({data})
       data.birthdate = data.birthdate + 'T00:00:00.000Z'
-      const updatedUser = { ...user, ...data }; 
+      const updatedUser = { ...user, ...data}; 
       const response = await UserService.updateUser(updatedUser);
       console.log({response})
       if (response) {
-        reset()
         window.localStorage.setItem('userLogged', JSON.stringify(response))
       }
     }})
@@ -47,7 +44,11 @@ export const ProfileSumUp = ({user}: Props) => {
         inputElement.value = nearestCity
       }
     }, [nearestCity]);
-    
+
+    useEffect(() => {
+      const age = getAge(user?.birthdate)
+      setUserAge(age)
+    }, [])
 
   return (
     <div className="userProfile_container">
@@ -63,12 +64,13 @@ export const ProfileSumUp = ({user}: Props) => {
               {...register('selfImage', {
                 required: {
                   value: true,
-                  message: "selfImage is required"
+                  message: "Avatar is required"
                 }
               })}
             />
           </label>
         </div>
+        {errors.selfImage && typeof errors.selfImage.message === 'string' && <span className='error-msg'>{errors.selfImage.message}</span>}
         <span className='user-name-age'>{user?.name}, {userAge}</span>
         <div className="input-container">
           <input 
@@ -79,51 +81,53 @@ export const ProfileSumUp = ({user}: Props) => {
               message: "Birthdate is required"
             }
           })} />
+          {errors.birthdate && typeof errors.birthdate.message === 'string' && <span className='error-msg'>{errors.birthdate.message}</span>}
           <div className="pair-of-inputs-container">
             <input
             id='city'
             type="text"
             placeholder="Ciudad"
+            defaultValue={user?.city || ''}
             {...register('city', {
-              required: {
-                value: true,
-                message: "City is required",
-                // validate: (value) => cityValidator(value) || "Invalid city"
-              }
-            })} />
+              validate: (value) =>
+                cityValidator(value) || "Invalid city"
+            })}/>
+            {errors.city && typeof errors.city.message === 'string' && <span className='error-msg'>{errors.city.message}</span>}
             <button 
             className='localization-btn'
-            onClick={() => handleGetLocation(setLocation, setNearestCity)}>
+            onClick={(event) => handleGetLocation(event, setLocation, setNearestCity)}>
             Get Location</button>
           </div>
           <div className="pair-of-inputs-container">
             <label htmlFor="sex">How do you identify yourself?</label>
             <select id="sex"
             {...register('sex', {
-              required: {
-                value: true,
-                message: "Sex is required",
-              }
+              value: user?.sex !== null ? user?.sex : 'select',
+              validate: (value) =>
+                value !== 'select' ? true : 'Your sex is required',
             })}>
+              <option value="select">Select</option>
               <option value="man">Man</option>
               <option value="woman">Woman</option>
               <option value="non-binary">Non-binary</option>
               <option value="transgender">Transgender</option>
             </select>
+            {errors.sex && typeof errors.sex.message === 'string' && <span className='error-msg'>{errors.sex.message}</span>}
           </div>
           <div className="pair-of-inputs-container">
             <label htmlFor="lookingFor">What are you looking for?</label>
             <select id="lookingFor"
             {...register('lookingFor', {
-              required: {
-                value: true,
-                message: "Your preference is required",
-              }
+              value: user?.lookingFor !== null ? user?.lookingFor : 'select',
+              validate: (value) =>
+                value !== 'select' ? true : 'Your preference is required',
             })}>
+              <option value="select">Select</option>
               <option value="man">Man</option>
               <option value="woman">Woman</option>
             </select>
           </div>
+          {errors.lookingFor && typeof errors.lookingFor.message === 'string' && <span className='error-msg'>{errors.lookingFor.message}</span>}
         </div>
         <button>submit</button>
       </form>
