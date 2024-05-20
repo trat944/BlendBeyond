@@ -4,9 +4,11 @@ interface UserLocation {
 }
 
 export const handleGetLocation = (
+  event: React.MouseEvent<HTMLButtonElement>,
   setLocation: React.Dispatch<React.SetStateAction<UserLocation>>, 
   setNearestCity: React.Dispatch<React.SetStateAction<string>>
 ) => {
+  event.preventDefault()
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
