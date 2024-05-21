@@ -1,7 +1,7 @@
 # Welcome to Blend Beyond 🚀
 
 <p align="left">
-  <img src="fronted/src/assets/visual.jpg" alt="Blend Beyond Visual" />
+  <img src="frontend/src/assets/visual.jpg" alt="Blend Beyond Visual" />
 </p>
 
 ## 🌟 **A New Era of Dating**
