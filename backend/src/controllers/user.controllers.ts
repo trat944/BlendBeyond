@@ -21,34 +21,6 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const getDesiredUsers = async (req: Request, res: Response) => {
-  const { city, lookingFor, sex, likedUsers, dislikedUsers } = req.body;
-
-  if (!city || !lookingFor || !sex || !likedUsers || !dislikedUsers) {
-    return res.status(400).send("Missing required parameters");
-  }
-
-  // Extraer los IDs de los usuarios a los que ya se les ha dado "like" o "dislike"
-  const likedUserIds = likedUsers.map((like: any) => like.toId);
-  const dislikedUserIds = dislikedUsers.map((dislike: any) => dislike.toId);
-
-  try {
-    const desiredUsers = await prisma.user.findMany({
-      where: {
-        city,
-        sex: lookingFor,
-        lookingFor: sex,
-        id: {
-          notIn: [...likedUserIds, ...dislikedUserIds], // Filtrar los usuarios que no están en la lista de "likes" o "dislikes"
-        },
-      },
-    });
-    res.status(200).send(desiredUsers);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
-
 export const createUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
 
@@ -103,12 +75,16 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-  const { name, email, password, birthdate, city, sex, lookingFor, id, age } = req.body;
+  const { name, email, password, birthdate, city, sex, lookingFor, id, age, pictureId } = req.body;
   const file = req.files?.selfImage;
+  console.log(pictureId)
   try {
     if (file) {
       if (Array.isArray(file)) return res.status(400)
       else {
+        if (pictureId !== null) {
+          await deleteImage(pictureId);
+        }
         const responsecloud = await uploadCoverImg(file.tempFilePath)
         const userUpdated = await prisma.user.update({
           where: {id: id},
@@ -163,7 +139,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     });
 
     if (user.pictureId !== null) {
-      await deleteImage(user.pictureId)
+      await deleteImage(user.pictureId);
     }
 
     res.status(200).send(result);

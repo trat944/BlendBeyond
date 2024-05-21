@@ -9,7 +9,9 @@ export const Menu = () => {
         <Link to={'/homepage'}>
             <FontAwesomeIcon className='menu_icon' icon={faUsersViewfinder} />
         </Link>
-        <FontAwesomeIcon className='menu_icon' icon={faListUl} />
+        <Link to={'/matches'}>
+            <FontAwesomeIcon className='menu_icon' icon={faListUl} />
+        </Link>
         <FontAwesomeIcon className='menu_icon' icon={faComment} />
         <Link to={'/configpage'}>
             <FontAwesomeIcon className='menu_icon' icon={faUser} />

@@ -28,7 +28,7 @@
   list-style-type: none; 
   padding: 0;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
+  
   li {
     background: #4ca2cd; 
     color: white;
@@ -40,14 +40,5 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
-
-    &:before {
-      content: '•'; 
-      color: white;
-      font-size: 20px;
-      display: inline-block;
-      width: 1em;
-      margin-right: 0.5em;
-    }
   }
 }

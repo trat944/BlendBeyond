@@ -4,9 +4,9 @@ import { PersonCard } from "./personCard";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../hooks/userContext";
 import { Layout } from "../../components/layout";
-import { UserService } from "../../services/UserService";
 import { LikeDislikeButtons } from "./like-dislike-buttons";
 import { NoUsers } from "./no-users";
+import { getDesiredUsers } from "../../utils/getUsersFunctions";
 
 
 export const HomePage = () => {
@@ -16,17 +16,7 @@ export const HomePage = () => {
   console.log({user})
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      if (user) {
-        try {
-          const fetchedUsers: User[] = await UserService.getDesiredUsers(user);
-          setUsers(fetchedUsers);
-        } catch (error) {
-          console.error('Error fetching desired users:', error);
-        }
-      }
-    };
-    fetchUsers();
+    getDesiredUsers(user, setUsers);
   }, [user?.likedUsers]);
 
   const handleNextCardWhenLiked = () => {

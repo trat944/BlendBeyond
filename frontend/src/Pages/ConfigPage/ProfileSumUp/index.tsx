@@ -30,7 +30,7 @@ export const ProfileSumUp = ({user}: Props) => {
       const age = getAge(data.birthdate)
       if (age) setUserAge(age)
       data.birthdate = data.birthdate + 'T00:00:00.000Z'
-      const updatedUser = { ...user, ...data}; 
+      const updatedUser = { ...user, ...data, age}; 
       const response = await UserService.updateUser(updatedUser);
       if (response) {
         window.localStorage.setItem('userLogged', JSON.stringify(response))
