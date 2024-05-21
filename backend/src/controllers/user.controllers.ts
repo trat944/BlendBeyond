@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../db/client";
-import { uploadCoverImg } from "../utils/cloudinaryConfig";
+import cloudinary, { deleteImage, uploadCoverImg } from "../utils/cloudinaryConfig";
 import { error } from "console";
 import fs from 'fs-extra'
 import bcrypt from 'bcrypt';
@@ -129,14 +129,46 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
-  const { userId } = req.params;
+  const {userId} = req.body;
   try {
-    const userDeleted = await prisma.user.delete({ 
-     where: { id: userId}
-    })
-    res.status(200).send(userDeleted)
-  } catch (error) {
-    res.status(400).send(error)
-  }
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
 
+    const result = await prisma.$transaction(async (prisma) => {
+      await prisma.like.deleteMany({
+        where: {
+          OR: [
+            { fromId: userId },
+            { toId: userId }
+          ]
+        }
+      });
+
+      await prisma.dislike.deleteMany({
+        where: {
+          OR: [
+            { fromId: userId },
+            { toId: userId }
+          ]
+        }
+      });
+
+      const userDeleted = await prisma.user.delete({
+        where: { id: userId },
+      });
+
+      return userDeleted;
+    });
+
+    if (user.pictureId !== null) {
+      await deleteImage(user.pictureId)
+    }
+
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(400).send(error);
+    console.log(error);
+  }
 };

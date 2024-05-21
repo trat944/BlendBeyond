@@ -2,13 +2,13 @@ import { useForm } from 'react-hook-form'
 import { User } from '../../../interfaces/userInterface'
 import './profileSumUp.css'
 import { UserService } from '../../../services/UserService'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getAge } from '../../../utils/getAge'
 import { handleGetLocation } from '../../../utils/getLocation'
 import { cityValidator } from '../../../utils/cityValidation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
-import { UserContext } from '../../../hooks/userContext'
+import { SecondaryButton } from '../../../styled_components/logoutButton'
 
 type Props = {
   user: User | null
@@ -93,10 +93,10 @@ export const ProfileSumUp = ({user}: Props) => {
                 cityValidator(value) || "Invalid city"
             })}/>
             {errors.city && typeof errors.city.message === 'string' && <span className='error-msg'>{errors.city.message}</span>}
-            <button 
+            <SecondaryButton 
             className='localization-btn'
             onClick={(event) => handleGetLocation(event, setLocation, setNearestCity)}>
-            Get Location</button>
+            Get Location</SecondaryButton>
           </div>
           <div className="pair-of-inputs-container">
             <label htmlFor="sex">How do you identify yourself?</label>

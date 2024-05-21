@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import './modal.css'
-import { ModalSetting } from '../../../../styled_components/modalSetting'
-import { closeModal, closeModalWhenClickOutside } from '../../../../utils/closeModal'
+import { ModalSetting } from '../../styled_components/modalSetting'
+import { closeModal, closeModalWhenClickOutside } from '../../utils/closeModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 

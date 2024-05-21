@@ -10,3 +10,9 @@ cloudinary.config({
 export const uploadCoverImg = async (filePath: string) => {
   return await cloudinary.uploader.upload(filePath, {folder: 'selfimages'})
 }
+
+export const deleteImage = async (publicId: string) => {
+  return await cloudinary.uploader.destroy(publicId);
+};
+
+export default cloudinary;

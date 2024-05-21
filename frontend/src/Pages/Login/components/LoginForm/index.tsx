@@ -4,7 +4,7 @@ import './loginForm.css'
 import { useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react';
 import { UserContext } from '../../../../hooks/userContext';
-import { Modal } from '../Modal';
+import { Modal } from '../../../../components/Modal';
 import { ModalSetting } from '../../../../styled_components/modalSetting';
 import { UserService } from '../../../../services/UserService';
 import { User } from '../../../../interfaces/userInterface';

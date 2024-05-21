@@ -51,4 +51,15 @@ export class UserService {
             console.log(error)
         }
     }
+    // `${VITE_BASE_URL}users/${userId}`
+    static async deleteUser(userId: any) {
+        try {
+            const response = await axios.delete(VITE_BASE_URL + 'users', {
+                data: { userId }, 
+              });
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }

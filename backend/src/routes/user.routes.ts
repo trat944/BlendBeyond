@@ -8,6 +8,6 @@ userRouter.post("/desired", getDesiredUsers)
 userRouter.post("/", createUser)
 userRouter.post("/login", loginUser)
 userRouter.patch("/config", updateUser)
-userRouter.delete("/:userId", deleteUser)
+userRouter.delete("/", deleteUser)
 
 export default userRouter;

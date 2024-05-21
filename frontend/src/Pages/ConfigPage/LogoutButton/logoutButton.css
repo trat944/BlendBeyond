@@ -1,0 +1,27 @@
+.logout-button-container {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logout-button-container button:last-child {
+  margin-top: 1rem;
+}
+
+.logout-button-container span {
+  width: 90%;
+  margin-bottom: 1rem;
+  text-align: center;
+  display: block;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  background: #f0f4f8; /* Fondo suave */
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+

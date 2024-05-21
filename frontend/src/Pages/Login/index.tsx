@@ -1,7 +1,7 @@
 import './login.css'
 import { LoginButtons } from './components/LoginButtons'
 import { useState } from 'react'
-import { Modal } from './components/Modal'
+import { Modal } from '../../components/Modal'
 import { LoginForm } from './components/LoginForm'
 import { SignupForm } from './components/SignupForm'
 
