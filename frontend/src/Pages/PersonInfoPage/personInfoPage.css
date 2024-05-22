@@ -1,0 +1,25 @@
+.personInfo-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto 0;
+}
+
+.personInfo-container img {
+  width: 100%;
+  border-radius: 10%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.personInfo-container img:hover {
+  transform: scale(1.05);
+}
+
+.personInfo-container .person-age-name {
+  color: #333;
+  margin: 1rem 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: left;
+}

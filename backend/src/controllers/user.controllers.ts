@@ -77,7 +77,6 @@ export const loginUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   const { name, email, password, birthdate, city, sex, lookingFor, id, age, pictureId } = req.body;
   const file = req.files?.selfImage;
-  console.log(pictureId)
   try {
     if (file) {
       if (Array.isArray(file)) return res.status(400)

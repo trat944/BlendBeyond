@@ -1,8 +1,5 @@
 .button-container {
-    display: flex;
-    justify-content: space-between;
     margin: 1rem 3rem 3rem;
-    gap: 5rem;
 }
 
 .button-container .button {

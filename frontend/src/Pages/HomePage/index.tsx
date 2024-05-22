@@ -4,9 +4,9 @@ import { PersonCard } from "./personCard";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../hooks/userContext";
 import { Layout } from "../../components/layout";
-import { LikeDislikeButtons } from "./like-dislike-buttons";
+import { LikeDislikeButtons } from "../../components/like-dislike-buttons";
 import { NoUsers } from "./no-users";
-import { getDesiredUsers } from "../../utils/getUsersFunctions";
+import { getDesiredUsers } from "../../utils/petitionsToBackend";
 
 
 export const HomePage = () => {

@@ -1,11 +1,11 @@
 import { faHeart, faHeartCrack } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import './like-dislike-buttons.css'
-import { User } from "../../../interfaces/userInterface"
+import { User } from "../../interfaces/userInterface"
 import { MouseEventHandler, useContext } from "react"
-import { UserContext } from "../../../hooks/userContext"
-import { LikeService } from "../../../services/LikeService"
-import { DislikeService } from "../../../services/DislikeService"
+import { UserContext } from "../../hooks/userContext"
+import { LikeService } from "../../services/LikeService"
+import { DislikeService } from "../../services/DislikeService"
 
 type Props = {
     user: User | null
