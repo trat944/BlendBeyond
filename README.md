@@ -31,6 +31,8 @@ Blend Beyond isn't just another dating app—it's a revolution! Step into a worl
 
 - **Security**: Utilized bcrypt to hash passwords, significantly enhancing app security and protecting user data.
 
+- **Security**: Utilized JWT to create tokens for logged users, and protecting routes with middlewares. 
+
 - **Matched Users Controller**: Created a controller to filter and identify mutual likes, leveraging the many-to-many relationships to display matched users.
 
 - **Logout and Delete Buttons**: Added functionality for users to log out and delete their accounts. The delete controller ensures all likes/dislikes and pictures from Cloudinary are removed, maintaining data cleanliness.
@@ -48,6 +50,7 @@ Blend Beyond isn't just another dating app—it's a revolution! Step into a worl
 - **Styled Components**: Offering a convenient way to style React components with CSS.
 - **Axios**: To simplify petitions to the backend.
 - **bcrypt Library**: To hash passwords and improve security.
+- **JWT**: Json Web Tokens to improve the app's routes security.
 
 
 ## 🌈 **Future Enhancements**
