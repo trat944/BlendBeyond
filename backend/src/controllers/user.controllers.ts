@@ -90,26 +90,26 @@ export const updateUser = async (req: Request, res: Response) => {
   const file = req.files?.selfImage;
   try {
     if (file) {
-      if (Array.isArray(file)) return res.status(400)
-      else {
-        if (pictureId !== null) {
-          await deleteImage(pictureId);
-        }
-        const responsecloud = await uploadCoverImg(file.tempFilePath)
-        const userUpdated = await prisma.user.update({
-          where: {id: id},
-          data:{pictureId: responsecloud.public_id, pictureUrl: responsecloud.secure_url}
-        })
-        await fs.unlink(file.tempFilePath)
+      if (Array.isArray(file)) return res.status(400).send({ message: "File should not be an array" });
+
+      if (pictureId !== null) {
+        await deleteImage(pictureId);
       }
+      const responsecloud = await uploadCoverImg(file.tempFilePath);
+      await prisma.user.update({
+        where: { id: id },
+        data: { pictureId: responsecloud.public_id, pictureUrl: responsecloud.secure_url }
+      });
+      await fs.unlink(file.tempFilePath);
     }
+
     const userUpdated = await prisma.user.update({
-      where: {id: id},
-      data:{name, email, password, birthdate, city, sex, lookingFor, age}
-    })
+      where: { id: id },
+      data: { name, email, password, birthdate, city, sex, lookingFor, age }
+    });
 
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { id: id },
       include: {
         likedBy: true,
         likedUsers: true,
@@ -118,14 +118,18 @@ export const updateUser = async (req: Request, res: Response) => {
       }
     });
 
-    const token = jwt.sign({ id: userUpdated.id, username: userUpdated.email }, process.env.JWT_SECRET!, {
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    const token = jwt.sign({ id: user.id, username: user.email }, process.env.JWT_SECRET!, {
       expiresIn: '1h',
     });
 
-    res.status(201).send({...userUpdated, ...user, token})
+    res.status(201).send({ ...user, token });
   } catch (error) {
-    res.status(400).send(error)
-    console.log(error)
+    res.status(400).send(error);
+    console.log(error);
   }
 };
 
