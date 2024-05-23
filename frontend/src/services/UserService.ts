@@ -28,7 +28,12 @@ export class UserService {
     };
     static async updateUser(user: any) {
         try {
-            const response = await axios.patch(VITE_BASE_URL + 'users/' + 'config', user)
+            const token = user.token;
+            const response = await axios.patch(VITE_BASE_URL + 'users/' + 'config', user, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             return response.data
         } catch (error) {
             console.log(error)

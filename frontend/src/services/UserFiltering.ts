@@ -7,8 +7,7 @@ export class UserFilteringService {
     const { city, lookingFor, sex, likedUsers, dislikedUsers } = loggedUser;
     
     try {
-      const token = process.env.JWT_SECRET; 
-      console.log(token)
+      const token = loggedUser.token; 
       const response = await axios.post(
         VITE_BASE_URL + 'filteredUsers/desired',
         {
@@ -33,9 +32,14 @@ export class UserFilteringService {
   static async getMatchedUsers(loggedUser: any) {
     const { likedUsers, likedBy } = loggedUser;
     try {
+      const token = loggedUser.token;
       const response = await axios.post(VITE_BASE_URL + 'filteredUsers/matched', {
         likedUsers,
         likedBy,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response.data;
     } catch (error) {
