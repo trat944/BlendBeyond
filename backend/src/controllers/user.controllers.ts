@@ -4,6 +4,7 @@ import cloudinary, { deleteImage, uploadCoverImg } from "../utils/cloudinaryConf
 import { error } from "console";
 import fs from 'fs-extra'
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -68,7 +69,11 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!user.dislikedBy) user.dislikedBy = [];
     if (!user.dislikedUsers) user.dislikedUsers = [];
 
-    res.status(200).send(user);
+    const token = jwt.sign({ id: user.id, username: user.email }, process.env.JWT_SECRET!, {
+      expiresIn: '1h',
+    });
+    
+    res.send(user);
   } catch (error) {
     res.status(500).send(error);
   }

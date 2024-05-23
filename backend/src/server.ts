@@ -6,6 +6,8 @@ import fileUpload from 'express-fileupload'
 import dislikeRouter from './routes/dislike.routes';
 import userFilteringRouter from './routes/userFiltering.routes';
 
+require('dotenv').config();
+
 const app = express();
 
 app.use(cors({

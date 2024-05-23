@@ -1,13 +1,10 @@
 import { Router } from "express"
 import { createDislike } from "../controllers/dislike.controllers";
+import authenticateToken from "../middleware/jwtMiddleware";
 
 const dislikeRouter = Router();
 
-// userRouter.get("/", getAllUsers)
-// userRouter.get("/desired", getDesiredUsers)
-dislikeRouter.post("/", createDislike)
-// likeRouter.post("/dislikes", createDislike)
-// userRouter.patch("/config", updateUser)
-// userRouter.delete("/:userId", deleteUser)
+dislikeRouter.post("/", authenticateToken, createDislike)
+
 
 export default dislikeRouter;
