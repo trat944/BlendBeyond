@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const Card = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 3rem 3rem 5rem;
   align-items: center;
   justify-content: space-between;
   background-color: #f9f9f9;
@@ -29,11 +30,5 @@ export const UserName = styled.span`
   font-size: 18px;
   font-weight: bold;
   color: #333;
-`;
-
-export const UserAge = styled.span`
-  font-size: 18px;
-  color: #666;
-  font-weight: 600;
-  text-align: right;
+  text-decoration: none;
 `;

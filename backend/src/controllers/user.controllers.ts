@@ -96,7 +96,18 @@ export const updateUser = async (req: Request, res: Response) => {
       where: {id: id},
       data:{name, email, password, birthdate, city, sex, lookingFor, age}
     })
-    res.status(201).send(userUpdated)
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+      include: {
+        likedBy: true,
+        likedUsers: true,
+        dislikedBy: true,
+        dislikedUsers: true,
+      }
+    });
+    
+    res.status(201).send({...userUpdated, ...user})
   } catch (error) {
     res.status(400).send(error)
     console.log(error)

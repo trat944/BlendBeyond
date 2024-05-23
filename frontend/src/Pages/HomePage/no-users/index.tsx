@@ -13,7 +13,7 @@ export const NoUsers = ({user}: Props) => {
                 src={user?.sex === 'man' ? 'src/assets/man_noUsers.png' : 'src/assets/woman_noUsers.png'} 
                 alt="No more users" 
             />
-            <span>No queda más gente en tu zona ¡Amplia tu área para conocer más gente!</span>
+            <span>No more people closeby! Widen your area to meet more people!</span>
         </div>
     )
 }

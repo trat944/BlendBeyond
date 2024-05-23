@@ -1,0 +1,31 @@
+.noMatches-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.noMatches-container img {
+  border-radius: 50%;
+  width: 70%;
+  margin: 4rem auto 0;
+}
+
+.noMatches-container span {
+  text-align: center;
+  margin: 1rem auto 5rem;
+  width: 70%;
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #339cbb; /* Tomato */
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(29, 140, 120, 0.1);
+  animation: fadeIn 1s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

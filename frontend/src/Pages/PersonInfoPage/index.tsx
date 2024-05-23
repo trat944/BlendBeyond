@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { User } from '../../interfaces/userInterface'
 import './personInfoPage.css'
 import { MouseEventHandler, useContext, useEffect, useState } from 'react'
@@ -7,7 +7,7 @@ import { LikeService } from '../../services/LikeService'
 import { UserContext } from '../../hooks/userContext'
 import { DislikeService } from '../../services/DislikeService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComment, faHeart, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faComment, faHeart, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   loggedUser: User | null
@@ -15,6 +15,7 @@ type Props = {
 
 export const PersonInfoPage = ({loggedUser}: Props) => {
   const {dispatch} = useContext(UserContext)
+  const navigate = useNavigate();
   const location = useLocation();
   const targetedUser: User = location.state.user;
   const [matchedUser, setMatchedUser] = useState<User>();
@@ -35,13 +36,17 @@ export const PersonInfoPage = ({loggedUser}: Props) => {
     }
   }
 
-const createDislike: MouseEventHandler<SVGSVGElement> | undefined = async () => {
-    if (loggedUser?.id || targetedUser?.id) {
-        const response = await DislikeService.createDislike(loggedUser?.id, targetedUser?.id)
-        dispatch({ type: 'UPDATE_DISLIKED_USERS', payload: response });
-        console.log(response)
-    }
-}
+  const createDislike: MouseEventHandler<SVGSVGElement> | undefined = async () => {
+      if (loggedUser?.id || targetedUser?.id) {
+          const response = await DislikeService.createDislike(loggedUser?.id, targetedUser?.id)
+          dispatch({ type: 'UPDATE_DISLIKED_USERS', payload: response });
+          console.log(response)
+      }
+  }
+
+  const goBack = () => {
+    navigate(-1);
+  }
 
   useEffect(() => {
     differentiateUnknownOrMatched()
@@ -67,6 +72,7 @@ const createDislike: MouseEventHandler<SVGSVGElement> | undefined = async () => 
           icon={faHeart} />
         </div>
       )}
+      <FontAwesomeIcon onClick={goBack} icon={faChevronLeft} />
       <Menu />
     </div>
   )
