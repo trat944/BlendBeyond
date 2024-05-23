@@ -4,7 +4,7 @@ import authenticateToken from "../middleware/jwtMiddleware";
 
 const dislikeRouter = Router();
 
-dislikeRouter.post("/", authenticateToken, createDislike)
+dislikeRouter.post("/", createDislike)
 
 
 export default dislikeRouter;

@@ -13,17 +13,5 @@ export class LikeService {
         } catch (error) {
             console.log(error)
         }
-    }
-    // static async createDislike(fromUserId: any, toUserId: any) {
-    //     try {
-    //         const response = await axios.post(VITE_BASE_URL + 'likes/' + 'dislikes', {
-    //             fromUserId,
-    //             toUserId
-    //         });
-    //         return response.data
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-    
+    } 
 }
