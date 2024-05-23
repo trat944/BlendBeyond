@@ -34,6 +34,11 @@ export const createUser = async (req: Request, res: Response) => {
         password: hashedPassword
       }
     });
+    const token = jwt.sign({ id: newUser.id, username: newUser.email }, process.env.JWT_SECRET!, {
+      expiresIn: '1h',
+    });
+
+    newUser.token= token;
     res.status(201).send(newUser);
   } catch (error) {
     res.status(400).send(error);
@@ -72,7 +77,8 @@ export const loginUser = async (req: Request, res: Response) => {
     const token = jwt.sign({ id: user.id, username: user.email }, process.env.JWT_SECRET!, {
       expiresIn: '1h',
     });
-    
+
+    user.token= token;
     res.send(user);
   } catch (error) {
     res.status(500).send(error);
@@ -111,8 +117,12 @@ export const updateUser = async (req: Request, res: Response) => {
         dislikedUsers: true,
       }
     });
-    
-    res.status(201).send({...userUpdated, ...user})
+
+    const token = jwt.sign({ id: userUpdated.id, username: userUpdated.email }, process.env.JWT_SECRET!, {
+      expiresIn: '1h',
+    });
+
+    res.status(201).send({...userUpdated, ...user, token})
   } catch (error) {
     res.status(400).send(error)
     console.log(error)

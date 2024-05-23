@@ -18,6 +18,7 @@ model User {
   name        String
   email       String   @unique
   password    String
+  token       String?
   pictureId   String?
   pictureUrl  String?
   birthdate   DateTime?

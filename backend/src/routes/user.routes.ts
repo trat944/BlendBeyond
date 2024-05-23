@@ -4,10 +4,10 @@ import authenticateToken from "../middleware/jwtMiddleware";
 
 const userRouter = Router();
 
-userRouter.get("/",authenticateToken, getAllUsers)
+userRouter.get("/", getAllUsers)
 userRouter.post("/", createUser)
 userRouter.post("/login", loginUser)
 userRouter.patch("/config", authenticateToken, updateUser)
-userRouter.delete("/", authenticateToken, deleteUser)
+userRouter.delete("/", deleteUser)
 
 export default userRouter;
