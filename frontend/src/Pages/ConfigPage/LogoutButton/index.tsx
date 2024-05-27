@@ -6,6 +6,7 @@ import { Modal } from "../../../components/Modal"
 import { LogButton } from "../../../styled_components/logButton"
 import { SecondaryButton } from "../../../styled_components/logoutButton"
 import './logoutButton.css'
+import { UserService } from "../../../services/UserService"
 
 type Props = {
   user: User | null
@@ -28,6 +29,7 @@ export const LogoutButton = ({user}: Props) => {
     if (user) {
       navigate('/')
       dispatch({ type: 'LOGOUT' });
+      await UserService.logoutUser()
     }
   }
 

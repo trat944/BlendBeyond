@@ -7,7 +7,7 @@ const authenticateToken = (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.headers['authorization']?.split(' ')[1];
+  const token = req.cookies['jwt'];
 
   if (!token) {
     return res.sendStatus(401);

@@ -29,7 +29,7 @@ export const DeleteButton = ({user}: Props) => {
   const deleteAccount = async (user: User | null) => {
     if (user) {
       const response = await UserService.deleteUser(user.id)
-      console.log(response)
+      await UserService.logoutUser()
       if (response) {
         navigate('/')
         dispatch({ type: 'LOGOUT' });
