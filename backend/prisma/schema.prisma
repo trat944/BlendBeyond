@@ -14,39 +14,54 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  email       String   @unique
-  password    String
-  pictureId   String?
-  pictureUrl  String?
-  birthdate   DateTime?
-  age         Int?
-  city        String?
-  sex         String?
-  lookingFor  String?
-  likedBy     Like[]   @relation("LikedUsers")
-  likedUsers  Like[]   @relation("LikedBy")
-  dislikedBy  Dislike[]   @relation("DislikedUsers")
-  dislikedUsers      Dislike[] @relation("DislikedBy")
-  createAt    DateTime @default(now())
-  updateAt    DateTime @updatedAt
+  id                          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                        String
+  email                       String   @unique
+  password                    String
+  pictureId                   String?
+  pictureUrl                  String?
+  birthdate                   DateTime?
+  age                         Int?
+  city                        String?
+  sex                         String?
+  lookingFor                  String?
+  likedBy           Like[]    @relation("LikedUsers")
+  likedUsers        Like[]    @relation("LikedBy")
+  dislikedBy        Dislike[] @relation("DislikedUsers")
+  dislikedUsers     Dislike[] @relation("DislikedBy")
+  sentMessages      Message[] @relation("SenderUser")
+  receivedMessages  Message[] @relation("ReceiverUser")
+  createAt          DateTime  @default(now())
+  updateAt          DateTime  @updatedAt
 }
 
 model Like {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   from      User     @relation("LikedBy", fields: [fromId], references: [id])
-  fromId    String
+  fromId    String   @db.ObjectId
   to        User     @relation("LikedUsers", fields: [toId], references: [id])
-  toId      String
+  toId      String   @db.ObjectId
   createdAt DateTime @default(now())
 }
 
 model Dislike {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   from      User     @relation("DislikedBy", fields: [fromId], references: [id])
-  fromId    String
+  fromId    String   @db.ObjectId
   to        User     @relation("DislikedUsers", fields: [toId], references: [id])
-  toId      String
+  toId      String   @db.ObjectId
   createdAt DateTime @default(now())
+}
+
+model Message {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  sender      User       @relation("SenderUser", fields: [senderId], references: [id])
+  senderId    String     @db.ObjectId
+  receiver    User       @relation("ReceiverUser", fields: [receiverId], references: [id])
+  receiverId  String     @db.ObjectId
+  message     String     @db.String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("messages")
 }
