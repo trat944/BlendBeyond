@@ -7,7 +7,7 @@ const userRouter = Router();
 userRouter.get("/", getAllUsers)
 userRouter.post("/", createUser)
 userRouter.post("/login", loginUser)
-userRouter.patch("/config", authenticateToken, updateUser)
+userRouter.patch("/config", updateUser)
 userRouter.delete("/", deleteUser)
 
 export default userRouter;

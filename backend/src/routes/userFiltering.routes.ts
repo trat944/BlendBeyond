@@ -5,7 +5,7 @@ import authenticateToken from "../middleware/jwtMiddleware";
 
 const userFilteringRouter = Router();
 
-userFilteringRouter.post("/desired", authenticateToken, getDesiredUsers)
-userFilteringRouter.post("/matched", authenticateToken, getMatchedUsers)
+userFilteringRouter.post("/desired", getDesiredUsers)
+userFilteringRouter.post("/matched", getMatchedUsers)
 
 export default userFilteringRouter;
