@@ -8,7 +8,9 @@ export class DislikeService {
             const response = await axios.post(VITE_BASE_URL + 'dislikes', {
                 fromUserId,
                 toUserId
-            });
+            }, {
+                withCredentials: true 
+              });
             return response.data
         } catch (error) {
             console.log(error)

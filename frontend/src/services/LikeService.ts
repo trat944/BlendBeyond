@@ -8,7 +8,9 @@ export class LikeService {
             const response = await axios.post(VITE_BASE_URL + 'likes', {
                 fromUserId,
                 toUserId
-            });
+            }, {
+                withCredentials: true 
+              });
             return response.data
         } catch (error) {
             console.log(error)

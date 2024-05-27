@@ -1,11 +1,12 @@
 import express from 'express'
 import userRouter from './routes/user.routes';
 import likeRouter from './routes/like.routes';
+import dislikeRouter from './routes/dislike.routes';
+import userFilteringRouter from './routes/userFiltering.routes';
+import messageRouter from './routes/message.routes';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload'
-import dislikeRouter from './routes/dislike.routes';
-import userFilteringRouter from './routes/userFiltering.routes';
 
 require('dotenv').config();
 
@@ -25,6 +26,7 @@ app.use("/users", userRouter )
 app.use("/filteredUsers", userFilteringRouter )
 app.use("/likes", likeRouter )
 app.use("/dislikes", dislikeRouter )
+app.use("/messages", messageRouter )
 
 
 export default app;
