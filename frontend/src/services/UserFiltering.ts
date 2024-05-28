@@ -42,4 +42,15 @@ export class UserFilteringService {
       throw error;
     }
   };
+  static async getUsersWithConversation(senderId: any) {
+    try {
+        const response = await axios.get(`${VITE_BASE_URL}filteredUsers/get/${senderId}`,
+         {
+            withCredentials: true 
+          });
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+} 
 }

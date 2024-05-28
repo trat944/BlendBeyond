@@ -1,10 +1,10 @@
 import { Router } from "express"
 import authenticateToken from "../middleware/jwtMiddleware";
-import { deleteConversation, getConversations } from "../controllers/conversation.controllers";
+import { deleteConversation, getConversation } from "../controllers/conversation.controllers";
 
 const conversationRouter = Router();
 
-conversationRouter.get('/get/:id', getConversations)
+conversationRouter.post('/get/one/:id', getConversation)
 conversationRouter.delete('/:id', deleteConversation)
 
 

@@ -86,3 +86,45 @@ export const getMatchedUsersWithoutConversationOpen = async (req: Request, res: 
     res.status(500).send('Internal Server Error');
   }
 };
+
+export const getUsersWithConversations = async (req: Request, res: Response) => {
+  try {
+    const { id: senderId } = req.params;
+
+    const conversations = await prisma.conversation.findMany({
+      where: {
+        OR: [
+          { participant1Id: senderId },
+          { participant2Id: senderId },
+        ]
+      }, 
+    });
+
+    if (!conversations || conversations.length === 0) {
+      return res.status(404).json({ error: 'No conversations found' });
+    }
+
+    const participantIds = conversations.map(conversation => 
+      conversation.participant1Id === senderId ? conversation.participant2Id : conversation.participant1Id
+    );
+
+    const uniqueParticipantIds = [...new Set(participantIds)];
+
+    const users = await prisma.user.findMany({
+      where: {
+        id: { in: uniqueParticipantIds }
+      },
+      select: {
+        id: true,
+        name: true,
+        age: true,
+        pictureUrl: true,
+      }
+    });
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error getting users with conversations', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

@@ -12,7 +12,9 @@ export const Menu = () => {
         <Link to={'/matches'}>
             <FontAwesomeIcon className='menu_icon' icon={faListUl} />
         </Link>
-        <FontAwesomeIcon className='menu_icon' icon={faComment} />
+        <Link to={'/chats'}>
+            <FontAwesomeIcon className='menu_icon' icon={faComment} />
+        </Link>
         <Link to={'/configpage'}>
             <FontAwesomeIcon className='menu_icon' icon={faUser} />
         </Link>

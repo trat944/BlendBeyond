@@ -48,3 +48,10 @@ export interface Song {
   artist: string;
   name:   string;
 }
+
+export interface ShortedUser {
+  id: number,
+  name: string,
+  age: number,
+  pictureUrl: string
+}
