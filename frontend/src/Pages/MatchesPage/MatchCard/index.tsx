@@ -20,7 +20,6 @@ export const MatchCard = ({ user}: Props) => {
       event.preventDefault();
       //start a chat
     }
-    console.log('hey');
   };
 
   return (

@@ -5,6 +5,7 @@ import prisma from "../db/client";
 export const getConversations = async (req: Request, res: Response) => {
   try {
     const { id: senderId } = req.params;
+    console.log(senderId)
 
     const conversations = await prisma.conversation.findMany({
       where: {
@@ -44,10 +45,14 @@ export const deleteConversation = async (req: Request, res: Response) => {
     }
 
     const deleteMessages = await prisma.message.deleteMany({
-        where: {
-          conversationId: conversationId
-        }
-      });
+      where: {
+        conversationId: conversationId
+      }
+    });
+    
+    const deletedConversation = await prisma.conversation.delete(({
+      where: { id: conversation.id },
+    }))
 
     res.status(200).json(conversation);
   } catch (error) {

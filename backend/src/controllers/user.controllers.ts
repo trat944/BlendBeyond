@@ -45,7 +45,6 @@ export const createUser = async (req: Request, res: Response) => {
     });
 
     if (newUser) {
-      console.log('hey')
       generateTokenAndSetCookie(newUser.id, res)
     }
 

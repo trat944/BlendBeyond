@@ -7,8 +7,8 @@ const userRouter = Router();
 userRouter.get("/", getAllUsers)
 userRouter.post("/", createUser)
 userRouter.post("/login", loginUser)
-userRouter.post('/logout', authenticateToken, logoutUser);
-userRouter.patch("/config", authenticateToken, updateUser)
-userRouter.delete("/", authenticateToken, deleteUser)
+userRouter.post('/logout', logoutUser);
+userRouter.patch("/config", updateUser)
+userRouter.delete("/", deleteUser)
 
 export default userRouter;
