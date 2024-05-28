@@ -7,6 +7,7 @@ import messageRouter from './routes/message.routes';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload'
+import conversationRouter from './routes/conversation.routes';
 
 require('dotenv').config();
 
@@ -27,6 +28,7 @@ app.use("/filteredUsers", userFilteringRouter )
 app.use("/likes", likeRouter )
 app.use("/dislikes", dislikeRouter )
 app.use("/messages", messageRouter )
+app.use("/conversations", conversationRouter )
 
 
 export default app;

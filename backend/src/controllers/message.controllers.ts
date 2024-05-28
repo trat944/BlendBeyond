@@ -2,6 +2,40 @@ import { Request, Response } from "express";
 import prisma from "../db/client";
 
 
+export const getMessages = async (req: Request, res: Response) => {
+  try {
+    const { receiverId } = req.body;
+    const { id: senderId } = req.params;
+
+    const conversation = await prisma.conversation.findFirst({
+      where: {
+        OR: [
+          {
+            participant1Id: senderId,
+            participant2Id: receiverId,
+          },
+          {
+            participant1Id: receiverId,
+            participant2Id: senderId,
+          }
+        ]
+      },
+      include: {
+        messages: true,
+      }
+    });
+
+    if (!conversation) {
+      return res.status(404).json({ error: 'Conversation not found' });
+    }
+
+    res.status(200).json(conversation.messages);
+  } catch (error) {
+    console.error('Error getting messages', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 export const sendMessage = async (req: Request, res: Response) => {
   try {
     const { message, receiverId } = req.body;
@@ -46,18 +80,10 @@ export const sendMessage = async (req: Request, res: Response) => {
       }
     });
 
-    // const updatedConversation = await prisma.conversation.findUnique({
-    //   where: { id: conversationId },
-    //   include: { messages: true },
-    // });
-
-    // if (newMessage) {
-    //   conversation?.messages.push(newMessage)
-    // }
-
     res.status(201).json(newMessage);
   } catch (error) {
     console.error('Error sending message', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
