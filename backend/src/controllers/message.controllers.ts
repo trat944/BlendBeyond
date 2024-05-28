@@ -6,19 +6,16 @@ export const sendMessage = async (req: Request, res: Response) => {
   try {
     const { message, receiverId } = req.body;
     const { id: senderId } = req.params;
-    // const senderId = (req as any).user.id;
 
     // Encuentra la conversación existente entre los dos usuarios
     const conversation = await prisma.conversation.findFirst({
       where: {
-        participants: {
-          every: {
-            userId: { in: [senderId, receiverId] }
-          }
-        }
+        OR: [
+          { participant1Id: senderId, participant2Id: receiverId },
+          { participant1Id: receiverId, participant2Id: senderId }
+        ]
       },
       include: {
-        participants: true,
         messages: true,
       }
     });
@@ -30,17 +27,13 @@ export const sendMessage = async (req: Request, res: Response) => {
       conversationId = conversation.id;
     } else {
       // Si la conversación no existe, créala
-      const newConversation = await prisma.conversation.create({
+      const conversation = await prisma.conversation.create({
         data: {
-          participants: {
-            create: [
-              { user: { connect: { id: senderId } } },
-              { user: { connect: { id: receiverId } } }
-            ]
-          }
+          participant1: { connect: { id: senderId } },
+          participant2: { connect: { id: receiverId } }
         }
       });
-      conversationId = newConversation.id;
+      conversationId = conversation.id;
     }
 
     // Crea el nuevo mensaje en la conversación
@@ -52,6 +45,15 @@ export const sendMessage = async (req: Request, res: Response) => {
         conversationId,
       }
     });
+
+    // const updatedConversation = await prisma.conversation.findUnique({
+    //   where: { id: conversationId },
+    //   include: { messages: true },
+    // });
+
+    // if (newMessage) {
+    //   conversation?.messages.push(newMessage)
+    // }
 
     res.status(201).json(newMessage);
   } catch (error) {

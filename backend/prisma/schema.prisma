@@ -31,7 +31,8 @@ model User {
   dislikedUsers     Dislike[] @relation("DislikedBy")
   sentMessages      Message[] @relation("SenderUser")
   receivedMessages  Message[] @relation("ReceiverUser")
-  conversations     UserConversation[]
+  conversations1    Conversation[] @relation("Participant1")
+  conversations2    Conversation[] @relation("Participant2")
   createAt          DateTime  @default(now())
   updateAt          DateTime  @updatedAt
 }
@@ -71,21 +72,13 @@ model Message {
 
 model Conversation {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  participants UserConversation[]
+  participant1 User      @relation("Participant1", fields: [participant1Id], references: [id])
+  participant1Id String @db.ObjectId
+  participant2 User      @relation("Participant2", fields: [participant2Id], references: [id])
+  participant2Id String @db.ObjectId
   messages     Message[] @relation("ConversationMessages")
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
   @@map("conversations")
-}
-
-model UserConversation {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  userId          String        @db.ObjectId
-  conversationId  String        @db.ObjectId
-
-  user            User          @relation(fields: [userId], references: [id])
-  conversation    Conversation  @relation(fields: [conversationId], references: [id])
-
-  @@unique([userId, conversationId])
 }
