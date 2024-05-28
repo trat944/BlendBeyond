@@ -1,10 +1,10 @@
 import { Router } from "express"
-import { getDesiredUsers, getMatchedUsers } from "../controllers/userFiltering.controllers";
+import { getDesiredUsers, getMatchedUsersWithoutConversationOpen } from "../controllers/userFiltering.controllers";
 import authenticateToken from "../middleware/jwtMiddleware";
 
 const userFilteringRouter = Router();
 
 userFilteringRouter.post("/desired", getDesiredUsers)
-userFilteringRouter.post("/matched", getMatchedUsers)
+userFilteringRouter.post("/matched", getMatchedUsersWithoutConversationOpen)
 
 export default userFilteringRouter;

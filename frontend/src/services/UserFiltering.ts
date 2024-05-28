@@ -27,9 +27,10 @@ export class UserFilteringService {
     }
   };
   static async getMatchedUsers(loggedUser: any) {
-    const { likedUsers, likedBy } = loggedUser;
+    const { id, likedUsers, likedBy } = loggedUser;
     try {
       const response = await axios.post(VITE_BASE_URL + 'filteredUsers/matched', {
+        id,
         likedUsers,
         likedBy,
       }, {

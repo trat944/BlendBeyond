@@ -33,30 +33,56 @@ export const getDesiredUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const getMatchedUsers = async (req: Request, res: Response) => {
-  const { likedUsers, likedBy } = req.body;
+export const getMatchedUsersWithoutConversationOpen = async (req: Request, res: Response) => {
+  const { id, likedUsers, likedBy } = req.body;
 
-  if (!likedUsers || !likedBy) {
-    return res.status(400).send("Missing people you liked or people that like you");
-  }
-  const likedUserIds = likedUsers.map((like: any) => like.toId);
-  const usersThatLikeUser: string[] = likedBy.map((like: any) => like.fromId);
-  const matchedUsers: string[] = [];
-  usersThatLikeUser.forEach((id:string) => {
-    if (likedUserIds.includes(id)) {
-      matchedUsers.push(id)
-    }
-  })
   try {
+    if (!likedUsers || !likedBy) {
+      return res.status(400).send("Missing people you liked or people that like you");
+    }
+  
+    const likedUserIds = likedUsers.map((like: any) => like.toId);
+    const usersThatLikeUser: string[] = likedBy.map((like: any) => like.fromId);
+    const matchedUsers: string[] = [];
+  
+    usersThatLikeUser.forEach((userId: string) => {
+      if (likedUserIds.includes(userId)) {
+        matchedUsers.push(userId);
+      }
+    });
+
+    const conversations = await prisma.conversation.findMany({
+      where: {
+        OR: [
+          { participant1Id: id },
+          { participant2Id: id },
+        ],
+      },
+      select: {
+        participant1Id: true,
+        participant2Id: true,
+      },
+    });
+
+    const participantsInConversations = new Set<string>();
+    conversations.forEach((conversation) => {
+      participantsInConversations.add(conversation.participant1Id);
+      participantsInConversations.add(conversation.participant2Id);
+    });
+
+    const filteredMatchedUsers = matchedUsers.filter(userId => !participantsInConversations.has(userId));
+
     const matchedFound = await prisma.user.findMany({
       where: {
         id: {
-          in: matchedUsers,
+          in: filteredMatchedUsers,
         },
       },
     });
+
     res.status(200).send(matchedFound);
   } catch (error) {
-    res.status(400).send(error);
+    console.error('Error getting matched users', error);
+    res.status(500).send('Internal Server Error');
   }
 };
