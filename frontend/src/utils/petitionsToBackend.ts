@@ -1,4 +1,5 @@
-import { ShortedUser, User } from "../interfaces/userInterface"
+import { User } from "../interfaces/userInterface"
+import { UserWithLastMessage } from "../interfaces/userWithLastMessage";
 import { UserFilteringService } from "../services/UserFiltering"
 
 export const getMatchedUsers = async (user: User | null, setUsers: React.Dispatch<React.SetStateAction<User[]>> ) => {
@@ -23,10 +24,10 @@ export const getDesiredUsers = async (user: User | null, setUsers: React.Dispatc
   }
 };
 
-export const getUsersWithChat = async (user: User | null, setUsers: React.Dispatch<React.SetStateAction<ShortedUser[]>>) => {
+export const getUsersWithChat = async (user: User | null, setUsers: React.Dispatch<React.SetStateAction<UserWithLastMessage[]>>) => {
   if (user) {
     try {
-      const usersWithConversation: ShortedUser[] = await UserFilteringService.getUsersWithConversation(user.id)
+      const usersWithConversation: UserWithLastMessage[] = await UserFilteringService.getUsersWithConversation(user.id)
       setUsers(usersWithConversation)
     } catch (error) {
       console.error('Error fetching desired users:', error);

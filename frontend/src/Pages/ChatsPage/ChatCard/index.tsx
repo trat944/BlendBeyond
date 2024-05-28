@@ -1,20 +1,32 @@
-import React from "react";
-import { ShortedUser } from "../../../interfaces/userInterface";
-import { ChatCardContainer, ChatProfilePic, ChatUserInfo, ChatUserName } from "../../../styled_components/chatCard";
+import { useEffect, useState } from "react";
+import { UserWithLastMessage } from "../../../interfaces/userWithLastMessage";
+import { ChatCardContainer, ChatLastMessage, ChatProfilePic, ChatUserName } from "../../../styled_components/chatCard";
 
-interface ChatCardProps {
+type Props ={
   loggedUserId: number;
-  userWithConversation: ShortedUser
+  userWithConversationAndLastMessage: UserWithLastMessage
 }
 
-export const ChatCard: React.FC<ChatCardProps> = ({ loggedUserId, userWithConversation }) => {
+export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage }: Props) => {
+  const { user, lastMessage } = userWithConversationAndLastMessage;
+  const [lastMessageText, setLastMessageText] = useState(lastMessage.message)
+
+  useEffect(() => {
+    const limitLastMessage = () => {
+      const maxNumberOfLetters= 15;
+      if (lastMessage.message.length > 15) {
+        const limitedText = lastMessage.message.slice(0, maxNumberOfLetters) + '...';
+        setLastMessageText(limitedText)
+      }
+    }
+    limitLastMessage()
+  }, [lastMessage])
+
   return (
     <ChatCardContainer>
-      <ChatProfilePic src={userWithConversation.pictureUrl} alt={userWithConversation.name} />
-      <ChatUserInfo>
-        <ChatUserName>{userWithConversation.name}</ChatUserName>
-        {/* Puedes agregar más detalles aquí, como el último mensaje y la hora */}
-      </ChatUserInfo>
+      <ChatProfilePic src={user.pictureUrl} alt={user.name} />
+      <ChatUserName>{user.name}</ChatUserName>
+      <ChatLastMessage>{lastMessageText}</ChatLastMessage>
     </ChatCardContainer>
   );
 };

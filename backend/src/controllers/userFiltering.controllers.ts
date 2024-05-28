@@ -97,32 +97,39 @@ export const getUsersWithConversations = async (req: Request, res: Response) => 
           { participant1Id: senderId },
           { participant2Id: senderId },
         ]
-      }, 
+      },
+      include: {
+        messages: {
+          orderBy: {
+            createdAt: 'desc'
+          },
+          take: 1
+        }
+      }
     });
 
     if (!conversations || conversations.length === 0) {
       return res.status(404).json({ error: 'No conversations found' });
     }
 
-    const participantIds = conversations.map(conversation => 
-      conversation.participant1Id === senderId ? conversation.participant2Id : conversation.participant1Id
-    );
+    const usersWithLastMessage = await Promise.all(conversations.map(async (conversation) => {
+      const participantId = conversation.participant1Id === senderId ? conversation.participant2Id : conversation.participant1Id;
+      const user = await prisma.user.findUnique({
+        where: { id: participantId },
+        select: {
+          id: true,
+          name: true,
+          age: true,
+          pictureUrl: true
+        }
+      });
+      return {
+        user,
+        lastMessage: conversation.messages[0] 
+      };
+    }));
 
-    const uniqueParticipantIds = [...new Set(participantIds)];
-
-    const users = await prisma.user.findMany({
-      where: {
-        id: { in: uniqueParticipantIds }
-      },
-      select: {
-        id: true,
-        name: true,
-        age: true,
-        pictureUrl: true,
-      }
-    });
-
-    res.status(200).json(users);
+    res.status(200).json(usersWithLastMessage);
   } catch (error) {
     console.error('Error getting users with conversations', error);
     res.status(500).json({ error: 'Internal Server Error' });

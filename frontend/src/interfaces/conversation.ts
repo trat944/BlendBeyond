@@ -4,12 +4,13 @@ export interface Conversation {
   participant2Id: string,
   createdAt: Date,
   updateAt: Date,
-  messages: Message[]
+  messages: MessageIndividual[]
 }
 
-export interface Message {
+export interface MessageIndividual {
   id: string,
   senderId: string,
+  message: string,
   receiverId: string,
   createdAt: Date,
   updateAt: Date,

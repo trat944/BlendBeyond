@@ -1,36 +1,32 @@
 import { useContext, useEffect, useState } from "react";
-import { ShortedUser, User } from "../../interfaces/userInterface";
+import { User } from "../../interfaces/userInterface";
 import { UserContext } from "../../hooks/userContext";
 import { Menu } from "../../components/Menu";
 import './chatsPage.css'
 import { getUsersWithChat } from "../../utils/petitionsToBackend";
 import { ChatCard } from "./ChatCard";
+import { UserWithLastMessage } from "../../interfaces/userWithLastMessage";
 
 
 export const ChatsPage = () => {
   const user: User | null = useContext(UserContext).state.user;
-  const [usersWithChat, setUsersWithChat] = useState<ShortedUser[]>([]);
+  const [usersWithChatAndLastMessage, setUsersWithChatAndLastMessage] = useState<UserWithLastMessage[]>([]);
 
   useEffect(() => {
-   getUsersWithChat(user, setUsersWithChat)
+   getUsersWithChat(user, setUsersWithChatAndLastMessage)
   }, []);
-
-  useEffect(() => {
-    console.log(usersWithChat)
-  }, [usersWithChat])
 
   return (
     <>
       <div className="chat-container">
-        {usersWithChat && usersWithChat.length > 0 && user ? (
+        {usersWithChatAndLastMessage && usersWithChatAndLastMessage.length > 0 && user ? (
           <div>
-            <h1 className="chat-title">Your conversations:</h1>
-            {usersWithChat.map(userWithConversation => (
-              <div key={userWithConversation.id}>
+            <h1 className="chat-title">Conversations</h1>
+            {usersWithChatAndLastMessage.map(userWithConversationAndLastMessage => (
+              <div key={userWithConversationAndLastMessage.user.id}>
                 <ChatCard
-                  key={userWithConversation.id}
                   loggedUserId={user.id}
-                  userWithConversation={userWithConversation}
+                  userWithConversationAndLastMessage={userWithConversationAndLastMessage}
                 />
               </div>
             ))}

@@ -22,27 +22,25 @@ export const ChatProfilePic = styled.img`
   margin-right: 20px;
 `;
 
-export const ChatUserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-`;
-
-export const ChatUserName = styled.span`
+export const ChatUserName = styled.span` 
   font-size: 20px;
   font-weight: bold;
   color: #a60038;
-  margin-bottom: 5px;
+  margin-right: 1rem;
 `;
 
 export const ChatLastMessage = styled.span`
-  font-size: 16px;
-  color: #7a0032;
-  margin-bottom: 5px;
-`;
-
-export const ChatMessageTime = styled.span`
-  font-size: 14px;
+  flex-grow: 1; 
+  font-size: 1.1rem;
   color: #7a0032;
   text-align: right;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Familia de fuentes */
+  font-weight: 400; /* Peso de la fuente */
+  line-height: 1.4; /* Altura de línea */
+  opacity: 0.8; /* Opacidad del texto */
+  transition: opacity 0.3s ease; /* Transición suave de la opacidad */
+  
+  &:hover {
+    opacity: 1; /* Opacidad completa al pasar el cursor sobre el mensaje */
+  }
 `;

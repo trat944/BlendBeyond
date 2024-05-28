@@ -75,7 +75,5 @@ Become part of the Blend Beyond journey today! Whether you're a developer, desig
 
 Let's blend beyond boundaries and create meaningful connections together! 💖
 
-//en la de matches, buscar una conversación entre loggedUser y targeted user. Si no la hay, mostrar en matches.
-//en convers, getConversations del loggedUser, mostrar en cards cada una de ellas. 
 //aviso en el deleteconver, se borraran todos los mensajes
 //borrar mensaje al clicar
