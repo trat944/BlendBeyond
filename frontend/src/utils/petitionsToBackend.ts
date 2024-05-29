@@ -1,5 +1,7 @@
+import { MessageIndividual } from "../interfaces/conversation";
 import { User } from "../interfaces/userInterface"
 import { UserWithLastMessage } from "../interfaces/userWithLastMessage";
+import { MessagesService } from "../services/MessagesService";
 import { UserFilteringService } from "../services/UserFiltering"
 
 export const getMatchedUsers = async (user: User | null, setUsers: React.Dispatch<React.SetStateAction<User[]>> ) => {
@@ -33,4 +35,13 @@ export const getUsersWithChat = async (user: User | null, setUsers: React.Dispat
       console.error('Error fetching desired users:', error);
     }
   }
+};
+
+export const getMessages = async (participant1: string, participant2: string, setUsers: React.Dispatch<React.SetStateAction<MessageIndividual[]>>) => {
+    try {
+      const messages: MessageIndividual[] = await MessagesService.getMessages(participant1, participant2)
+      setUsers(messages)
+    } catch (error) {
+      console.error('Error fetching desired users:', error);
+    }
 };

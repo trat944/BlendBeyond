@@ -15,9 +15,10 @@ import { StyledLi, StyledUl } from "../../../../styled_components/WarningListSty
 type Props = {
   conversationId: string
   setUsersWithChatAndLastMessage: React.Dispatch<React.SetStateAction<UserWithLastMessage[]>>
+  userName: string
 }
 
-export const DeleteButton = ({conversationId, setUsersWithChatAndLastMessage}: Props) => {
+export const DeleteButton = ({conversationId, setUsersWithChatAndLastMessage, userName}: Props) => {
   const user: User | null = useContext(UserContext).state.user;
   const [openModal, setOpenModal] = useState(false)
   const trigger = true;
@@ -53,7 +54,7 @@ export const DeleteButton = ({conversationId, setUsersWithChatAndLastMessage}: P
             <span>Are you sure you want to delete the conversation?</span>
             <StyledUl>
               <StyledLi>You will lose all messages</StyledLi>
-              <StyledLi>You will find NAME in your matches list</StyledLi>
+              <StyledLi>You will find {userName} in your matches list</StyledLi>
             </StyledUl>
               <div className="chat-button-container">
                 <SecondaryButton className="goback-button" onClick={closeDeleteModal}>Go Back</SecondaryButton>

@@ -31,6 +31,7 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, set
           <DeleteButton 
             conversationId={conversationId}
             setUsersWithChatAndLastMessage={setUsersWithChatAndLastMessage}
+            userName={user.name}
           />
           <ChatProfilePic src={user.pictureUrl} alt={user.name} />
           <ChatUserName>{user.name}</ChatUserName>

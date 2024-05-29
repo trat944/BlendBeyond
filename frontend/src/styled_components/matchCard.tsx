@@ -21,12 +21,9 @@ export const ProfilePic = styled.img`
   margin-right: 15px;
 `;
 
-export const UserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const UserName = styled.span`
+  display: flex;
+  justify-content: right;
   font-size: 18px;
   font-weight: bold;
   color: #333;
