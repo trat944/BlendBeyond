@@ -10,6 +10,7 @@ import { UserWithLastMessage } from "../../../../interfaces/userWithLastMessage"
 import { User } from "../../../../interfaces/userInterface"
 import { UserContext } from "../../../../hooks/userContext"
 import { getUsersWithChat } from "../../../../utils/petitionsToBackend"
+import { StyledLi, StyledUl } from "../../../../styled_components/WarningListStyles"
 
 type Props = {
   conversationId: string
@@ -19,7 +20,7 @@ type Props = {
 export const DeleteButton = ({conversationId, setUsersWithChatAndLastMessage}: Props) => {
   const user: User | null = useContext(UserContext).state.user;
   const [openModal, setOpenModal] = useState(false)
-  // const {dispatch} = useContext(UserContext)
+  const trigger = true;
 
   const openDeleteModal = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
@@ -38,7 +39,6 @@ export const DeleteButton = ({conversationId, setUsersWithChatAndLastMessage}: P
       await deleteConversationWithButton(conversationId);
       getUsersWithChat(user, setUsersWithChatAndLastMessage)
       setOpenModal(false);
-      // Aquí puedes agregar lógica adicional, como la actualización del estado global o la navegación.
     } catch (error) {
       console.error('Error deleting conversation', error);
     }
@@ -48,13 +48,13 @@ export const DeleteButton = ({conversationId, setUsersWithChatAndLastMessage}: P
     <>
       <FontAwesomeIcon onClick={openDeleteModal} className="rubbish-icon" icon={faTrashCan} />
       {openModal && (
-        <Modal onOpen={setOpenModal}>
+        <Modal trigger={trigger} onOpen={setOpenModal}>
           <div className="delete-button-container">
             <span>Are you sure you want to delete the conversation?</span>
-            <ul>
-              <li>You will lose all messages</li>
-              <li>You will find NAME in your matches list</li>
-            </ul>
+            <StyledUl>
+              <StyledLi>You will lose all messages</StyledLi>
+              <StyledLi>You will find NAME in your matches list</StyledLi>
+            </StyledUl>
               <div className="chat-button-container">
                 <SecondaryButton className="goback-button" onClick={closeDeleteModal}>Go Back</SecondaryButton>
                 <DangerButton className="delete-button" onClick={handleDelete}>Delete</DangerButton>

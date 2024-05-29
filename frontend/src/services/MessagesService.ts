@@ -5,7 +5,7 @@ export class MessagesService {
 
     static async getMessages(senderId: string, receiverId: string) {
         try {
-            const response = await axios.post(`${VITE_BASE_URL}conversations/get/one/${senderId}`, {
+            const response = await axios.post(`${VITE_BASE_URL}messages/get/${senderId}`, {
               receiverId
             }, {
                 withCredentials: true 

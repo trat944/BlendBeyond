@@ -8,11 +8,12 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 type Props = {
   children: ReactNode,
   onOpen: React.Dispatch<React.SetStateAction<boolean>>
+  trigger?: boolean
 }
 
-export const Modal = ({children, onOpen}: Props) => {
+export const Modal = ({children, onOpen, trigger}: Props) => {
   return (
-    <ModalSetting onClick={(event)=> {closeModalWhenClickOutside(event, onOpen)}}>
+    <ModalSetting onClick={(event)=> {closeModalWhenClickOutside(event, onOpen, trigger)}}>
       <div className="modal-container" >
         <FontAwesomeIcon className='closeBtn' icon={faXmark} onClick={() => {closeModal(onOpen)}} />
         <img className="modal-img" src="/src/assets/logo.webp" alt="" />

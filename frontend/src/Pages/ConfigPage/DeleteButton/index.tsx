@@ -8,6 +8,7 @@ import { LogButton } from "../../../styled_components/logButton"
 import { SecondaryButton } from "../../../styled_components/logoutButton"
 import './deletebutton.css'
 import { DangerButton } from "../../../styled_components/dangerButton"
+import { StyledLi, StyledUl } from "../../../styled_components/WarningListStyles"
 
 type Props = {
   user: User | null
@@ -44,11 +45,11 @@ export const DeleteButton = ({user}: Props) => {
         <Modal onOpen={setOpenModal}>
             <div className="delete-modal-container">
             <span>Are you sure you want to delete your account? You will lose:</span>
-            <ul>
-              <li>All matches</li>
-              <li>All open conversations</li>
-              <li>All profile info</li>
-            </ul>
+            <StyledUl>
+              <StyledLi>All matches</StyledLi>
+              <StyledLi>All open conversations</StyledLi>
+              <StyledLi>All profile info</StyledLi>
+            </StyledUl>
             <SecondaryButton className="goback-button" onClick={closeDeleteModal}>Go Back</SecondaryButton>
             <DangerButton className="delete-button" onClick={() => deleteAccount(user)}>Delete Account</DangerButton>
           </div>
