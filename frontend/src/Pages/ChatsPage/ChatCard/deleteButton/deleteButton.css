@@ -1,0 +1,12 @@
+.rubbish-icon {
+  color: #ee8aa5;
+  position: absolute;
+  top: 10%;
+  left: 2%;
+  cursor: pointer;
+}
+
+.chat-button-container {
+  display: flex;
+  justify-content: center;
+}

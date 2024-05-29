@@ -15,4 +15,14 @@ export class ConversationService {
             console.log(error);
         }
     }
+    static async deleteConversation(conversationId: string) {
+        try {
+            const response = await axios.delete(`${VITE_BASE_URL}conversations/${conversationId}`,{
+                withCredentials: true 
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

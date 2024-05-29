@@ -124,6 +124,7 @@ export const getUsersWithConversations = async (req: Request, res: Response) => 
         }
       });
       return {
+        conversationId: conversation.id,
         user,
         lastMessage: conversation.messages[0] 
       };

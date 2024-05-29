@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const ChatCardContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   background-color: #ffe0e9;
@@ -42,5 +44,12 @@ export const ChatLastMessage = styled.span`
   
   &:hover {
     opacity: 1; /* Opacidad completa al pasar el cursor sobre el mensaje */
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:hover, &:focus, &:active {
+    text-decoration: none;
   }
 `;

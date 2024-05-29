@@ -4,6 +4,8 @@ export const openModal = (
   onLoginClicked: React.Dispatch<React.SetStateAction<boolean>>,
   onSignUpClicked: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
+  event.preventDefault()
+  event.stopPropagation()
   onOpen(true);
 
   const loginBtn = document.querySelector('.loginBtn');

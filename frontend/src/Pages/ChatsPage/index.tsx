@@ -6,6 +6,7 @@ import './chatsPage.css'
 import { getUsersWithChat } from "../../utils/petitionsToBackend";
 import { ChatCard } from "./ChatCard";
 import { UserWithLastMessage } from "../../interfaces/userWithLastMessage";
+import { NoChats } from "./no-chats";
 
 
 export const ChatsPage = () => {
@@ -27,12 +28,13 @@ export const ChatsPage = () => {
                 <ChatCard
                   loggedUserId={user.id}
                   userWithConversationAndLastMessage={userWithConversationAndLastMessage}
+                  setUsersWithChatAndLastMessage={setUsersWithChatAndLastMessage}
                 />
               </div>
             ))}
           </div>
         ) : (
-          <div>feef</div>
+          <NoChats />
         )}
       </div>
       <Menu />

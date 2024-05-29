@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { UserWithLastMessage } from "../../../interfaces/userWithLastMessage";
-import { ChatCardContainer, ChatLastMessage, ChatProfilePic, ChatUserName } from "../../../styled_components/chatCard";
+import { ChatCardContainer, ChatLastMessage, ChatProfilePic, ChatUserName, StyledLink } from "../../../styled_components/chatCard";
+import { DeleteButton } from "./deleteButton";
 
 type Props ={
   loggedUserId: number;
   userWithConversationAndLastMessage: UserWithLastMessage
+  setUsersWithChatAndLastMessage: React.Dispatch<React.SetStateAction<UserWithLastMessage[]>>
 }
 
-export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage }: Props) => {
-  const { user, lastMessage } = userWithConversationAndLastMessage;
+export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, setUsersWithChatAndLastMessage }: Props) => {
+  const { user, lastMessage, conversationId } = userWithConversationAndLastMessage;
   const [lastMessageText, setLastMessageText] = useState(lastMessage.message)
 
   useEffect(() => {
@@ -23,10 +25,19 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage }: P
   }, [lastMessage])
 
   return (
-    <ChatCardContainer>
-      <ChatProfilePic src={user.pictureUrl} alt={user.name} />
-      <ChatUserName>{user.name}</ChatUserName>
-      <ChatLastMessage>{lastMessageText}</ChatLastMessage>
-    </ChatCardContainer>
+    <>
+      <StyledLink to={`/conversation/${user.id}`} state={{ user, loggedUserId }}>
+        <ChatCardContainer>
+          <DeleteButton 
+            conversationId={conversationId}
+            setUsersWithChatAndLastMessage={setUsersWithChatAndLastMessage}
+          />
+          <ChatProfilePic src={user.pictureUrl} alt={user.name} />
+          <ChatUserName>{user.name}</ChatUserName>
+          <ChatLastMessage>{lastMessageText}</ChatLastMessage>
+        </ChatCardContainer>
+      </StyledLink>
+
+    </>
   );
 };

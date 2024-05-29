@@ -77,3 +77,4 @@ Let's blend beyond boundaries and create meaningful connections together! 💖
 
 //aviso en el deleteconver, se borraran todos los mensajes
 //borrar mensaje al clicar
+//maybe likedby/dislikedby PAYLOAD en el useReducer?
