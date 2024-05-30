@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const Card = styled.div`
   display: grid;
-  grid-template-columns: 3rem 3rem 5rem;
+  grid-template-columns: auto auto 1fr;
+  gap: 1rem;
   align-items: center;
   justify-content: space-between;
   background-color: #f9f9f9;

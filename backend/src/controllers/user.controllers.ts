@@ -176,6 +176,24 @@ export const deleteUser = async (req: Request, res: Response) => {
         }
       });
 
+      await prisma.conversation.deleteMany({
+        where: {
+          OR: [
+            { participant1Id: userId },
+            { participant2Id: userId }
+          ]
+        }
+      });
+
+      await prisma.message.deleteMany({
+        where: {
+          OR: [
+            { senderId: userId },
+            { receiverId: userId }
+          ]
+        }
+      });
+
       const userDeleted = await prisma.user.delete({
         where: { id: userId },
       });

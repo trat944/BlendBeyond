@@ -17,11 +17,6 @@ export const ConversationPage = () => {
     getMessages(loggedUserId, user.id, setMessages)
   }, [])
 
-  useEffect(() => {
-    console.log(messages)
-  }, [messages])
-
-
   return (
     <Layout>
         <ConversationContainer>
@@ -31,11 +26,13 @@ export const ConversationPage = () => {
               <ConversationUserName>{user.name}</ConversationUserName>
             </ConversationUserDetails>
           </ConversationHeader>
-          <Messages>
+          {messages && (
+            <Messages>
             {messages.map((msg) => (
               <MessageContainer key={msg.id} isSender={msg.senderId === loggedUserId} msg={msg}/>
             ))}
           </Messages>
+          )}
           <SendMessageContainer
             senderId={loggedUserId}
             receiverId={user.id}

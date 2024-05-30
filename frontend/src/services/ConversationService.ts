@@ -15,6 +15,18 @@ export class ConversationService {
             console.log(error);
         }
     }
+    static async createConversation(participant1: any, participant2: any) {
+        try {
+            const response = await axios.post(`${VITE_BASE_URL}conversations/create/${participant1}`, {
+                participant2
+            }, {
+                withCredentials: true 
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
     static async deleteConversation(conversationId: string) {
         try {
             const response = await axios.delete(`${VITE_BASE_URL}conversations/${conversationId}`,{

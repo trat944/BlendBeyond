@@ -35,6 +35,25 @@ export const getConversation = async (req: Request, res: Response) => {
   }
 };
 
+export const createConversation = async (req: Request, res: Response) => {
+  try {
+    const { participant2 } = req.body;
+    const { id: participant1 } = req.params;
+
+    const newConversation = await prisma.conversation.create({
+      data: {
+        participant1: { connect: { id: participant2 } },
+        participant2: { connect: { id: participant1 } }
+      }
+    });
+
+    res.status(200).json(newConversation);
+  } catch (error) {
+    console.error('Error creating conversation', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 export const deleteConversation = async (req: Request, res: Response) => {
   try {
     const { id: conversationId } = req.params;

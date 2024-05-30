@@ -11,18 +11,22 @@ type Props ={
 
 export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, setUsersWithChatAndLastMessage }: Props) => {
   const { user, lastMessage, conversationId } = userWithConversationAndLastMessage;
-  const [lastMessageText, setLastMessageText] = useState(lastMessage.message)
+  const [lastMessageText, setLastMessageText] = useState(lastMessage?.message || '');
 
   useEffect(() => {
-    const limitLastMessage = () => {
-      const maxNumberOfLetters= 15;
-      if (lastMessage.message.length > 15) {
-        const limitedText = lastMessage.message.slice(0, maxNumberOfLetters) + '...';
-        setLastMessageText(limitedText)
-      }
+    if (lastMessage) {
+      const limitLastMessage = () => {
+        const maxNumberOfLetters = 15;
+        if (lastMessage.message.length > maxNumberOfLetters) {
+          const limitedText = lastMessage.message.slice(0, maxNumberOfLetters) + '...';
+          setLastMessageText(limitedText);
+        } else {
+          setLastMessageText(lastMessage.message);
+        }
+      };
+      limitLastMessage();
     }
-    limitLastMessage()
-  }, [lastMessage])
+  }, [lastMessage]);
 
   return (
     <>
@@ -33,9 +37,9 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, set
             setUsersWithChatAndLastMessage={setUsersWithChatAndLastMessage}
             userName={user.name}
           />
-          <ChatProfilePic src={user.pictureUrl} alt={user.name} />
+          <ChatProfilePic src={user.pictureUrl || './src/assets/th.jpg'} alt={user.name} />
           <ChatUserName>{user.name}</ChatUserName>
-          <ChatLastMessage>{lastMessageText}</ChatLastMessage>
+          {lastMessageText ? <ChatLastMessage>{lastMessageText}</ChatLastMessage> : <ChatLastMessage>No messages</ChatLastMessage>}
         </ChatCardContainer>
       </StyledLink>
 

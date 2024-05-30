@@ -17,10 +17,17 @@ export const SendMessageContainer = ({senderId, receiverId, setMessages}: Props)
 
   const onSubmit = handleSubmit(async (data) => {
     if (Object.keys(errors).length === 0) {
-      const newMessage = await MessagesService.sendMessage(senderId, receiverId, data.message)
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-      reset()
-    }})
+      const newMessage: MessageIndividual = await MessagesService.sendMessage(senderId, receiverId, data.message);
+      setMessages((prevMessages) => {
+        if (prevMessages) {
+          return [...prevMessages, newMessage]; 
+        } else {
+          return [newMessage];
+        }
+      });
+      reset();
+    }
+  });
 
   return (
       <form className="send-message-form" onSubmit={onSubmit}>
