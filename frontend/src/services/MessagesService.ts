@@ -15,4 +15,17 @@ export class MessagesService {
             console.log(error);
         }
     }
+    static async sendMessage(senderId: string, receiverId: string, message: string) {
+        try {
+            const response = await axios.post(`${VITE_BASE_URL}messages/send/${senderId}`, {
+              receiverId,
+              message
+            }, {
+                withCredentials: true 
+            });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }

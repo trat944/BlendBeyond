@@ -50,11 +50,28 @@ export const Messages = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #f9f9f9;
-  justify-content: flex-end;
+
+  ::-webkit-scrollbar {
+    width: 12px; 
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c1c1c1; 
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
 `;
 
 export const MessageInputContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   padding: 1rem;
   background-color: #ffe0e9;
   border-top: 1px solid #ffb3c1;

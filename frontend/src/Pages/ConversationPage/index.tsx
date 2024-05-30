@@ -36,7 +36,11 @@ export const ConversationPage = () => {
               <MessageContainer key={msg.id} isSender={msg.senderId === loggedUserId} msg={msg}/>
             ))}
           </Messages>
-          <SendMessageContainer />
+          <SendMessageContainer
+            senderId={loggedUserId}
+            receiverId={user.id}
+            setMessages={setMessages}
+          />
       </ConversationContainer>
     </Layout>
   );

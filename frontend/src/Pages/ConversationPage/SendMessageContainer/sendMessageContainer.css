@@ -1,0 +1,19 @@
+.send-message-form {
+  padding: 1rem;
+  background-color: #ffe0e9;
+  border-top: 1px solid #ffb3c1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.send-message-form button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
