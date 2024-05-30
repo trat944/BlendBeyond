@@ -5,17 +5,18 @@
 </p>
 
 ## Table of Contents
-1. [🌟 **A New Era of Dating**](#🌟-a-new-era-of-dating)
-2. [Installation](#installation)
-3. [Key Features](#key-features)
-4. [Technologies Used](#technologies-used)
-5. [Future Enhancements](#future-enhancements)
-6. [## 🚧 **Challenges Ahead**](#challenges-ahead)
-7. [Join the Blend Beyond Community](#join-the-blend-beyond-community)
+1. [Installation](#installation)
+2. [Key Features](#key-features)
+3. [Technologies Used](#technologies-used)
+4. [Future Enhancements](#future-enhancements)
+5. [Challenges Ahead](#challenges-ahead)
+6. [Join the Blend Beyond Community](#join-the-blend-beyond-community)
 
 ## 🌟 **A New Era of Dating**
 
 Blend Beyond isn't just another dating app—it's a revolution! Step into a world where meaningful connections and unforgettable experiences await. With our cutting-edge technology and sleek design, love knows no bounds.
+
+<a name="installation"></a>
 
 ## 🛠️ **Installation**
 
@@ -51,7 +52,7 @@ To get started with Blend Beyond, follow these steps:
 
   *For showcasing purposes, I have included the .env files for a quicker installation.*
 
-
+<a name="key-features"></a>
 
 ## 🚀 **Key Features**
 
@@ -84,6 +85,8 @@ To get started with Blend Beyond, follow these steps:
 
 - **Chat Between Users**: Implemented chat functionality between users, allowing them to communicate directly within the app. Messages and conversations are stored in the database and are related to the users, ensuring data consistency. Delete onCascade is utilized to remove all associated messages and conversations when a user is deleted, ensuring data integrity..
 
+<a name="technologies-used"></a>
+
 ## 💻 **Technologies Used**
 
 - **TypeScript**: Enhances code reliability and scalability, ensuring a robust and maintainable codebase.
@@ -99,6 +102,7 @@ To get started with Blend Beyond, follow these steps:
 - **bcrypt Library**: To hash passwords and improve security.
 - **JWT**: Json Web Tokens to improve the app's routes security.
 
+<a name="future-enhancements"></a>
 
 ## 🌈 **Future Enhancements**
 
@@ -109,6 +113,8 @@ Blend Beyond is constantly evolving, and here's what's on the horizon:
 - **Chat between matches**:  Introduce a seamless chat feature that allows users to communicate with their matches directly within the app, fostering meaningful conversations and deeper connections.
 
 - **AI-Powered Matchmaking**: Explore the possibilities of AI-driven algorithms to deliver more accurate and personalized matchmaking results, making every connection meaningful and impactful.
+
+<a name="challenges-ahead"></a>
 
 ## 🚧 **Challenges Ahead**
 
