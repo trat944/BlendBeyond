@@ -5,7 +5,7 @@
 </p>
 
 ## Table of Contents
-1. [🌟 **A New Era of Dating**](#a-new-era-of-dating)
+1. [🌟 **A New Era of Dating**](#🌟-a-new-era-of-dating)
 2. [Installation](#installation)
 3. [Key Features](#key-features)
 4. [Technologies Used](#technologies-used)
