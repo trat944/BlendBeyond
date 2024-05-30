@@ -5,13 +5,13 @@
 </p>
 
 ## Table of Contents
-1. [A New Era of Dating](#a-new-era-of-dating)
-2. [Installation](#installation)
-3. [Key Features](#key-features)
-4. [Technologies Used](#technologies-used)
-5. [Future Enhancements](#future-enhancements)
-6. [Challenges Ahead](#challenges-ahead)
-7. [Join the Blend Beyond Community](#join-the-blend-beyond-community)
+1. [A New Era of Dating](#🌟-a-new-era-of-dating)
+2. [Installation](#🛠️-installation)
+3. [Key Features](#🚀-key-features)
+4. [Technologies Used](#💻-technologies-used)
+5. [Future Enhancements](#🌈-future-enhancements)
+6. [Challenges Ahead](#🚧-challenges-ahead)
+7. [Join the Blend Beyond Community](#📣-join-the-blend-beyond-community)
 
 ## 🌟 **A New Era of Dating**
 
@@ -22,20 +22,25 @@ Blend Beyond isn't just another dating app—it's a revolution! Step into a worl
 To get started with Blend Beyond, follow these steps:
 
 1. **Clone the repository:**
- git clone https://github.com/your-username/blend-beyond.git
+   git clone `https://github.com/your-username/blend-beyond.git`
 
 2. **Navigate to the project directory:**
   cd blend-beyond
 
 3. **Navigate to the backend directory, install dependencies, generate Prisma client and run the backend server:**
   cd backend
+
   pnpm install
+
   npx prisma generate
+
   pnpm dev
 
 3. **Navigate to the frontend directory, install dependencies, and run the frontend server:**
   cd ../frontend
+
   pnpm install
+  
   pnpm dev
 
 **Observations**
