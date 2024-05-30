@@ -4,9 +4,43 @@
   <img src="frontend/src/assets/visual.jpg" alt="Blend Beyond Visual" />
 </p>
 
+## Table of Contents
+1. [A New Era of Dating](#a-new-era-of-dating)
+2. [Installation](#installation)
+3. [Key Features](#key-features)
+4. [Technologies Used](#technologies-used)
+5. [Future Enhancements](#future-enhancements)
+6. [Challenges Ahead](#challenges-ahead)
+7. [Join the Blend Beyond Community](#join-the-blend-beyond-community)
+
 ## 🌟 **A New Era of Dating**
 
 Blend Beyond isn't just another dating app—it's a revolution! Step into a world where meaningful connections and unforgettable experiences await. With our cutting-edge technology and sleek design, love knows no bounds.
+
+## 🛠️ **Installation**
+
+To get started with Blend Beyond, follow these steps:
+
+1. **Clone the repository:**
+ git clone https://github.com/your-username/blend-beyond.git
+
+2. **Navigate to the project directory:**
+  cd blend-beyond
+
+3. **Navigate to the backend directory, install dependencies, generate Prisma client and run the backend server:**
+  cd backend
+  pnpm install
+  npx prisma generate
+  pnpm dev
+
+3. **Navigate to the frontend directory, install dependencies, and run the frontend server:**
+  cd ../frontend
+  pnpm install
+  pnpm dev
+
+**Observations**
+  *You may have a problem with importing the Menu component. Rename the "menu" folder to "Menu" with a capital letter in that case.*
+  *For showcasing purposes, I have included the .env files for a quicker installation.*
 
 ## 🚀 **Key Features**
 
@@ -36,6 +70,8 @@ Blend Beyond isn't just another dating app—it's a revolution! Step into a worl
 - **Matched Users Controller**: Created a controller to filter and identify mutual likes, leveraging the many-to-many relationships to display matched users.
 
 - **Logout and Delete Buttons**: Added functionality for users to log out and delete their accounts. The delete controller ensures all likes/dislikes and pictures from Cloudinary are removed, maintaining data cleanliness.
+
+- **Chat Between Users**: Implemented chat functionality between users, allowing them to communicate directly within the app. Messages and conversations are stored in the database and are related to the users, ensuring data consistency. Delete onCascade is utilized to remove all associated messages and conversations when a user is deleted, ensuring data integrity..
 
 ## 💻 **Technologies Used**
 

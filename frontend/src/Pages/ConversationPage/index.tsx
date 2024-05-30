@@ -16,10 +16,13 @@ export const ConversationPage = () => {
 
   useEffect(() => {
     getMessages(loggedUserId, user.id, setMessages);
+  }, [loggedUserId, user.id]);
+
+  useEffect(() => {
     setTimeout(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 100);
-  }, [loggedUserId, user.id]);
+  }, [messages]);
 
   return (
     <Layout>
