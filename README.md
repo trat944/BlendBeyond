@@ -75,6 +75,3 @@ Become part of the Blend Beyond journey today! Whether you're a developer, desig
 
 Let's blend beyond boundaries and create meaningful connections together! 💖
 
-//skeletons en mensajes, matches y convers
-//borrar mensaje al clicar
-//maybe likedby/dislikedby PAYLOAD en el useReducer?

@@ -5,7 +5,7 @@ import { MessageIndividual } from '../../interfaces/conversation';
 import { getMessages } from '../../utils/petitionsToBackend';
 import { ConversationContainer, ConversationHeader, ConversationUserDetails, ConversationUserName, ConversationUserPhoto, Messages } from '../../styled_components/conversationContainer';
 import { Layout } from '../../components/layout';
-import { MessageContainer } from './Message';
+import { MessageContainer } from './MessageContainer';
 import { SendMessageContainer } from './SendMessageContainer';
 
 export const ConversationPage = () => {
