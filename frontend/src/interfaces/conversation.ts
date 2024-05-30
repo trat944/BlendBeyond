@@ -3,7 +3,7 @@ export interface Conversation {
   participant1Id: string,
   participant2Id: string,
   createdAt: Date,
-  updateAt: Date,
+  updatedAt: Date,
   messages: MessageIndividual[]
 }
 
@@ -13,6 +13,6 @@ export interface MessageIndividual {
   message: string,
   receiverId: string,
   createdAt: Date,
-  updateAt: Date,
+  updatedAt: string,
   conversationId: string
 }

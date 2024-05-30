@@ -1,4 +1,10 @@
+.messages-father {
+  display: flex;
+  flex-direction: column;
+}
+
 .loggedUserSender {
+  width: fit-content;
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
   border-radius: 20px;
@@ -10,9 +16,11 @@
   display: flex;
   align-self: flex-end;
   background-color: #ca64aa;
+  flex-direction: column;
 }
 
 .targetedUserSender {
+  width: fit-content;
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
   border-radius: 20px;
@@ -24,4 +32,12 @@
   display: flex;
   align-self: flex-start;
   background-color: #ffe0e9;
+  flex-direction: column;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 5px;
+  align-self: flex-end; 
 }
