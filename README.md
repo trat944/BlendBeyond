@@ -11,7 +11,7 @@
 4. [Technologies Used](#technologies-used)
 5. [Future Enhancements](#future-enhancements)
 6. [## 🚧 **Challenges Ahead**](#challenges-ahead)
-7. [📣 **Join the Blend Beyond Community**](#join-the-blend-beyond-community)
+7. [Join the Blend Beyond Community](#join-the-blend-beyond-community)
 
 ## 🌟 **A New Era of Dating**
 
@@ -115,6 +115,8 @@ Blend Beyond is constantly evolving, and here's what's on the horizon:
 While Blend Beyond aims for the stars, there are challenges to overcome:
 
 - **Challenges and personality tests**: Integrating challenges to be played amongst people that have matched, together with personality tests will be crucial for scaling the application and delivering a seamless user experience. However, with dedication and perseverance, we're ready to tackle this challenge head-on.
+
+<a name="join-the-blend-beyond-community"></a>
 
 ## 📣 **Join the Blend Beyond Community**
 
