@@ -39,42 +39,42 @@ model User {
 
 model Like {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  from      User     @relation("LikedBy", fields: [fromId], references: [id])
+  from      User     @relation("LikedBy", fields: [fromId], references: [id], onDelete: Cascade)
   fromId    String   @db.ObjectId
-  to        User     @relation("LikedUsers", fields: [toId], references: [id])
+  to        User     @relation("LikedUsers", fields: [toId], references: [id], onDelete: Cascade)
   toId      String   @db.ObjectId
   createdAt DateTime @default(now())
 }
 
 model Dislike {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  from      User     @relation("DislikedBy", fields: [fromId], references: [id])
+  from      User     @relation("DislikedBy", fields: [fromId], references: [id], onDelete: Cascade)
   fromId    String   @db.ObjectId
-  to        User     @relation("DislikedUsers", fields: [toId], references: [id])
+  to        User     @relation("DislikedUsers", fields: [toId], references: [id], onDelete: Cascade)
   toId      String   @db.ObjectId
   createdAt DateTime @default(now())
 }
 
 model Message {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  sender      User       @relation("SenderUser", fields: [senderId], references: [id])
-  senderId    String     @db.ObjectId
-  receiver    User       @relation("ReceiverUser", fields: [receiverId], references: [id])
-  receiverId  String     @db.ObjectId
-  message     String     @db.String
-  conversation   Conversation  @relation("ConversationMessages", fields: [conversationId], references: [id])
-  conversationId String        @db.ObjectId
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id             String      @id @default(auto()) @map("_id") @db.ObjectId
+  sender         User        @relation("SenderUser", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId       String      @db.ObjectId
+  receiver       User        @relation("ReceiverUser", fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId     String      @db.ObjectId
+  message        String      @db.String
+  conversation   Conversation @relation("ConversationMessages", fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String      @db.ObjectId
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
   @@map("messages")
 }
 
 model Conversation {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  participant1 User      @relation("Participant1", fields: [participant1Id], references: [id])
+  participant1 User      @relation("Participant1", fields: [participant1Id], references: [id], onDelete: Cascade)
   participant1Id String @db.ObjectId
-  participant2 User      @relation("Participant2", fields: [participant2Id], references: [id])
+  participant2 User      @relation("Participant2", fields: [participant2Id], references: [id], onDelete: Cascade)
   participant2Id String @db.ObjectId
   messages     Message[] @relation("ConversationMessages")
   createdAt    DateTime  @default(now())

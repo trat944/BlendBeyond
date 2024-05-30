@@ -20,3 +20,22 @@ import prisma from "../db/client";
       return res.status(400).send("Failed to create dislike");
     }
   };
+
+  export const deleteDislike = async (req: Request, res: Response) => {
+    const { dislikeId } = req.body;
+  
+    if (!dislikeId) {
+      return res.status(400).send("Invalid id parameter");
+    }
+  
+    try {
+      await prisma.dislike.delete({
+        where: { id: dislikeId },
+      });
+  
+      res.status(200).send("Like deleted successfully");
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("Failed to delete like");
+    }
+  };

@@ -20,3 +20,22 @@ export const createLike = async (req: Request, res: Response) => {
         return res.status(400).send("Failed to create like");
     }
   };
+
+export const deleteLike = async (req: Request, res: Response) => {
+  const { likeId } = req.body;
+
+  if (!likeId) {
+    return res.status(400).send("Invalid id parameter");
+  }
+
+  try {
+    await prisma.like.delete({
+      where: { id: likeId },
+    });
+
+    res.status(200).send("Like deleted successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Failed to delete like");
+  }
+};
