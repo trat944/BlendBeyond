@@ -8,6 +8,7 @@ import { UserContext } from '../../hooks/userContext'
 import { DislikeService } from '../../services/DislikeService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faComment, faHeart, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { StyledLink } from '../../styled_components/chatCard'
 
 type Props = {
   loggedUser: User | null
@@ -17,30 +18,34 @@ export const PersonInfoPage = ({loggedUser}: Props) => {
   const {dispatch} = useContext(UserContext)
   const navigate = useNavigate();
   const location = useLocation();
-  const targetedUser: User = location.state.user;
+  const user: User = location.state.user;
   const [matchedUser, setMatchedUser] = useState<User>();
+
+  const loggedUserId = loggedUser?.id;
 
   const differentiateUnknownOrMatched = () => {
     if (loggedUser?.likedUsers) {
       const likedUserIds = loggedUser.likedUsers.map((like: any) => like.toId);
       likedUserIds.forEach((id) => {
-        if (targetedUser.id === id) return setMatchedUser(targetedUser)
+        if (user.id === id) return setMatchedUser(user)
       })
     }
   }
 
   const createLike: MouseEventHandler<SVGSVGElement> | undefined = async () => {
-    if (loggedUser?.id || targetedUser?.id) {
-        const response = await LikeService.createLike(loggedUser?.id, targetedUser?.id)
+    if (loggedUser?.id || user?.id) {
+        const response = await LikeService.createLike(loggedUser?.id, user?.id)
         dispatch({ type: 'UPDATE_LIKED_USERS', payload: response });
+        navigate('/homepage')
     }
   }
 
   const createDislike: MouseEventHandler<SVGSVGElement> | undefined = async () => {
-      if (loggedUser?.id || targetedUser?.id) {
-          const response = await DislikeService.createDislike(loggedUser?.id, targetedUser?.id)
+      if (loggedUser?.id || user?.id) {
+          const response = await DislikeService.createDislike(loggedUser?.id, user?.id)
           dispatch({ type: 'UPDATE_DISLIKED_USERS', payload: response });
           console.log(response)
+          navigate('/homepage')
       }
   }
 
@@ -54,11 +59,13 @@ export const PersonInfoPage = ({loggedUser}: Props) => {
 
   return (
     <div className="personInfo-container">
-      <img src={targetedUser.pictureUrl || './src/assets/th.jpg'} alt="" />
-      <span className='person-age-name'>{targetedUser.name}, {targetedUser.age ? targetedUser.age : 'Age not available'}</span>
+      <img src={user.pictureUrl || './src/assets/th.jpg'} alt="" />
+      <span className='person-age-name'>{user.name}, {user.age ? user.age : 'Age not available'}</span>
       <span>Here you will have all the info, destinations, bucketlist, pictures...etc</span>
       {matchedUser ? (
-        <FontAwesomeIcon className='menu_icon' icon={faComment} />
+        <StyledLink to={`/conversation/${user.id}`} state={{ user, loggedUserId }}>
+          <FontAwesomeIcon className='chat-button' icon={faComment} />
+        </StyledLink>
       ) : (
         <div className="button-container">
           <FontAwesomeIcon 
@@ -72,7 +79,7 @@ export const PersonInfoPage = ({loggedUser}: Props) => {
           icon={faHeart} />
         </div>
       )}
-      <FontAwesomeIcon onClick={goBack} icon={faChevronLeft} />
+      <FontAwesomeIcon className='retreat-button' onClick={goBack} icon={faChevronLeft} />
       <Menu />
     </div>
   )
