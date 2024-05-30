@@ -52,20 +52,6 @@ export const Messages = styled.div`
   background-color: #f9f9f9;
   justify-content: flex-end;
 `;
-// align-self: ${({ isSender }) => (isSender ? 'flex-end' : 'flex-start')};
-export const Message = styled.div`
-  display: flex;
-  background-color: #ffe0e9;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 20px;
-  max-width: 70%;
-  border: 1px solid #ffb3c1;
-  color: #7a0032;
-  word-wrap: break-word; 
-  word-break: break-word; 
-  white-space: pre-wrap; 
-`;
 
 export const MessageInputContainer = styled.div`
   display: flex;

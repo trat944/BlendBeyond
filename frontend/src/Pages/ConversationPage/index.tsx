@@ -3,10 +3,10 @@ import './conversationPage.css'
 import { useLocation } from 'react-router-dom'
 import { MessageIndividual } from '../../interfaces/conversation';
 import { getMessages } from '../../utils/petitionsToBackend';
-import { ConversationContainer, ConversationHeader, ConversationUserDetails, ConversationUserName, ConversationUserPhoto, Message, MessageInput, MessageInputContainer, Messages } from '../../styled_components/conversationContainer';
+import { ConversationContainer, ConversationHeader, ConversationUserDetails, ConversationUserName, ConversationUserPhoto, Messages } from '../../styled_components/conversationContainer';
 import { Layout } from '../../components/layout';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { MessageContainer } from './Message';
+import { SendMessageContainer } from './SendMessageContainer';
 
 export const ConversationPage = () => {
   const location = useLocation();
@@ -21,7 +21,7 @@ export const ConversationPage = () => {
     console.log(messages)
   }, [messages])
 
-  // isSender={msg.sender === 'self'}
+
   return (
     <Layout>
         <ConversationContainer>
@@ -33,20 +33,10 @@ export const ConversationPage = () => {
           </ConversationHeader>
           <Messages>
             {messages.map((msg) => (
-              <Message key={msg.id}>
-                {msg.message}
-              </Message>
+              <MessageContainer key={msg.id} isSender={msg.senderId === loggedUserId} msg={msg}/>
             ))}
           </Messages>
-        <MessageInputContainer>
-          <MessageInput
-            // type="text"
-            // value={newMessage}
-            // onChange={(e) => setNewMessage(e.target.value)}
-            // placeholder="Type your message..."
-          />
-          <FontAwesomeIcon className='send-chatButton' icon={faPaperPlane} />
-        </MessageInputContainer>
+          <SendMessageContainer />
       </ConversationContainer>
     </Layout>
   );
