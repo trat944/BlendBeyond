@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { UserWithLastMessage } from "../../../interfaces/userWithLastMessage";
 import { ChatCardContainer, ChatLastMessage, ChatProfilePic, ChatUserName, StyledLink } from "../../../styled_components/chatCard";
 import { DeleteButton } from "./deleteButton";
+import { useSocketContext } from "../../../hooks/socketContext";
 
 type Props ={
   loggedUserId: number;
@@ -12,6 +13,10 @@ type Props ={
 export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, setUsersWithChatAndLastMessage }: Props) => {
   const { user, lastMessage, conversationId } = userWithConversationAndLastMessage;
   const [lastMessageText, setLastMessageText] = useState(lastMessage?.message || '');
+
+  const {onlineUsers, isFetchingUsers} = useSocketContext();
+  console.log(onlineUsers)
+  const isOnline = onlineUsers.includes(user.id)
 
   useEffect(() => {
     if (lastMessage) {
@@ -39,6 +44,13 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, set
           />
           <ChatProfilePic src={user.pictureUrl || './src/assets/th.jpg'} alt={user.name} />
           <ChatUserName>{user.name}</ChatUserName>
+          {isFetchingUsers ? (
+            <span>Fetching...</span>
+          ) : isOnline ? (
+            <span>Online</span>
+          ) : (
+            <span>Not Online</span>
+          )}
           {lastMessageText ? <ChatLastMessage>{lastMessageText}</ChatLastMessage> : <ChatLastMessage>No messages</ChatLastMessage>}
         </ChatCardContainer>
       </StyledLink>
