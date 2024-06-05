@@ -1,6 +1,7 @@
-import app from "./server";
 import config from "./config/config";
 import prisma from "./db/client";
+import { server } from "./server";
+// import { server } from "./sockets/socket";
 
 
 const PORT = config.app.PORT
@@ -11,7 +12,7 @@ async function main() {
       console.log('Connected to the database');
       
       // Aquí puedes iniciar tu servidor Express y cualquier otra lógica de la aplicación
-      app.listen(PORT, () => {
+      server.listen(PORT, () => {
         console.log(`Server is running on port ${PORT} and is connected to the database`);
       });
     } catch (error) {
