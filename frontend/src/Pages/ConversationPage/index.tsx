@@ -15,7 +15,8 @@ export const ConversationPage = () => {
   const [messages, setMessages] = useState<MessageIndividual[]>([]);
   const { loggedUserId, user } = location.state;
   const lastMessageRef = useRef<HTMLDivElement>(null);
-  const {socket} = useSocketContext()
+  const {socket, onlineUsers} = useSocketContext()
+  const isOnline = onlineUsers.includes(user.id)
 
   useEffect(() => {
     const handleMessage = (newMessage: MessageIndividual) => {
@@ -57,7 +58,10 @@ export const ConversationPage = () => {
       <ConversationContainer>
         <ConversationHeader>
           <ConversationUserDetails>
+          <div className="user-avatar">
             <ConversationUserPhoto src={user.pictureUrl} alt="User" />
+            {isOnline && <div className="online-indicator"></div>}
+          </div>
             <ConversationUserName>{user.name}</ConversationUserName>
           </ConversationUserDetails>
         </ConversationHeader>

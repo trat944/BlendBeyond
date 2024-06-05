@@ -44,7 +44,6 @@ export const PersonInfoPage = ({loggedUser}: Props) => {
       if (loggedUser?.id || user?.id) {
           const response = await DislikeService.createDislike(loggedUser?.id, user?.id)
           dispatch({ type: 'UPDATE_DISLIKED_USERS', payload: response });
-          console.log(response)
           navigate('/homepage')
       }
   }

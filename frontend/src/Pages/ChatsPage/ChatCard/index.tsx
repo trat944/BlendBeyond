@@ -16,7 +16,6 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, set
   const [lastMessageText, setLastMessageText] = useState(lastMessage?.message || '');
 
   const {onlineUsers} = useSocketContext();
-  console.log(onlineUsers)
   const isOnline = onlineUsers.includes(user.id)
 
   useEffect(() => {

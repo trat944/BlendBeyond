@@ -73,7 +73,7 @@ export const ProfileSumUp = ({user}: Props) => {
             />
           </label>
         </div>
-        {errors.selfImage && typeof errors.selfImage.message === 'string' && <span className='error-msg'>{errors.selfImage.message}</span>}
+        {/* {errors.selfImage && typeof errors.selfImage.message === 'string' && <span className='error-msg'>{errors.selfImage.message}</span>} */}
         <span className='user-name-age'>{user?.name}, {userAge}</span>
         <div className="input-container">
           <input 
@@ -84,7 +84,7 @@ export const ProfileSumUp = ({user}: Props) => {
               message: "Birthdate is required"
             }
           })} />
-          {errors.birthdate && typeof errors.birthdate.message === 'string' && <span className='error-msg'>{errors.birthdate.message}</span>}
+          {/* {errors.birthdate && typeof errors.birthdate.message === 'string' && <span className='error-msg'>{errors.birthdate.message}</span>} */}
           <div className="pair-of-inputs-container">
             <input
             id='city'
@@ -95,7 +95,7 @@ export const ProfileSumUp = ({user}: Props) => {
               validate: (value) =>
                 cityValidator(value) || "Invalid city"
             })}/>
-            {errors.city && typeof errors.city.message === 'string' && <span className='error-msg'>{errors.city.message}</span>}
+            {/* {errors.city && typeof errors.city.message === 'string' && <span className='error-msg'>{errors.city.message}</span>} */}
             <SecondaryButton 
             className='localization-btn'
             onClick={(event) => handleGetLocation(event, setLocation, setNearestCity)}>
@@ -115,7 +115,7 @@ export const ProfileSumUp = ({user}: Props) => {
               <option value="non-binary">Non-binary</option>
               <option value="transgender">Transgender</option>
             </select>
-            {errors.sex && typeof errors.sex.message === 'string' && <span className='error-msg'>{errors.sex.message}</span>}
+            {/* {errors.sex && typeof errors.sex.message === 'string' && <span className='error-msg'>{errors.sex.message}</span>} */}
           </div>
           <div className="pair-of-inputs-container">
             <label htmlFor="lookingFor">What are you looking for?</label>
@@ -130,7 +130,7 @@ export const ProfileSumUp = ({user}: Props) => {
               <option value="woman">Woman</option>
             </select>
           </div>
-          {errors.lookingFor && typeof errors.lookingFor.message === 'string' && <span className='error-msg'>{errors.lookingFor.message}</span>}
+          {/* {errors.lookingFor && typeof errors.lookingFor.message === 'string' && <span className='error-msg'>{errors.lookingFor.message}</span>} */}
         </div>
         <button>submit</button>
       </form>
