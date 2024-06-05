@@ -7,12 +7,37 @@ import { ConversationContainer, ConversationHeader, ConversationUserDetails, Con
 import { Layout } from '../../components/layout';
 import { MessageContainer } from './MessageContainer';
 import { SendMessageContainer } from './SendMessageContainer';
+import { useSocketContext } from '../../hooks/socketContext';
 
 export const ConversationPage = () => {
   const location = useLocation();
   const [messages, setMessages] = useState<MessageIndividual[]>([]);
   const { loggedUserId, user } = location.state;
   const lastMessageRef = useRef<HTMLDivElement>(null);
+  const {socket} = useSocketContext()
+
+  useEffect(() => {
+    const handleMessage = (newMessage: MessageIndividual) => {
+      setMessages((prevMessages) => {
+        if (prevMessages) {
+          return [...prevMessages, newMessage];
+        } else {
+          return [newMessage];
+        }
+      });
+    };
+  
+    if (socket) {
+      socket.on("newMessage", handleMessage);
+    }
+  
+    return () => {
+      if (socket) {
+        socket.off("newMessage", handleMessage);
+      }
+    };
+  }, [socket, setMessages]); 
+
 
   useEffect(() => {
     getMessages(loggedUserId, user.id, setMessages);
