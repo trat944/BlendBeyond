@@ -9,6 +9,7 @@ type Props = {
 
 export const MessageContainer = ({ msg, isSender }: Props) => {
   const formattedTime = getFormattedTime(msg.updatedAt);
+  
   return (
     <div className={isSender ? 'loggedUserSender' : 'targetedUserSender'}>
       <div className="message-content">{msg.message}</div>

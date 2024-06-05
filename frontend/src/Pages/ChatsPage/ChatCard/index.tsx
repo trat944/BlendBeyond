@@ -3,6 +3,7 @@ import { UserWithLastMessage } from "../../../interfaces/userWithLastMessage";
 import { ChatCardContainer, ChatLastMessage, ChatProfilePic, ChatUserName, StyledLink } from "../../../styled_components/chatCard";
 import { DeleteButton } from "./deleteButton";
 import { useSocketContext } from "../../../hooks/socketContext";
+import './chatCard.css'
 
 type Props ={
   loggedUserId: number;
@@ -14,7 +15,7 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, set
   const { user, lastMessage, conversationId } = userWithConversationAndLastMessage;
   const [lastMessageText, setLastMessageText] = useState(lastMessage?.message || '');
 
-  const {onlineUsers, isFetchingUsers} = useSocketContext();
+  const {onlineUsers} = useSocketContext();
   console.log(onlineUsers)
   const isOnline = onlineUsers.includes(user.id)
 
@@ -42,15 +43,11 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, set
             setUsersWithChatAndLastMessage={setUsersWithChatAndLastMessage}
             userName={user.name}
           />
-          <ChatProfilePic src={user.pictureUrl || './src/assets/th.jpg'} alt={user.name} />
+          <div className="user-avatar">
+            <ChatProfilePic src={user.pictureUrl || './src/assets/th.jpg'} alt={user.name} />
+            {isOnline && <div className="online-indicator"></div>}
+          </div>
           <ChatUserName>{user.name}</ChatUserName>
-          {isFetchingUsers ? (
-            <span>Fetching...</span>
-          ) : isOnline ? (
-            <span>Online</span>
-          ) : (
-            <span>Not Online</span>
-          )}
           {lastMessageText ? <ChatLastMessage>{lastMessageText}</ChatLastMessage> : <ChatLastMessage>No messages</ChatLastMessage>}
         </ChatCardContainer>
       </StyledLink>

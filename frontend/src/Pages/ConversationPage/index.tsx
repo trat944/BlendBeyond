@@ -8,6 +8,7 @@ import { Layout } from '../../components/layout';
 import { MessageContainer } from './MessageContainer';
 import { SendMessageContainer } from './SendMessageContainer';
 import { useSocketContext } from '../../hooks/socketContext';
+import notificationSound from '../../assets/notification.mp3'
 
 export const ConversationPage = () => {
   const location = useLocation();
@@ -18,6 +19,8 @@ export const ConversationPage = () => {
 
   useEffect(() => {
     const handleMessage = (newMessage: MessageIndividual) => {
+      const sound = new Audio(notificationSound);
+      sound.play();
       setMessages((prevMessages) => {
         if (prevMessages) {
           return [...prevMessages, newMessage];

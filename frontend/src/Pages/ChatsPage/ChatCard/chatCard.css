@@ -1,0 +1,15 @@
+.user-avatar {
+  position: relative; 
+  display: inline-block;
+}
+
+.online-indicator {
+  width: 10px; 
+  height: 10px; 
+  background-color: green; 
+  border-radius: 50%; 
+  position: absolute;
+  top: 0; 
+  left: 50%; 
+  border: 2px solid white;
+}
