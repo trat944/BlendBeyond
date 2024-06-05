@@ -17,7 +17,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors({
   origin: "http://localhost:5173",
-  methods: ["GET", "POST", "DELETE"],
+  methods: ["GET", "POST", "DELETE", "PATCH"],
   credentials: true
 }));
 
@@ -38,7 +38,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
 	cors: {
 		origin: ["http://localhost:5173"],
-		methods: ["GET", "POST", "DELETE"],
+		methods: ["GET", "POST", "DELETE", "PATCH"],
     credentials: true
 	},
 });
