@@ -5,7 +5,7 @@ export class DislikeService {
 
     static async createDislike(fromUserId: any, toUserId: any) {
         try {
-            const response = await axios.post(VITE_BASE_URL + 'dislikes', {
+            const response = await axios.post(VITE_BASE_URL + 'api/dislikes', {
                 fromUserId,
                 toUserId
             }, {

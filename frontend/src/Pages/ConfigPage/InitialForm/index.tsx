@@ -31,9 +31,10 @@ export const ProfileSumUp = ({user}: Props) => {
   
   const onSubmit = handleSubmit(async (data) => {
     const age = getAge(data.birthdate);
-    if (age) setUserAge(getAge(data.birthdate));
+    if (age !== undefined) setUserAge(age);
     if (formattedTime && !data.birthdate) {
       data.birthdate = formattedTime
+      setUserAge(getAge(formattedTime))
     }
     data.birthdate = getOriginalDate(data.birthdate)
     const updatedUser = { ...user, ...data, age };

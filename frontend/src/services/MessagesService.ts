@@ -5,7 +5,7 @@ export class MessagesService {
 
     static async getMessages(senderId: string, receiverId: string) {
         try {
-            const response = await axios.post(`${VITE_BASE_URL}messages/get/${senderId}`, {
+            const response = await axios.post(`${VITE_BASE_URL}api/messages/get/${senderId}`, {
               receiverId
             }, {
                 withCredentials: true 
@@ -17,7 +17,7 @@ export class MessagesService {
     }
     static async sendMessage(senderId: string, receiverId: string, message: string) {
         try {
-            const response = await axios.post(`${VITE_BASE_URL}messages/send/${senderId}`, {
+            const response = await axios.post(`${VITE_BASE_URL}api/messages/send/${senderId}`, {
               receiverId,
               message
             }, {

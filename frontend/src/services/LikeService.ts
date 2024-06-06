@@ -5,7 +5,7 @@ export class LikeService {
 
     static async createLike(fromUserId: any, toUserId: any) {
         try {
-            const response = await axios.post(VITE_BASE_URL + 'likes', {
+            const response = await axios.post(VITE_BASE_URL + 'api/likes', {
                 fromUserId,
                 toUserId
             }, {

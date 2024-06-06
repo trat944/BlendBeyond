@@ -8,7 +8,7 @@ export class UserFilteringService {
     
     try {
       const response = await axios.post(
-        VITE_BASE_URL + 'filteredUsers/desired',
+        VITE_BASE_URL + 'api/filteredUsers/desired',
         {
           city,
           lookingFor,
@@ -29,7 +29,7 @@ export class UserFilteringService {
   static async getMatchedUsers(loggedUser: any) {
     const { id, likedUsers, likedBy } = loggedUser;
     try {
-      const response = await axios.post(VITE_BASE_URL + 'filteredUsers/matched', {
+      const response = await axios.post(VITE_BASE_URL + 'api/filteredUsers/matched', {
         id,
         likedUsers,
         likedBy,
@@ -44,7 +44,7 @@ export class UserFilteringService {
   };
   static async getUsersWithConversation(senderId: any) {
     try {
-        const response = await axios.get(`${VITE_BASE_URL}filteredUsers/get/${senderId}`,
+        const response = await axios.get(`${VITE_BASE_URL}api/filteredUsers/get/${senderId}`,
          {
             withCredentials: true 
           });
