@@ -11,7 +11,6 @@ import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { SecondaryButton } from '../../../styled_components/logoutButton'
 import { UserContext } from '../../../hooks/userContext'
 import { getFormattedDate, getOriginalDate } from '../../../utils/getFormattedDate'
-import {format} from 'date-fns'
 
 type Props = {
   user: User | null
