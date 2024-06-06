@@ -20,6 +20,9 @@ dependencies:
   cors:
     specifier: ^2.8.5
     version: 2.8.5
+  date-fns:
+    specifier: ^3.6.0
+    version: 3.6.0
   fontawesome:
     specifier: ^5.6.3
     version: 5.6.3

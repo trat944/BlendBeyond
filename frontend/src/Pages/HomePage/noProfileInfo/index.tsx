@@ -15,8 +15,8 @@ export const NoProfileInfoMessage = ({user}: Props) => {
   
   const handleMissingInfo = () => {
     if (!user?.city) setCityMissing(true)
-    if (!user?.sex) setSexMissing(true)
-    if (!user?.lookingFor) setLookingForMissing(true)
+    if (!user?.sex || user?.sex === 'select') setSexMissing(true)
+    if (!user?.lookingFor || user?.lookingFor === 'select') setLookingForMissing(true)
     if (!user?.birthdate) setBirthdateMissing(true)
     if (!user?.age) setAgeMissing(true)
   }

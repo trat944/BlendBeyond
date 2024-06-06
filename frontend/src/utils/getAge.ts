@@ -1,4 +1,4 @@
-export const getAge = (birthdate: Date | undefined): number | undefined => {
+export const getAge = (birthdate: string | undefined): number | undefined => {
   if (birthdate) {
     const currentDate = new Date();
     const userBirthDate = new Date(birthdate);

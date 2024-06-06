@@ -35,7 +35,7 @@ export const HomePage = () => {
   };
 
   const handleProfileInfoMessage = () => {
-    if (!user?.age || !user?.city || !user?.birthdate || !user?.sex || !user?.lookingFor) {
+    if (!user?.age || !user?.city || !user?.birthdate || user?.sex === 'select' || user?.lookingFor === 'select') {
       setnoProfileInfoMessage(true);
     } else {
       setnoProfileInfoMessage(false);
