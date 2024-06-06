@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { User } from '../../../interfaces/userInterface'
-import './profileSumUp.css'
+import './initialForm.css'
 import { UserService } from '../../../services/UserService'
 import { useContext, useEffect, useState } from 'react'
 import { getAge } from '../../../utils/getAge'

@@ -3,7 +3,7 @@ import { User } from '../../interfaces/userInterface';
 import './configPage.css'
 import { DeleteButton } from './DeleteButton';
 import { LogoutButton } from './LogoutButton';
-import { ProfileSumUp } from "./ProfileSumUp";
+import { ProfileSumUp } from "./InitialForm";
 
 export const ConfigPage = () => {
   const user: User | null = JSON.parse(localStorage.getItem('userLogged') || 'null');
