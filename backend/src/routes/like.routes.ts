@@ -4,8 +4,8 @@ import authenticateToken from "../middleware/jwtMiddleware";
 
 const likeRouter = Router();
 
-likeRouter.post("/", createLike)
-likeRouter.delete("/", deleteLike)
+likeRouter.post("/", authenticateToken, createLike)
+likeRouter.delete("/", authenticateToken, deleteLike)
 
 
 export default likeRouter;

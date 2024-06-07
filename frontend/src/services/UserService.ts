@@ -54,8 +54,7 @@ export class UserService {
     }
     static async deleteUser(userId: any) {
         try {
-            const response = await axios.delete(
-                VITE_BASE_URL + 'api/users',
+            const response = await axios.delete(VITE_BASE_URL + 'api/users',
                 {
                     data: { userId },
                     withCredentials: true 

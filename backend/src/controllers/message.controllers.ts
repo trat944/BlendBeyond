@@ -93,3 +93,21 @@ export const sendMessage = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteMessage = async (req: Request, res: Response) => {
+  const { messageId } = req.body;
+
+  if (!messageId) {
+    return res.status(400).send("Invalid id parameter");
+  }
+
+  try {
+    await prisma.message.delete({
+      where: { id: messageId },
+    });
+
+    res.status(200).send("Message deleted successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Failed to delete message");
+  }
+};

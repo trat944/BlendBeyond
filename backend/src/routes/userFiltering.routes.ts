@@ -4,8 +4,8 @@ import authenticateToken from "../middleware/jwtMiddleware";
 
 const userFilteringRouter = Router();
 
-userFilteringRouter.post("/desired", getDesiredUsers)
-userFilteringRouter.post("/matched", getMatchedUsersWithoutConversationOpen)
-userFilteringRouter.get('/get/:id', getUsersWithConversations)
+userFilteringRouter.post("/desired", authenticateToken, getDesiredUsers)
+userFilteringRouter.post("/matched", authenticateToken, getMatchedUsersWithoutConversationOpen)
+userFilteringRouter.get('/get/:id', authenticateToken, getUsersWithConversations)
 
 export default userFilteringRouter;

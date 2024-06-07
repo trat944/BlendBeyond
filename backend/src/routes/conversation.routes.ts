@@ -4,9 +4,9 @@ import { createConversation, deleteConversation, getConversation } from "../cont
 
 const conversationRouter = Router();
 
-conversationRouter.post('/get/one/:id', getConversation)
-conversationRouter.post('/create/:id', createConversation)
-conversationRouter.delete('/:id', deleteConversation)
+conversationRouter.post('/get/one/:id', authenticateToken, getConversation)
+conversationRouter.post('/create/:id', authenticateToken, createConversation)
+conversationRouter.delete('/:id', authenticateToken, deleteConversation)
 
 
 export default conversationRouter;

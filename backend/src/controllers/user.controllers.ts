@@ -92,8 +92,9 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-  const { name, email, password, birthdate, city, sex, lookingFor, id, age, pictureId } = req.body;
+  let { name, email, password, birthdate, city, sex, lookingFor, id, age, pictureId } = req.body;
   const file = req.files?.selfImage;
+
   try {
     if (file) {
       if (Array.isArray(file)) return res.status(400).send({ message: "File should not be an array" });
@@ -109,9 +110,19 @@ export const updateUser = async (req: Request, res: Response) => {
       await fs.unlink(file.tempFilePath);
     }
 
+    const updateData: any = {};
+    if (name !== undefined) updateData.name = name;
+    if (email !== undefined) updateData.email = email;
+    if (password !== undefined) updateData.password = password;
+    if (birthdate !== null) updateData.birthdate = birthdate;
+    if (city !== null) updateData.city = city;
+    if (sex !== null || sex !=='select') updateData.sex = sex;
+    if (lookingFor !== null || lookingFor !== 'select') updateData.lookingFor = lookingFor;
+    if (age !== null) updateData.age = age;
+
     const userUpdated = await prisma.user.update({
       where: { id: id },
-      data: { name, email, password, birthdate, city, sex, lookingFor, age }
+      data: updateData
     });
 
     const user = await prisma.user.findUnique({

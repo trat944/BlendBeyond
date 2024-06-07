@@ -5,7 +5,6 @@ import { faComment, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import { UserContext } from '../../../hooks/userContext';
 import { StyledLink } from '../../../styled_components/chatCard';
-import { ConversationService } from '../../../services/ConversationService';
 import './matchCard.css'
 
 type Props = {
@@ -16,11 +15,6 @@ export const MatchCard = ({ user}: Props) => {
   const loggedUser: User | null = useContext(UserContext).state.user;
   const loggedUserId = loggedUser?.id
 
-  const handleChat = async () => {
-    await ConversationService.createConversation(loggedUser?.id, user.id)
-  }
-
-
   return (
    <>
       <Card>
@@ -30,7 +24,7 @@ export const MatchCard = ({ user}: Props) => {
             <FontAwesomeIcon icon={faUser} />
           </StyledLink>
           <StyledLink to={`/conversation/${user.id}`} state={{ user, loggedUserId }}>
-            <FontAwesomeIcon onClick={handleChat} className='chat_icon' icon={faComment} />
+            <FontAwesomeIcon  className='chat_icon' icon={faComment} />
           </StyledLink>
         </div>
         <UserName>{user.name}, {user.age ? user.age : 'Age not available'}</UserName>

@@ -1,67 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
-import './conversationPage.css'
-import { useLocation } from 'react-router-dom'
-import { MessageIndividual } from '../../interfaces/conversation';
-import { getMessages } from '../../utils/petitionsToBackend';
-import { ConversationContainer, ConversationHeader, ConversationUserDetails, ConversationUserName, ConversationUserPhoto, Messages } from '../../styled_components/conversationContainer';
-import { Layout } from '../../components/layout';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { MessageContainer } from './MessageContainer';
+import { Layout } from '../../components/layout';
 import { SendMessageContainer } from './SendMessageContainer';
-import { useSocketContext } from '../../hooks/socketContext';
-import notificationSound from '../../assets/notification.mp3'
+import { useMessages } from '../../hooks/useMessages';
+import { ConversationContainer, ConversationHeader, ConversationUserDetails, ConversationUserName, ConversationUserPhoto, Messages } from '../../styled_components/conversationContainer';
+
 
 export const ConversationPage = () => {
   const location = useLocation();
-  const [messages, setMessages] = useState<MessageIndividual[]>([]);
   const { loggedUserId, user } = location.state;
-  const lastMessageRef = useRef<HTMLDivElement>(null);
-  const {socket, onlineUsers} = useSocketContext()
-  const isOnline = onlineUsers.includes(user.id)
-
-  useEffect(() => {
-    const handleMessage = (newMessage: MessageIndividual) => {
-      const sound = new Audio(notificationSound);
-      sound.play();
-      setMessages((prevMessages) => {
-        if (prevMessages) {
-          return [...prevMessages, newMessage];
-        } else {
-          return [newMessage];
-        }
-      });
-    };
-  
-    if (socket) {
-      socket.on("newMessage", handleMessage);
-    }
-  
-    return () => {
-      if (socket) {
-        socket.off("newMessage", handleMessage);
-      }
-    };
-  }, [socket, setMessages]); 
-
-
-  useEffect(() => {
-    getMessages(loggedUserId, user.id, setMessages);
-  }, [loggedUserId, user.id]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  }, [messages]);
+  const { messages, setMessages, lastMessageRef, isOnline } = useMessages(loggedUserId, user.id);
+  const [currentOpenMenu, setCurrentOpenMenu] = useState<string | null>(null);
 
   return (
     <Layout>
       <ConversationContainer>
         <ConversationHeader>
           <ConversationUserDetails>
-          <div className="user-avatar">
-            <ConversationUserPhoto src={user.pictureUrl} alt="User" />
-            {isOnline && <div className="online-indicator"></div>}
-          </div>
+            <div className="user-avatar">
+              <ConversationUserPhoto src={user.pictureUrl} alt="User" />
+              {isOnline && <div className="online-indicator"></div>}
+            </div>
             <ConversationUserName>{user.name}</ConversationUserName>
           </ConversationUserDetails>
         </ConversationHeader>
@@ -74,9 +34,12 @@ export const ConversationPage = () => {
                 ref={index === messages.length - 1 ? lastMessageRef : null}
               >
                 <MessageContainer
+                  receiverId={user.id}
                   key={msg.id}
                   isSender={msg.senderId === loggedUserId}
                   msg={msg}
+                  currentOpenMenu={currentOpenMenu}
+                  setCurrentOpenMenu={setCurrentOpenMenu}
                 />
               </div>
             ))}

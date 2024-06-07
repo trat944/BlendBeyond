@@ -24,12 +24,12 @@ app.use(cookieParser());
 app.use(fileUpload({ useTempFiles: true, tempFileDir: './uploads' }));
 app.use(express.json());
 
-app.use("/users", userRouter);
-app.use("/filteredUsers", userFilteringRouter);
-app.use("/likes", likeRouter);
-app.use("/dislikes", dislikeRouter);
-app.use("/messages", messageRouter);
-app.use("/conversations", conversationRouter);
+app.use("/api/users", userRouter);
+app.use("/api/filteredUsers", userFilteringRouter);
+app.use("/api/likes", likeRouter);
+app.use("/api/dislikes", dislikeRouter);
+app.use("/api/messages", messageRouter);
+app.use("/api/conversations", conversationRouter);
 
 const server = http.createServer(app);
 const io = new Server(server, {

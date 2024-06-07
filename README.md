@@ -52,6 +52,10 @@ To get started with Blend Beyond, follow these steps:
 
   *For showcasing purposes, I have included the .env files for a quicker installation.*
 
+  *Filtering users location is done by means of city. All the users in the database are based in Zaragoza, so create a user based in Zaragoza, or create several users with the same city.*
+
+  *Filtering users by sex and preference is only done man/woman or woman/man so far. Logic is not done for homosexuals or non-binary yet.*
+
 <a name="key-features"></a>
 
 ## 🚀 **Key Features**

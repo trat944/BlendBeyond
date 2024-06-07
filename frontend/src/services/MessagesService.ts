@@ -28,4 +28,17 @@ export class MessagesService {
             console.log(error);
         }
     }
+    static async deleteMessage(messageId: any) {
+        try {
+            const response = await axios.delete(VITE_BASE_URL + 'api/messages/delete',
+                {
+                    data: { messageId },
+                    withCredentials: true 
+                }
+            );
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
