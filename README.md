@@ -87,7 +87,9 @@ To get started with Blend Beyond, follow these steps:
 
 - **Logout and Delete Buttons**: Added functionality for users to log out and delete their accounts. The delete controller ensures all likes/dislikes and pictures from Cloudinary are removed, maintaining data cleanliness.
 
-- **Chat Between Users**: Implemented chat functionality between users, allowing them to communicate directly within the app. Messages and conversations are stored in the database and are related to the users, ensuring data consistency. Delete onCascade is utilized to remove all associated messages and conversations when a user is deleted, ensuring data integrity..
+- **Chat Between Users**: Implemented chat functionality between users, allowing them to communicate directly within the app. Messages and conversations are stored in the database and are related to the users, ensuring data consistency. Delete onCascade is utilized to remove all associated messages and conversations when a user is deleted, ensuring data integrity.
+
+- **Instant update of messages between users**: Implemented sockets to have real-time conversations and connected status of users. Therefore facilitating instant updates of messages between users and ensuring seamless, responsive chat functionality.
 
 <a name="technologies-used"></a>
 
@@ -105,6 +107,7 @@ To get started with Blend Beyond, follow these steps:
 - **Axios**: To simplify petitions to the backend.
 - **bcrypt Library**: To hash passwords and improve security.
 - **JWT**: Json Web Tokens to improve the app's routes security.
+- **Socket.io**: Enables real-time bidirectional communication between clients and servers. 
 
 <a name="future-enhancements"></a>
 
