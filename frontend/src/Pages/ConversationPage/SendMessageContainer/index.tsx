@@ -5,6 +5,8 @@ import {useForm} from 'react-hook-form'
 import { MessagesService } from "../../../services/MessagesService";
 import './sendMessageContainer.css'
 import { MessageIndividual } from "../../../interfaces/conversation";
+import { validateMessage } from "../../../utils/validateMessage";
+import { useState } from "react";
 
 type Props = {
   senderId: string
@@ -14,33 +16,40 @@ type Props = {
 
 export const SendMessageContainer = ({senderId, receiverId, setMessages}: Props) => {
   const {register, handleSubmit, formState: {errors}, reset} = useForm();
+  const [messageError, setMessageError] = useState(false)
 
   const onSubmit = handleSubmit(async (data) => {
     if (Object.keys(errors).length === 0) {
-      const newMessage: MessageIndividual = await MessagesService.sendMessage(senderId, receiverId, data.message);
-      setMessages((prevMessages) => {
-        if (prevMessages) {
-          return [...prevMessages, newMessage]; 
-        } else {
-          return [newMessage];
-        }
-      });
-      reset();
+      const isMessageValid = validateMessage(data.message);
+      if (isMessageValid) {
+        setMessageError(false)
+        const newMessage: MessageIndividual = await MessagesService.sendMessage(senderId, receiverId, data.message);
+        reset();
+        setMessages((prevMessages) => {
+          if (prevMessages) {
+            return [...prevMessages, newMessage]; 
+          } else {
+            return [newMessage];
+          }
+        });
+      } else setMessageError(true)
     }
   });
 
   return (
       <form className="send-message-form" onSubmit={onSubmit}>
-        <MessageInput
-          placeholder="Write your message here"
-          {...register('message', {
-            required: 'El mensaje es obligatorio',
-            // validate: validateMessage
-          })}
-        />
-        <button type="submit">
-          <FontAwesomeIcon className='send-chatButton' icon={faPaperPlane} />
-        </button>
+        <div className="send-message-container">
+          <MessageInput
+            placeholder="Write your message here"
+            {...register('message', {
+              required: true
+            })}
+          />
+          <button type="submit">
+            <FontAwesomeIcon className="send-message-icon" icon={faPaperPlane} />
+          </button>
+        </div>
+        {messageError && <span className="message-violation-error">Your message contains inappropriate content</span>}
       </form>
   );
 };
