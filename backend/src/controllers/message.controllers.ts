@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../db/client";
 import { getReceiverSocketId, io } from "../server";
 
+
 export const getMessages = async (req: Request, res: Response) => {
   try {
     const { receiverId } = req.body;
@@ -41,6 +42,7 @@ export const sendMessage = async (req: Request, res: Response) => {
     const { message, receiverId } = req.body;
     const { id: senderId } = req.params;
 
+    // Encuentra la conversación existente entre los dos usuarios
     const conversation = await prisma.conversation.findFirst({
       where: {
         OR: [
