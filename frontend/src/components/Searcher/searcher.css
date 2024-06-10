@@ -1,0 +1,21 @@
+.search-container {
+  margin: 1rem 1rem 2rem;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.search-bar {
+  border: none;
+  text-decoration: none;
+  border-bottom: 2px solid black; 
+  outline: none;
+  font-size: 16px; 
+  padding-bottom: 5px;
+  background: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  border-bottom: 2px solid rgb(190, 61, 138); 
+}

@@ -7,11 +7,13 @@ import { getUsersWithChat } from "../../utils/petitionsToBackend";
 import { ChatCard } from "./ChatCard";
 import { UserWithLastMessage } from "../../interfaces/userWithLastMessage";
 import { NoChats } from "./no-chats";
-
+import { SeacherBar } from "../../components/Searcher";
+import { goBackToConversations } from "../../utils/goBackToConversations";
 
 export const ChatsPage = () => {
   const user: User | null = useContext(UserContext).state.user;
   const [usersWithChatAndLastMessage, setUsersWithChatAndLastMessage] = useState<UserWithLastMessage[]>([]);
+  const [searcherTrigger, setSearcherTrigger] = useState(true)
 
   useEffect(() => {
    getUsersWithChat(user, setUsersWithChatAndLastMessage)
@@ -23,6 +25,15 @@ export const ChatsPage = () => {
         {usersWithChatAndLastMessage && usersWithChatAndLastMessage.length > 0 && user ? (
           <div>
             <h1 className="chat-title">Conversations</h1>
+
+            {searcherTrigger ? <SeacherBar 
+            setSearcherTrigger={setSearcherTrigger} 
+            users={usersWithChatAndLastMessage} 
+            setUsers={setUsersWithChatAndLastMessage} /> :
+            (
+              <button onClick={() => goBackToConversations(setSearcherTrigger, setUsersWithChatAndLastMessage, user)} className="back-conversations">Go back</button>
+            )}
+
             {usersWithChatAndLastMessage.map(userWithConversationAndLastMessage => (
               <div key={userWithConversationAndLastMessage.user.id}>
                 <ChatCard
@@ -41,3 +52,5 @@ export const ChatsPage = () => {
     </>
   )
 }
+
+// WebSockets Integration: Implemented WebSockets to enhance real-time communication. Now, the user you are chatting with appears with a green indicator when they are online, and messages are updated in real-time in the chat interface.

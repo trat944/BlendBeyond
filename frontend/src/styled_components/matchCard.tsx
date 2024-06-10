@@ -29,4 +29,5 @@ export const UserName = styled.span`
   font-weight: bold;
   color: #333;
   text-decoration: none;
+  text-align: right
 `;
