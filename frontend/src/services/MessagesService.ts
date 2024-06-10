@@ -18,8 +18,8 @@ export class MessagesService {
     static async sendMessage(senderId: string, receiverId: string, message: string) {
         try {
             const response = await axios.post(`${VITE_BASE_URL}api/messages/send/${senderId}`, {
-              receiverId,
-              message
+            receiverId,
+            message
             }, {
                 withCredentials: true 
             });
