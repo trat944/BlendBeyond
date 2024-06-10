@@ -6,10 +6,14 @@ import { getMatchedUsers } from '../../utils/petitionsToBackend'
 import { MatchCard } from './MatchCard'
 import { Menu } from '../../components/Menu'
 import { NoMatches } from './no-matches'
+import { SeacherBarForMatches } from '../../components/Searchers/SearcherBarForMatches'
+import { BackAllUsersButton } from '../../styled_components/backAllUsersButton'
+import { goBackToMatches } from '../../utils/goBackToMatches'
 
 export const MatchesPage = () => {
   const user: User | null = useContext(UserContext).state.user;
   const [matchedUsers, setMatchedUsers] = useState<User[]>([]);
+  const [searcherTrigger, setSearcherTrigger] = useState(true)
 
   useEffect(() => {
     getMatchedUsers(user, setMatchedUsers);
@@ -21,6 +25,15 @@ export const MatchesPage = () => {
         {matchedUsers && matchedUsers.length > 0 && user ? (
           <div>
             <h1 className='match-title'>Don’t make them wait!</h1>
+
+            {searcherTrigger ? <SeacherBarForMatches
+            setSearcherTrigger={setSearcherTrigger} 
+            users={matchedUsers} 
+            setMatchedUsers={setMatchedUsers} /> :
+            (
+              <BackAllUsersButton onClick={() => goBackToMatches(setSearcherTrigger, setMatchedUsers, user)}>Go back</BackAllUsersButton>
+            )}
+
             {matchedUsers.map(user => (
               <MatchCard
                 key={user.id}

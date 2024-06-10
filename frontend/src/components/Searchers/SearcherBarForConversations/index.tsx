@@ -2,26 +2,28 @@ import { useForm } from 'react-hook-form';
 import './searcher.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { UserWithLastMessage } from '../../interfaces/userWithLastMessage';
+import { UserWithLastMessage } from '../../../interfaces/userWithLastMessage';
 
 type Props = {
-  users: UserWithLastMessage[],
-  setUsers: React.Dispatch<React.SetStateAction<UserWithLastMessage[]>>
+  usersWithLastMessage: UserWithLastMessage[],
+  setUsersWithConversation: React.Dispatch<React.SetStateAction<UserWithLastMessage[]>>,
   setSearcherTrigger: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const SeacherBar = ({users, setUsers, setSearcherTrigger}: Props) => {
+export const SearcherBarForConversations = ({usersWithLastMessage, setUsersWithConversation, setSearcherTrigger}: Props) => {
   const {register, handleSubmit, reset} = useForm();
 
   const onSubmit = handleSubmit(async (data) => {
-    const filteredUsers = users.filter(user => {
+    const filteredUsers = usersWithLastMessage.filter(user => {
       const userName = user.user.name.toLowerCase();
       const searchName = data.name.toLowerCase();
       return userName === searchName || userName.includes(searchName);
     });
-    setUsers(filteredUsers);
-    setSearcherTrigger(false);
-    reset();
+    if (setUsersWithConversation) {
+      setUsersWithConversation(filteredUsers);
+      setSearcherTrigger(false);
+      reset();
+    }
   });
 
   return (
