@@ -23,11 +23,11 @@ type DbConfig = {
     URI: string
 }
 
-if(process.env.NODE_ENV === "production"){
-    dotenv.config({path: ".env.production"})
-}else {
-    dotenv.config({path: ".env.development"})
-}
+if (process.env.NODE_ENV === 'production') {
+    dotenv.config({ path: '.env.production' });
+  } else {
+    dotenv.config({ path: '.env.development' });
+  }
 
 const ENV = process.env.NODE_ENV ?? "development";
 

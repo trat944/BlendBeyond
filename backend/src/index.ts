@@ -4,7 +4,7 @@ import { server } from "./server";
 // import { server } from "./sockets/socket";
 
 
-const PORT = config.app.PORT
+const PORT = process.env.PORT || 4000;
 
 async function main() {
     try {
