@@ -1,12 +1,19 @@
 import { User } from "../interfaces/userInterface"
 import { UserWithLastMessage } from "../interfaces/userWithLastMessage"
-import { getUsersWithChat } from "./petitionsToBackend"
+import { getMatchedUsers, getUsersWithChat } from "./petitionsToBackend"
 
 export const goBackToConversations = (
   setSearcherTrigger: React.Dispatch<React.SetStateAction<boolean>>,
-  setUsers: React.Dispatch<React.SetStateAction<UserWithLastMessage[]>>,
-  user: User
+  user: User,
+  setUsersWithConversations?: React.Dispatch<React.SetStateAction<UserWithLastMessage[]>>,
+  setMatchedUsers?: React.Dispatch<React.SetStateAction<User[]>>
 ) => {
-  getUsersWithChat(user, setUsers)
-  setSearcherTrigger(true)
-}
+  if (setUsersWithConversations) {
+    getUsersWithChat(user, setUsersWithConversations as React.Dispatch<React.SetStateAction<UserWithLastMessage[]>>);
+    setSearcherTrigger(true);
+  }
+  if (setMatchedUsers) {
+    getMatchedUsers(user, setMatchedUsers as React.Dispatch<React.SetStateAction<User[]>>);
+    setSearcherTrigger(true);
+  }
+};

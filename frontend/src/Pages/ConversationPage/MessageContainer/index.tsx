@@ -21,6 +21,7 @@ export const MessageContainer = ({ msg, isSender, currentOpenMenu, setCurrentOpe
   const isMenuOpen = currentOpenMenu === msg.id;
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (msg.senderId === receiverId) return;
     const { clientX, clientY } = event;
     setClickPosition({ x: clientX, y: clientY });
     setCurrentOpenMenu(msg.id);

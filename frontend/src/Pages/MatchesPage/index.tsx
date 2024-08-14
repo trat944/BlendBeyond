@@ -6,9 +6,9 @@ import { getMatchedUsers } from '../../utils/petitionsToBackend'
 import { MatchCard } from './MatchCard'
 import { Menu } from '../../components/Menu'
 import { NoMatches } from './no-matches'
-import { SeacherBarForMatches } from '../../components/Searchers/SearcherBarForMatches'
 import { BackAllUsersButton } from '../../styled_components/backAllUsersButton'
 import { goBackToMatches } from '../../utils/goBackToMatches'
+import { SearcherBarForUsers } from '../../components/SearcherBarForUsers'
 
 export const MatchesPage = () => {
   const user: User | null = useContext(UserContext).state.user;
@@ -26,7 +26,7 @@ export const MatchesPage = () => {
           <div>
             <h1 className='match-title'>Don’t make them wait!</h1>
 
-            {searcherTrigger ? <SeacherBarForMatches
+            {searcherTrigger ? <SearcherBarForUsers
             setSearcherTrigger={setSearcherTrigger} 
             users={matchedUsers} 
             setMatchedUsers={setMatchedUsers} /> :

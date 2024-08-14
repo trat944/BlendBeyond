@@ -7,7 +7,7 @@ import { getUsersWithChat } from "../../utils/petitionsToBackend";
 import { ChatCard } from "./ChatCard";
 import { UserWithLastMessage } from "../../interfaces/userWithLastMessage";
 import { NoChats } from "./no-chats";
-import { SearcherBarForConversations } from "../../components/Searchers/SearcherBarForConversations";
+import { SearcherBarForUsers } from "../../components/SearcherBarForUsers";
 import { goBackToConversations } from "../../utils/goBackToConversations";
 import { BackAllUsersButton } from "../../styled_components/backAllUsersButton";
 
@@ -27,12 +27,12 @@ export const ChatsPage = () => {
           <div>
             <h1 className="chat-title">Conversations</h1>
 
-            {searcherTrigger ? <SearcherBarForConversations 
+            {searcherTrigger ? <SearcherBarForUsers 
             setSearcherTrigger={setSearcherTrigger} 
             usersWithLastMessage={usersWithChatAndLastMessage} 
             setUsersWithConversation={setUsersWithChatAndLastMessage} /> :
             (
-              <BackAllUsersButton onClick={() => goBackToConversations(setSearcherTrigger, setUsersWithChatAndLastMessage, user)}>Go back</BackAllUsersButton>
+              <BackAllUsersButton onClick={() => goBackToConversations(setSearcherTrigger, user, setUsersWithChatAndLastMessage)}>Go back</BackAllUsersButton>
             )}
 
             {usersWithChatAndLastMessage.map(userWithConversationAndLastMessage => (

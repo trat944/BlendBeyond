@@ -4,7 +4,10 @@ import { MessageContainer } from './MessageContainer';
 import { Layout } from '../../components/layout';
 import { SendMessageContainer } from './SendMessageContainer';
 import { useMessages } from '../../hooks/useMessages';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { ConversationContainer, ConversationHeader, ConversationUserDetails, ConversationUserName, ConversationUserPhoto, Messages } from '../../styled_components/conversationContainer';
+import './conversationPage.css'
 
 
 export const ConversationPage = () => {
@@ -24,6 +27,7 @@ export const ConversationPage = () => {
             </div>
             <ConversationUserName>{user.name}</ConversationUserName>
           </ConversationUserDetails>
+          {messages && messages.length > 0 && <FontAwesomeIcon className='searcher-of-messages' icon={faMagnifyingGlass} />}
         </ConversationHeader>
         {messages && (
           <Messages>
