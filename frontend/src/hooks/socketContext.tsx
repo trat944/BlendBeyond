@@ -24,6 +24,7 @@ export const SocketContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [onlineUsers, setOnlineUsers] = useState<any[]>([]);
   const [isFetchingUsers, setIsFetchingUsers] = useState(false); // New state for fetching
+  const { VITE_BASE_URL } = import.meta.env;
 
   const { user } = useContext(UserContext).state;
 
@@ -31,7 +32,7 @@ export const SocketContextProvider: FC<PropsWithChildren> = ({ children }) => {
     if (user) {
       setIsFetchingUsers(true); // Set fetching to true initially
 
-      const socket = io("http://localhost:4000", {
+      const socket = io(`${VITE_BASE_URL}`, {
         query: { userId: user.id },
       });
 
