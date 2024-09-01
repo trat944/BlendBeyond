@@ -1,11 +1,5 @@
-interface UserLocation {
-  latitude: number | null;
-  longitude: number | null;
-}
-
 export const handleGetLocation = (
-  event: React.MouseEvent<HTMLButtonElement>,
-  setLocation: React.Dispatch<React.SetStateAction<UserLocation>>, 
+  event: React.MouseEvent<HTMLButtonElement>, 
   setNearestCity: React.Dispatch<React.SetStateAction<string>>
 ) => {
   event.preventDefault()
@@ -13,7 +7,6 @@ export const handleGetLocation = (
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setLocation((prevLocation) => ({ ...prevLocation, latitude: latitude ?? null, longitude: longitude ?? null }));
         fetchNearestCity(setNearestCity, latitude, longitude);
       },
       (error) => {

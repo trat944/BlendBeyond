@@ -16,14 +16,8 @@ type Props = {
   user: User | null
 }
 
-interface Location {
-  latitude: number | null;
-  longitude: number | null;
-}
-
 export const ProfileSumUp = ({user}: Props) => {
   const [userAge, setUserAge] = useState<number>()
-  const [location, setLocation] = useState<Location>({ latitude: null, longitude: null });
   const [nearestCity, setNearestCity] = useState<string>('');
   const [formattedTime, setFormattedTime] = useState<string>('')
   const {register, handleSubmit} = useForm();
@@ -94,7 +88,7 @@ export const ProfileSumUp = ({user}: Props) => {
             />
             <SecondaryButton
               className='localization-btn'
-              onClick={(event) => handleGetLocation(event, setLocation, setNearestCity)}>
+              onClick={(event) => handleGetLocation(event, setNearestCity)}>
               Get Location
             </SecondaryButton>
           </div>

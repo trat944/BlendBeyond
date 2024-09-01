@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { User } from "../../interfaces/userInterface";
 import { UserContext } from "../../hooks/userContext";
-import { Menu } from "../../components/Menu";
 import './chatsPage.css'
 import { getUsersWithChat } from "../../utils/petitionsToBackend";
 import { ChatCard } from "./ChatCard";
@@ -10,6 +9,7 @@ import { NoChats } from "./no-chats";
 import { SearcherBarForUsers } from "../../components/SearcherBarForUsers";
 import { goBackToConversations } from "../../utils/goBackToConversations";
 import { BackAllUsersButton } from "../../styled_components/backAllUsersButton";
+import { Menu } from "../../components/Menu";
 
 export const ChatsPage = () => {
   const user: User | null = useContext(UserContext).state.user;
