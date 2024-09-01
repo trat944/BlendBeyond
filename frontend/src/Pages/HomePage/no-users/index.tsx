@@ -10,7 +10,7 @@ export const NoUsers = ({user}: Props) => {
         <div className="noUsersWomen-container">
             <img 
                 className='noUsers-img' 
-                src={user?.sex === 'man' ? 'src/assets/man_noUsers.png' : 'src/assets/woman_noUsers.png'} 
+                src={user?.sex === 'man' ? '/man_noUsers.png' : '/woman_noUsers.png'} 
                 alt="No more users" 
             />
             <span>No more people closeby! Widen your area to meet more people!</span>

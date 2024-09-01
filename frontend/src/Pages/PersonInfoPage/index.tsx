@@ -58,7 +58,7 @@ export const PersonInfoPage = ({loggedUser}: Props) => {
 
   return (
     <div className="personInfo-container">
-      <img src={user.pictureUrl || './src/assets/th.jpg'} alt="" />
+      <img src={user.pictureUrl || '/th.jpg'} alt="" />
       <span className='person-age-name'>{user.name}, {user.age ? user.age : 'Age not available'}</span>
       <span>Here you will have all the info, destinations, bucketlist, pictures...etc</span>
       {matchedUser ? (

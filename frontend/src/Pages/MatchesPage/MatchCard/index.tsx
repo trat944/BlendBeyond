@@ -18,7 +18,7 @@ export const MatchCard = ({ user}: Props) => {
   return (
    <>
       <Card>
-        <ProfilePic src={user.pictureUrl || './src/assets/th.jpg'} alt={user.name} />
+        <ProfilePic src={user.pictureUrl || '/th.jpg'} alt={user.name} />
         <div className="icon-container">
           <StyledLink to={`/${user.id}`} state={{ user }}>
             <FontAwesomeIcon icon={faUser} />

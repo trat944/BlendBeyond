@@ -43,7 +43,7 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, set
             userName={user.name}
           />
           <div className="user-avatar">
-            <ChatProfilePic src={user.pictureUrl || './src/assets/th.jpg'} alt={user.name} />
+            <ChatProfilePic src={user.pictureUrl || '/th.jpg'} alt={user.name} />
             {isOnline && <div className="online-indicator"></div>}
           </div>
           <ChatUserName>{user.name}</ChatUserName>

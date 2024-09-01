@@ -16,7 +16,7 @@ export const Modal = ({children, onOpen, trigger}: Props) => {
     <ModalSetting onClick={(event)=> {closeModalWhenClickOutside(event, onOpen, trigger)}}>
       <div className="modal-container" >
         <FontAwesomeIcon className='closeBtn' icon={faXmark} onClick={() => {closeModal(onOpen)}} />
-        <img className="modal-img" src="/src/assets/logo.webp" alt="" />
+        <img className="modal-img" src="/logo.webp" alt="" />
           <div>
             {children}
           </div>

@@ -12,7 +12,7 @@ export const LoginPage = () => {
   
   return (
     <>
-    <img className='logo' src='../src/assets/logo.webp' alt="logo" />
+    <img className='logo' src='/logo.webp' alt="logo" />
     <LoginButtons 
       onOpen = {setOpenModal}
       onLoginClicked = { setLoginButtonClicked }
