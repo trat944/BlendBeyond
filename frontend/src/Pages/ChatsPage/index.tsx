@@ -9,7 +9,7 @@ import { NoChats } from "./no-chats";
 import { SearcherBarForUsers } from "../../components/SearcherBarForUsers";
 import { goBackToConversations } from "../../utils/goBackToConversations";
 import { BackAllUsersButton } from "../../styled_components/backAllUsersButton";
-import { Menu } from "../../components/Menu";
+import { Menu } from "../../components/menu";
 
 export const ChatsPage = () => {
   const user: User | null = useContext(UserContext).state.user;

@@ -8,7 +8,7 @@ import { LikeDislikeButtons } from "../../components/like-dislike-buttons";
 import { NoUsers } from "./no-users";
 import { getDesiredUsers } from "../../utils/petitionsToBackend";
 import { NoProfileInfoMessage } from "./noProfileInfo";
-import { Menu } from "../../components/Menu";
+import { Menu } from "../../components/menu";
 
 
 export const HomePage = () => {

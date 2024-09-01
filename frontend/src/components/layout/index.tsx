@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import { Menu } from "../Menu";
+import { Menu } from "../menu";
 import './layout.css'
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
