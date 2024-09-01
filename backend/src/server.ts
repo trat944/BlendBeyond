@@ -12,10 +12,11 @@ import { Server } from 'socket.io';
 import http from 'http';
 
 require('dotenv').config();
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: FRONTEND_URL,
   methods: ["GET", "POST", "DELETE", "PATCH"],
   credentials: true
 }));
@@ -34,7 +35,7 @@ app.use("/api/conversations", conversationRouter);
 const server = http.createServer(app);
 const io = new Server(server, {
 	cors: {
-		origin: ["http://localhost:5173"],
+		origin: [FRONTEND_URL],
 		methods: ["GET", "POST", "DELETE", "PATCH"],
     credentials: true
 	},
