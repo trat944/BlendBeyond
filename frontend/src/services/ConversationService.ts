@@ -1,6 +1,8 @@
 import axios from "axios"
 
 const { VITE_BASE_URL } = import.meta.env
+axios.defaults.withCredentials=true;
+
 export class ConversationService {
 
     static async getConversation(participant1: string, participant2: string) {

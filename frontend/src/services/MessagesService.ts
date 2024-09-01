@@ -1,6 +1,8 @@
 import axios from "axios"
 
 const { VITE_BASE_URL } = import.meta.env
+axios.defaults.withCredentials=true;
+
 export class MessagesService {
 
     static async getMessages(senderId: string, receiverId: string) {
