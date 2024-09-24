@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@prisma/client':
+        specifier: ^5.19.1
+        version: 5.19.1(prisma@5.19.0)
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -38,13 +41,7 @@ importers:
       socket.io:
         specifier: ^4.7.5
         version: 4.7.5
-      tsx:
-        specifier: ^4.19.1
-        version: 4.19.1
     devDependencies:
-      '@prisma/client':
-        specifier: ^5.11.0
-        version: 5.19.0(prisma@5.19.0)
       '@types/bcrypt':
         specifier: ^5.0.2
         version: 5.0.2
@@ -81,6 +78,9 @@ importers:
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.16.3)(typescript@5.5.4)
+      tsx:
+        specifier: ^4.19.1
+        version: 4.19.1
       typescript:
         specifier: ^5.4.2
         version: 5.5.4
@@ -252,8 +252,8 @@ packages:
   '@mongodb-js/saslprep@1.1.8':
     resolution: {integrity: sha512-qKwC/M/nNNaKUBMQ0nuzm47b7ZYWQHN3pcXq4IIcoSBc2hOIrflAxJduIvvqmhoz3gR2TacTAs8vlsCVPkiEdQ==}
 
-  '@prisma/client@5.19.0':
-    resolution: {integrity: sha512-CzOpau+q1kEWQyoQMvlnXIHqPvwmWbh48xZ4n8KWbAql0p8PC0BIgSTYW5ncxXa4JSEff0tcoxSZB874wDstdg==}
+  '@prisma/client@5.19.1':
+    resolution: {integrity: sha512-x30GFguInsgt+4z5I4WbkZP2CGpotJMUXy+Gl/aaUjHn2o1DnLYNTA+q9XdYmAQZM8fIIkvUiA2NpgosM3fneg==}
     engines: {node: '>=16.13'}
     peerDependencies:
       prisma: '*'
@@ -1292,7 +1292,7 @@ snapshots:
     dependencies:
       sparse-bitfield: 3.0.3
 
-  '@prisma/client@5.19.0(prisma@5.19.0)':
+  '@prisma/client@5.19.1(prisma@5.19.0)':
     optionalDependencies:
       prisma: 5.19.0
 
