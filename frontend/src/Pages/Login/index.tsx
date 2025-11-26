@@ -11,25 +11,27 @@ export const LoginPage = () => {
   const [signUpButtonClicked, setSignUpButtonClicked] = useState(false);
   
   return (
-    <>
-    <img className='logo' src='/logo.webp' alt="logo" />
-    <LoginButtons 
-      onOpen = {setOpenModal}
-      onLoginClicked = { setLoginButtonClicked }
-      onSignUpClicked = { setSignUpButtonClicked }  />
+    <div className="login-container">
+      
+      <div className="brand-section">
+        <img className='logo' src='/logo.webp' alt="logo" />
+      </div>
 
-    {openModal && <Modal onOpen={setOpenModal}>
+      <div className="actions-section">
+        <LoginButtons 
+          onOpen={setOpenModal}
+          onLoginClicked={setLoginButtonClicked}
+          onSignUpClicked={setSignUpButtonClicked} 
+        />
+      </div>
 
-        {loginButtonClicked && (
-          <LoginForm />
-        )}
-
-        {signUpButtonClicked && (
-          <SignupForm />
-        )}
-
-    </Modal>}
-    </>
+      {openModal && (
+        <Modal onOpen={setOpenModal}>
+            {loginButtonClicked && <LoginForm />}
+            {signUpButtonClicked && <SignupForm />}
+        </Modal>
+      )}
+    </div>
   )
 }
 
@@ -43,6 +45,7 @@ export const LoginPage = () => {
 // 1 sitio favorito
 // 1 destino soñado
 // 1 bucket lists of goals, dreams, and aspirations.
+// IA para prompt de intereses similares
 
 // Personality Quizzes: Incorporate fun and insightful personality quizzes that users can take to reveal more about themselves. These quizzes can cover various topics such as hobbies, interests, values, and preferences. The results can be displayed on their profiles, giving others a better understanding of who they are beyond the basics.
 
