@@ -34,7 +34,7 @@ To get started with Blend Beyond, follow these steps:
 
   pnpm install
 
-  npx prisma generate
+  nodejs 23.11.0
 
   pnpm dev
 
@@ -116,8 +116,6 @@ To get started with Blend Beyond, follow these steps:
 Blend Beyond is constantly evolving, and here's what's on the horizon:
 
 - **Allowing users to filter people by means of controllers**: Enhance the user experience by implementing advanced filtering options, such as filtering by interests, hobbies, or compatibility scores, providing users with more control over their matches.
-
-- **Chat between matches**:  Introduce a seamless chat feature that allows users to communicate with their matches directly within the app, fostering meaningful conversations and deeper connections.
 
 - **AI-Powered Matchmaking**: Explore the possibilities of AI-driven algorithms to deliver more accurate and personalized matchmaking results, making every connection meaningful and impactful.
 
