@@ -1,11 +1,16 @@
 .menu-container {
-    margin: 3rem 2rem 0;
+    margin: 1rem 1.5rem 1rem;
     display: flex;
     justify-content: space-between;
-    align-items: bottom;
 }
 
 .menu_icon {
     font-size: 1.7rem;
-    color: black    ;
+    color: black;
+}
+
+@media (min-width: 768px) {
+    .menu-container {
+        margin: 1.5rem 2rem 1.5rem;
+    }
 }

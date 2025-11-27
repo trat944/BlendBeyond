@@ -1,8 +1,42 @@
 
+.layout_container {
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
 
 .layout_logo {
-    width: 5rem;
+    width: 3.5rem;
     position: absolute;
-    left: 30px;
+    left: 8%;
+    top: 5%;
     font-weight: 700;
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    .layout_logo {
+        width: 6rem;
+        left: 8%;
+        top: 4%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .layout_logo {
+        width: 5rem;
+        left: 13%;
+        top: 5%;
+    }
+}
+
+@media (min-width: 1440px) {
+    .layout_logo {
+        width: 5.5rem;
+        left: 13%;
+        top: 5%;
+    }
 }

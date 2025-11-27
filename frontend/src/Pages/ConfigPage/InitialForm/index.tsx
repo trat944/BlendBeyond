@@ -119,7 +119,7 @@ export const ProfileSumUp = ({user}: Props) => {
             </select>
           </div>
         </div>
-        <button type="submit">Submit</button>
+        <SecondaryButton type="submit">Submit</SecondaryButton>
       </form>
     </div>
   );
