@@ -8,25 +8,28 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts",
     "build": "tsc",
-    "start": "tsx watch ./src/index.js"
+    "start": "tsx watch ./src/index.js",
+    "start:prod": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "5.19.0",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.2.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "dotenv": "16.4.5",
     "express": "^4.18.3",
     "express-fileupload": "^1.5.0",
     "fs-extra": "^11.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.3",
+    "prisma": "^5.19.1",
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
-    "@prisma/client": "^5.11.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
@@ -35,9 +38,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.11.28",
-    "dotenv": "^16.4.5",
     "nodemon": "^3.1.0",
-    "prisma": "^5.11.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.1",
     "typescript": "^5.4.2"

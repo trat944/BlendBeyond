@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES6",
+    "outDir": "./dist",      // Carpeta de salida para los archivos compilados
+    "rootDir": "./src",      // Carpeta de origen de los archivos TypeScript
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"],   // Incluir todos los archivos en la carpeta src
+  "exclude": ["node_modules"]
+}
