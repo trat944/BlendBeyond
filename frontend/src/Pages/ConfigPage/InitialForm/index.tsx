@@ -20,6 +20,7 @@ export const ProfileSumUp = ({user}: Props) => {
   const [userAge, setUserAge] = useState<number>()
   const [nearestCity, setNearestCity] = useState<string>('');
   const [formattedTime, setFormattedTime] = useState<string>('')
+  const [previewImage, setPreviewImage] = useState<string>('')
   const {register, handleSubmit} = useForm();
   const {dispatch} = useContext(UserContext)
   
@@ -31,13 +32,36 @@ export const ProfileSumUp = ({user}: Props) => {
       setUserAge(getAge(formattedTime))
     }
     data.birthdate = getOriginalDate(data.birthdate)
-    const updatedUser = { ...user, ...data, age };
+    
+    // Include user's pictureId for backend to delete old image if needed
+    const updatedUser = { 
+      ...user, 
+      ...data, 
+      age,
+      pictureId: user?.pictureId || null 
+    };
+    
     const response = await UserService.updateUser(updatedUser);
     if (response) {
       window.localStorage.setItem('userLogged', JSON.stringify(response));
       dispatch({ type: 'LOGIN', payload: response });
+      // Update preview with new image from server
+      if (response.pictureUrl) {
+        setPreviewImage(response.pictureUrl);
+      }
     }
   });
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   useEffect(() => {
     if (user?.birthdate) {
@@ -51,6 +75,9 @@ export const ProfileSumUp = ({user}: Props) => {
     if (user?.city) {
       setNearestCity(user?.city)
     }
+    if (user?.pictureUrl) {
+      setPreviewImage(user.pictureUrl)
+    }
   }, [user]);
 
   return (
@@ -59,12 +86,17 @@ export const ProfileSumUp = ({user}: Props) => {
         <div className="profilePicContainer">
           <label htmlFor="fileInput" className="profilePicContainer">
             <FontAwesomeIcon className='change-pic' icon={faPen} />
-            <img className='profilePic' src={user?.pictureUrl} alt="" />
+            <img className='profilePic' src={previewImage || user?.pictureUrl} alt="" />
             <input
               className='img-input'
               id="fileInput"
               type='file'
+              accept="image/*"
               {...register('selfImage')}
+              onChange={(e) => {
+                register('selfImage').onChange(e);
+                handleImageChange(e);
+              }}
             />
           </label>
         </div>

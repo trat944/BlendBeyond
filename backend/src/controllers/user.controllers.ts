@@ -95,19 +95,42 @@ export const updateUser = async (req: Request, res: Response) => {
   let { name, email, password, birthdate, city, sex, lookingFor, id, age, pictureId } = req.body;
   const file = req.files?.selfImage;
 
+  console.log('=== UPDATE USER DEBUG ===');
+  console.log('Body:', req.body);
+  console.log('Files:', req.files);
+  console.log('selfImage file:', file);
+
   try {
     if (file) {
       if (Array.isArray(file)) return res.status(400).send({ message: "File should not be an array" });
 
-      if (pictureId !== null) {
+      console.log('File details:', {
+        name: file.name,
+        size: file.size,
+        mimetype: file.mimetype,
+        tempFilePath: file.tempFilePath
+      });
+
+      // Only delete old image if pictureId exists and is not null/undefined
+      if (pictureId && pictureId !== 'null' && pictureId !== 'undefined') {
+        console.log('Deleting old image:', pictureId);
         await deleteImage(pictureId);
+      } else {
+        console.log('No previous image to delete');
       }
+      
+      console.log('Uploading to cloudinary...');
       const responsecloud = await uploadCoverImg(file.tempFilePath);
+      console.log('Cloudinary response:', responsecloud);
+      
       await prisma.user.update({
         where: { id: id },
         data: { pictureId: responsecloud.public_id, pictureUrl: responsecloud.secure_url }
       });
       await fs.unlink(file.tempFilePath);
+      console.log('Image uploaded successfully');
+    } else {
+      console.log('No file received');
     }
 
     const updateData: any = {};

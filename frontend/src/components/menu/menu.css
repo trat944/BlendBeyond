@@ -2,6 +2,7 @@
     margin: 1rem 1.5rem 1rem;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
 .menu_icon {
@@ -12,5 +13,11 @@
 @media (min-width: 768px) {
     .menu-container {
         margin: 1.5rem 2rem 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .menu-container {
+        margin-bottom: 10%;
     }
 }

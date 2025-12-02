@@ -44,13 +44,31 @@ export class UserService {
       }
     static async updateUser(user: any) {
         try {
-            console.log({user})
-            const response = await axios.patch(VITE_BASE_URL + 'api/users/' + 'config', user, {
-                withCredentials: true
-              })
+            console.log('=== UPDATE USER SERVICE ===');
+            
+            const formData = new FormData();
+            
+            // Append all user data to FormData
+            Object.keys(user).forEach(key => {
+                if (key === 'selfImage' && user[key]?.[0]) {
+                    // If it's a file input, append the file
+                    console.log('Appending file:', user[key][0]);
+                    formData.append('selfImage', user[key][0]);
+                } else if (user[key] !== undefined && user[key] !== null) {
+                    formData.append(key, user[key]);
+                }
+            });
+
+            const response = await axios.patch(VITE_BASE_URL + 'api/users/' + 'config', formData, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            })
+            console.log('Response:', response.data);
             return response.data
         } catch (error) {
-            console.log(error)
+            console.log('Error in updateUser:', error)
         }
     }
     static async deleteUser(userId: any) {
