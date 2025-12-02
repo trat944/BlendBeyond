@@ -100,6 +100,28 @@ export const updateUser = async (req: Request, res: Response) => {
   console.log('Files:', req.files);
   console.log('selfImage file:', file);
 
+  // Clean up string values of "undefined" and "null"
+  const cleanValue = (val: any) => {
+    if (val === 'undefined' || val === 'null' || val === undefined || val === null || val === '') return undefined;
+    return val;
+  };
+
+  name = cleanValue(name);
+  email = cleanValue(email);
+  password = cleanValue(password);
+  birthdate = cleanValue(birthdate);
+  city = cleanValue(city);
+  sex = cleanValue(sex);
+  lookingFor = cleanValue(lookingFor);
+  pictureId = cleanValue(pictureId);
+  
+  // Convert age to number if it exists
+  if (age && age !== 'undefined' && age !== 'null') {
+    age = parseInt(age);
+  } else {
+    age = undefined;
+  }
+
   try {
     if (file) {
       if (Array.isArray(file)) return res.status(400).send({ message: "File should not be an array" });

@@ -4,6 +4,7 @@ import likeRouter from './routes/like.routes';
 import dislikeRouter from './routes/dislike.routes';
 import userFilteringRouter from './routes/userFiltering.routes';
 import messageRouter from './routes/message.routes';
+import passwordResetRouter from './routes/passwordReset.routes';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload'
@@ -31,6 +32,7 @@ app.use("/api/likes", likeRouter);
 app.use("/api/dislikes", dislikeRouter);
 app.use("/api/messages", messageRouter);
 app.use("/api/conversations", conversationRouter);
+app.use("/api/auth", passwordResetRouter);
 
 const server = http.createServer(app);
 const io = new Server(server, {

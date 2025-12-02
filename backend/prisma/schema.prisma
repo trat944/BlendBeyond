@@ -25,6 +25,8 @@ model User {
   city                        String?
   sex                         String?
   lookingFor                  String?
+  resetToken                  String?
+  resetTokenExpiry            DateTime?
   likedBy           Like[]    @relation("LikedUsers")
   likedUsers        Like[]    @relation("LikedBy")
   dislikedBy        Dislike[] @relation("DislikedUsers")
