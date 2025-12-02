@@ -16,14 +16,12 @@ export const forgotPassword = async (req: Request, res: Response) => {
     }
 
     console.log('🟢 Looking for user with email:', email);
-    // Check if user exists
     const user = await prisma.user.findUnique({
       where: { email }
     });
 
     console.log('🟢 User found:', !!user);
 
-    // Always return success to prevent email enumeration
     if (!user) {
       console.log('🟢 User not found, but returning success for security');
       return res.status(200).json({ 
@@ -31,13 +29,11 @@ export const forgotPassword = async (req: Request, res: Response) => {
       });
     }
 
-    // Generate reset token
     console.log('🟢 Generating reset token...');
     const resetToken = crypto.randomBytes(32).toString('hex');
     const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
 
     console.log('🟢 Saving token to database...');
-    // Save token to database
     await prisma.user.update({
       where: { email },
       data: {
@@ -47,7 +43,6 @@ export const forgotPassword = async (req: Request, res: Response) => {
     });
 
     console.log('🟢 Sending email...');
-    // Send email
     await sendPasswordResetEmail(email, resetToken);
 
     console.log('✅ Password reset process completed successfully');
