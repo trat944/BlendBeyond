@@ -114,7 +114,11 @@ export const updateUser = async (req: Request, res: Response) => {
       // Only delete old image if pictureId exists and is not null/undefined
       if (pictureId && pictureId !== 'null' && pictureId !== 'undefined') {
         console.log('Deleting old image:', pictureId);
-        await deleteImage(pictureId);
+        try {
+          await deleteImage(pictureId);
+        } catch (deleteError) {
+          console.log('Error deleting old image:', deleteError);
+        }
       } else {
         console.log('No previous image to delete');
       }
@@ -127,7 +131,15 @@ export const updateUser = async (req: Request, res: Response) => {
         where: { id: id },
         data: { pictureId: responsecloud.public_id, pictureUrl: responsecloud.secure_url }
       });
-      await fs.unlink(file.tempFilePath);
+      
+      // Delete temp file
+      try {
+        await fs.unlink(file.tempFilePath);
+        console.log('Temp file deleted successfully');
+      } catch (unlinkError) {
+        console.log('Error deleting temp file:', unlinkError);
+      }
+      
       console.log('Image uploaded successfully');
     } else {
       console.log('No file received');
