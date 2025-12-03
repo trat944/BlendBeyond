@@ -45,19 +45,38 @@ export class UserService {
     static async updateUser(user: any) {
         try {
             console.log('=== UPDATE USER SERVICE ===');
+            console.log('User data received:', user);
             
             const formData = new FormData();
             
             // Append all user data to FormData
             Object.keys(user).forEach(key => {
-                if (key === 'selfImage' && user[key]?.[0]) {
-                    // If it's a file input, append the file
-                    console.log('Appending file:', user[key][0]);
-                    formData.append('selfImage', user[key][0]);
-                } else if (user[key] !== undefined && user[key] !== null) {
+                if (key === 'selfImage') {
+                    // Handle file input specially
+                    if (user[key]?.[0] instanceof File) {
+                        console.log('Appending file:', user[key][0]);
+                        formData.append('selfImage', user[key][0]);
+                    } else {
+                        console.log('Skipping selfImage - no valid file');
+                    }
+                } else if (user[key] !== undefined && user[key] !== null && user[key] !== '') {
+                    // Skip these metadata fields that come from FileList
+                    if (key === 'likedBy' || key === 'likedUsers' || key === 'dislikedBy' || key === 'dislikedUsers') {
+                        console.log(`Skipping ${key} - metadata field`);
+                        return;
+                    }
+                    // Only append non-empty values
+                    console.log(`Appending ${key}:`, user[key]);
                     formData.append(key, user[key]);
+                } else {
+                    console.log(`Skipping ${key} - empty or undefined`);
                 }
             });
+
+            console.log('FormData entries:');
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ':', pair[1]);
+            }
 
             const response = await axios.patch(VITE_BASE_URL + 'api/users/' + 'config', formData, {
                 withCredentials: true,
