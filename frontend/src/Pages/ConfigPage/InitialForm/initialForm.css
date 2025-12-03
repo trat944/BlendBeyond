@@ -214,3 +214,188 @@
     gap: 1rem;
   }
 }
+
+/* Date Input Display */
+.date-input-display {
+  cursor: pointer;
+  background-color: white;
+  transition: border-color 0.3s ease;
+}
+
+.date-input-display:hover {
+  border-color: #999;
+}
+
+.date-input-display:focus {
+  outline: none;
+  border-color: #4ca2cd;
+  box-shadow: 0 0 5px rgba(76, 162, 205, 0.5);
+}
+
+/* Date Modal Overlay */
+.date-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+/* Date Modal Content */
+.date-modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.date-modal-content h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.date-modal-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* React DatePicker Custom Styles */
+.react-datepicker {
+  font-family: inherit !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.react-datepicker__header {
+  background-color: #4ca2cd !important;
+  border-bottom: none !important;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 1rem 0 !important;
+}
+
+.react-datepicker__current-month {
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.react-datepicker__day-name {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500 !important;
+  width: 2rem !important;
+  line-height: 2rem !important;
+  margin: 0.2rem !important;
+}
+
+.react-datepicker__day {
+  color: #333 !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  width: 2rem !important;
+  line-height: 2rem !important;
+  margin: 0.2rem !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: rgba(76, 162, 205, 0.1) !important;
+  color: #4ca2cd !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #4ca2cd !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: rgba(76, 162, 205, 0.2) !important;
+  color: #4ca2cd !important;
+}
+
+.react-datepicker__day--outside-month {
+  color: #ccc !important;
+}
+
+.react-datepicker__month {
+  margin: 0.8rem !important;
+}
+
+.react-datepicker__month-dropdown,
+.react-datepicker__year-dropdown {
+  background-color: white !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.react-datepicker__month-option:hover,
+.react-datepicker__year-option:hover {
+  background-color: rgba(76, 162, 205, 0.1) !important;
+  color: #4ca2cd !important;
+}
+
+.react-datepicker__month-option--selected,
+.react-datepicker__year-option--selected {
+  background-color: #4ca2cd !important;
+  color: white !important;
+}
+
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow {
+  border-color: white transparent !important;
+  border-width: 0.3rem 0.3rem 0 !important;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 768px) {
+  .date-modal-content {
+    padding: 1rem;
+    max-width: 95%;
+  }
+  
+  .date-modal-content h3 {
+    font-size: 1rem;
+  }
+  
+  .react-datepicker {
+    font-size: 0.9rem !important;
+  }
+  
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    width: 1.8rem !important;
+    line-height: 1.8rem !important;
+    margin: 0.15rem !important;
+  }
+}
