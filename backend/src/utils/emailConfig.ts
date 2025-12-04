@@ -1,12 +1,6 @@
 import nodemailer from 'nodemailer';
 import config from '../config/config';
 
-console.log('Email config:', {
-  user: config.email.USER,
-  hasPassword: !!config.email.PASSWORD,
-  passwordLength: config.email.PASSWORD?.length
-});
-
 export const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {

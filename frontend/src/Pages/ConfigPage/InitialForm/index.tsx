@@ -5,7 +5,6 @@ import { UserService } from '../../../services/UserService'
 import { useContext, useEffect, useState } from 'react'
 import { getAge } from '../../../utils/getAge'
 import { handleGetLocation } from '../../../utils/getLocation'
-import { cityValidator } from '../../../utils/cityValidation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { SecondaryButton } from '../../../styled_components/logoutButton'
@@ -25,7 +24,7 @@ export const ProfileSumUp = ({user}: Props) => {
   const [previewImage, setPreviewImage] = useState<string>('')
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [showDateModal, setShowDateModal] = useState<boolean>(false)
-  const {register, handleSubmit, setValue} = useForm();
+  const {register, handleSubmit, setValue, formState: { errors }} = useForm();
   const {dispatch} = useContext(UserContext)
   
   const onSubmit = handleSubmit(async (data) => {
@@ -80,11 +79,18 @@ export const ProfileSumUp = ({user}: Props) => {
     }
     if (user?.city) {
       setNearestCity(user?.city)
+      setValue('city', user?.city)
     }
     if (user?.pictureUrl) {
       setPreviewImage(user.pictureUrl)
     }
   }, [user, setValue]);
+
+  useEffect(() => {
+    if (nearestCity) {
+      setValue('city', nearestCity)
+    }
+  }, [nearestCity, setValue]);
 
   return (
     <div className="userProfile_container">
@@ -121,18 +127,21 @@ export const ProfileSumUp = ({user}: Props) => {
               id='city'
               type="text"
               placeholder="Ciudad"
-              defaultValue={nearestCity}
-              {...register('city', {
-                validate: (value) =>
-                  cityValidator(value) || "Invalid city"
-              })}
+              value={nearestCity}
+              {...register('city')}
+              onChange={(e) => {
+                setNearestCity(e.target.value);
+                register('city').onChange(e);
+              }}
             />
             <SecondaryButton
+              type="button"
               className='localization-btn'
               onClick={(event) => handleGetLocation(event, setNearestCity)}>
               Get Location
             </SecondaryButton>
           </div>
+          {errors.city && <span className="error-message">{errors.city.message as string}</span>}
           <div className="pair-of-inputs-container">
           <label htmlFor="sex">How do you identify yourself?</label>
             <select
@@ -179,10 +188,29 @@ export const ProfileSumUp = ({user}: Props) => {
                   setUserAge(getAge(date.toISOString()))
                 }
               }}
+              onMonthChange={(date: Date) => {
+                // When month changes, set to first day of that month
+                const newDate = new Date(date.getFullYear(), date.getMonth(), 1)
+                setSelectedDate(newDate)
+                const formatted = getFormattedDate(newDate.toISOString())
+                setFormattedTime(formatted)
+                setValue('birthdate', formatted)
+                setUserAge(getAge(newDate.toISOString()))
+              }}
+              onYearChange={(date: Date) => {
+                // When year changes, set to first day of current month in that year
+                const currentMonth = selectedDate?.getMonth() || 0
+                const newDate = new Date(date.getFullYear(), currentMonth, 1)
+                setSelectedDate(newDate)
+                const formatted = getFormattedDate(newDate.toISOString())
+                setFormattedTime(formatted)
+                setValue('birthdate', formatted)
+                setUserAge(getAge(newDate.toISOString()))
+              }}
               dateFormat="MM/dd/yyyy"
               showMonthDropdown
               showYearDropdown
-              dropdownMode="select"
+              dropdownMode="scroll"
               yearDropdownItemNumber={100}
               scrollableYearDropdown
               maxDate={new Date()}

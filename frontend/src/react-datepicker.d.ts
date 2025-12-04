@@ -4,6 +4,8 @@ declare module 'react-datepicker' {
   export interface ReactDatePickerProps {
     selected?: Date | null;
     onChange: (date: Date | null) => void;
+    onMonthChange?: (date: Date) => void;
+    onYearChange?: (date: Date) => void;
     dateFormat?: string;
     showMonthDropdown?: boolean;
     showYearDropdown?: boolean;
