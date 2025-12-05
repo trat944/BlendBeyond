@@ -182,7 +182,10 @@ export const ProfileSumUp = ({user}: Props) => {
               onChange={(date: Date | null) => {
                 setSelectedDate(date)
                 if (date) {
-                  const formatted = getFormattedDate(date.toISOString())
+                  const year = date.getFullYear();
+                  const month = String(date.getMonth() + 1).padStart(2, '0');
+                  const day = String(date.getDate()).padStart(2, '0');
+                  const formatted = `${day} / ${month} / ${year}`;
                   setFormattedTime(formatted)
                   setValue('birthdate', formatted)
                   setUserAge(getAge(date.toISOString()))
@@ -192,7 +195,10 @@ export const ProfileSumUp = ({user}: Props) => {
                 // When month changes, set to first day of that month
                 const newDate = new Date(date.getFullYear(), date.getMonth(), 1)
                 setSelectedDate(newDate)
-                const formatted = getFormattedDate(newDate.toISOString())
+                const year = newDate.getFullYear();
+                const month = String(newDate.getMonth() + 1).padStart(2, '0');
+                const day = String(newDate.getDate()).padStart(2, '0');
+                const formatted = `${day}-${month}-${year}`;
                 setFormattedTime(formatted)
                 setValue('birthdate', formatted)
                 setUserAge(getAge(newDate.toISOString()))
@@ -202,7 +208,10 @@ export const ProfileSumUp = ({user}: Props) => {
                 const currentMonth = selectedDate?.getMonth() || 0
                 const newDate = new Date(date.getFullYear(), currentMonth, 1)
                 setSelectedDate(newDate)
-                const formatted = getFormattedDate(newDate.toISOString())
+                const year = newDate.getFullYear();
+                const month = String(newDate.getMonth() + 1).padStart(2, '0');
+                const day = String(newDate.getDate()).padStart(2, '0');
+                const formatted = `${day}-${month}-${year}`;
                 setFormattedTime(formatted)
                 setValue('birthdate', formatted)
                 setUserAge(getAge(newDate.toISOString()))
