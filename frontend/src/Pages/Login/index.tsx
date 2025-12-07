@@ -46,6 +46,7 @@ export const LoginPage = () => {
 // 1 destino soñado
 // 1 bucket lists of goals, dreams, and aspirations.
 // IA para prompt de intereses similares
+// IA para que veas como puede ser tu hijho con esa persona
 
 // Personality Quizzes: Incorporate fun and insightful personality quizzes that users can take to reveal more about themselves. These quizzes can cover various topics such as hobbies, interests, values, and preferences. The results can be displayed on their profiles, giving others a better understanding of who they are beyond the basics.
 

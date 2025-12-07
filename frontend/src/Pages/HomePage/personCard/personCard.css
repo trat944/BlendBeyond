@@ -1,27 +1,114 @@
+.personCard-wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .personCard-container {
-    width: 90%;
-    margin: auto;
-    margin-top: 2rem;
     position: relative;
-    height: 500px; 
+    width: 95%;
+    max-width: 500px;
+    margin: 2rem auto 0.5rem;
+    height: 500px;
+    border-radius: 20px;
     overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .personCard-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10%;
+    display: block;
 }
 
-.personCard-container .user_specifics {
+/* Mobile trigger area */
+.personCard-mobile-trigger {
     position: absolute;
-    bottom: 4%;
-    left: 8%;
-    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    padding: 1.5rem 1rem 1rem;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.user-basic-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-name-age {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.info-icon {
     color: white;
     font-size: 1.3rem;
-    background-color: gray;
-    padding: 0.5rem;
-    border-radius: 50%;
+    opacity: 0.9;
+}
+
+/* Info overlay for mobile */
+.personCard-info-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 3;
+    padding: 2rem;
+}
+
+.personCard-info-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.info-content {
+    color: white;
+    text-align: left;
+    width: 100%;
+}
+
+.info-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.info-item svg {
+    color: #63B07E;
+    font-size: 1.2rem;
+}
+
+.info-bio {
+    margin-top: 1.5rem;
+    line-height: 1.6;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Desktop info panel - hidden on mobile */
+.personCard-desktop-info {
+    display: none;
 }

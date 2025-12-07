@@ -1,7 +1,69 @@
-.button-container {
-    margin: 1rem 3rem 3rem;
+.like-dislike-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin: 1.5rem auto 2rem;
+    padding: 0 1rem;
+    max-width: 500px;
 }
 
-.button-container .button {
-    font-size: 1.9rem;
+.like-dislike-container .action-button {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.like-dislike-container .dislike-button {
+    color: #e74c3c;
+    background: white;
+    border: 2px solid #e74c3c;
+}
+
+.like-dislike-container .dislike-button:hover {
+    background: #e74c3c;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.3);
+}
+
+.like-dislike-container .dislike-button:active {
+    transform: scale(0.95);
+}
+
+.like-dislike-container .like-button {
+    color: white;
+    background: linear-gradient(135deg, #63B07E 0%, #A8E0C0 100%);
+    border: 2px solid transparent;
+}
+
+.like-dislike-container .like-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(99, 176, 126, 0.4);
+}
+
+.like-dislike-container .like-button:active {
+    transform: scale(0.95);
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+    .like-dislike-container {
+        gap: 3rem;
+        margin: 2rem auto 3rem;
+        max-width: 1100px;
+    }
+
+    .like-dislike-container .action-button {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
 }

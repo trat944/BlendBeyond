@@ -1,0 +1,25 @@
+.homepage-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+  overflow-x: hidden;
+  flex: 1;
+  overflow-y: visible;
+  min-height: 0;
+}
+
+/* Tablets and larger screens */
+@media (min-width: 550px) {
+  .homepage-content {
+    padding: 1rem;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .homepage-content {
+    justify-content: flex-start;
+  }
+}

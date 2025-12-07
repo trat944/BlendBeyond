@@ -8,15 +8,12 @@ import { LikeDislikeButtons } from "../../components/like-dislike-buttons";
 import { NoUsers } from "./no-users";
 import { getDesiredUsers } from "../../utils/petitionsToBackend";
 import { NoProfileInfoMessage } from "./noProfileInfo";
-import { Menu } from "../../components/menu";
-
 
 export const HomePage = () => {
   const user: User | null = useContext(UserContext).state.user
   const [users, setUsers] = useState<User[]>([])
   const [currentIndex, setCurrentIndex] = useState(0); 
   const [noProfileInfoMessage, setnoProfileInfoMessage] = useState(false)
-  console.log({user})
 
   useEffect(() => {
     handleProfileInfoMessage();
@@ -45,27 +42,28 @@ export const HomePage = () => {
   return (
     <>
       {noProfileInfoMessage ? (
-        <>
+        <Layout>
           <NoProfileInfoMessage user={user} />
-          <Menu />
-        </>
+        </Layout>
       ) : (
         <Layout>
-          {users && users.length > 0 && currentIndex < users.length ? (
-            <>
-              <PersonCard 
-                key={users[currentIndex].id} 
-                user={users[currentIndex]}  
-              />
-              <LikeDislikeButtons 
-                user={users[currentIndex]} 
-                onHandleCardWhenLiked={handleNextCardWhenLiked} 
-                onHandleCardWhenDisliked={handleNextCardWhenDisliked}
-              />
-            </>
-          ) : (
-            <NoUsers user={user} />
-          )}
+          <div className="homepage-content">
+            {users && users.length > 0 && currentIndex < users.length ? (
+              <>
+                <PersonCard 
+                  key={users[currentIndex].id} 
+                  user={users[currentIndex]}  
+                />
+                <LikeDislikeButtons 
+                  user={users[currentIndex]} 
+                  onHandleCardWhenLiked={handleNextCardWhenLiked} 
+                  onHandleCardWhenDisliked={handleNextCardWhenDisliked}
+                />
+              </>
+            ) : (
+              <NoUsers user={user} />
+            )}
+          </div>
         </Layout>
       )}
     </>

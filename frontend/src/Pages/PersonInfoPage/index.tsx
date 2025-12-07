@@ -66,14 +66,14 @@ export const PersonInfoPage = ({loggedUser}: Props) => {
           <FontAwesomeIcon className='chat-button' icon={faComment} />
         </StyledLink>
       ) : (
-        <div className="button-container">
+        <div className="like-dislike-container">
           <FontAwesomeIcon 
-          className="button dislike-button" 
+          className="action-button dislike-button" 
           onClick={createDislike}
           icon={faHeartCrack} />
 
           <FontAwesomeIcon 
-          className="button like-button"
+          className="action-button like-button"
           onClick={createLike}
           icon={faHeart} />
         </div>
