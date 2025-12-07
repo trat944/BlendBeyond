@@ -2,24 +2,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 0.5rem;
+  padding: 1rem 0;
   overflow-x: hidden;
   flex: 1;
-  overflow-y: visible;
+  overflow-y: auto;
   min-height: 0;
 }
 
 /* Tablets and larger screens */
 @media (min-width: 550px) {
   .homepage-content {
-    padding: 1rem;
+    padding: 1.5rem 0;
   }
 }
 
 /* Large screens */
 @media (min-width: 1024px) {
   .homepage-content {
-    justify-content: flex-start;
+    padding: 2rem 0;
   }
 }

@@ -7,7 +7,7 @@ type Props = {
 
 export const NoUsers = ({user}: Props) => {
     return (
-        <div className="noUsersWomen-container">
+        <div className="noUsers-container">
             <img 
                 className='noUsers-img' 
                 src={user?.sex === 'man' ? '/man_noUsers.png' : '/woman_noUsers.png'} 
