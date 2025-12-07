@@ -16,7 +16,7 @@
 }
 
 .userProfile_container .layout_logo {
-  width: 3rem;
+  width: 5rem;
   position: absolute;
   left: 1rem;
   top: 1rem;
@@ -223,12 +223,6 @@
     overflow-y: visible;
     width: 90%;
     border-radius: 1rem;
-  }
-
-  .userProfile_container .layout_logo {
-    width: 4rem;
-    left: 1.2rem;
-    top: 1.2rem;
   }
 
   .profilePicContainer {
@@ -589,4 +583,10 @@
   margin-bottom: 0.3rem;
   display: block;
   font-weight: 500;
+}
+
+@media (max-width: 550px) {
+  .userProfile_container .layout_logo {
+    width: 3rem;
+  }
 }
