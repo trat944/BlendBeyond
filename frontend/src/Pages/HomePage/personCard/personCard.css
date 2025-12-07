@@ -5,13 +5,21 @@
 
 .personCard-container {
     position: relative;
-    width: 95%;
-    max-width: 500px;
+    width: 90%;
+    max-width: 420px;
     margin: 2rem auto 0.5rem;
     height: 500px;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Pantallas mayores a 550px */
+@media (min-width: 550px) {
+    .personCard-container {
+        width: 95%;
+        max-width: 500px;
+    }
 }
 
 .personCard-container img {

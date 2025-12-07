@@ -25,7 +25,6 @@ export const PersonCard = ({user}: Props) => {
                             <FontAwesomeIcon icon={faLocationDot} />
                             <span>{user?.city}</span>
                         </div>
-                        {/* Aquí puedes añadir más información como hobbies, bio, etc. */}
                         <p className="info-bio">Here you will have all the info, destinations, bucketlist, pictures...etc</p>
                     </div>
                 </div>
