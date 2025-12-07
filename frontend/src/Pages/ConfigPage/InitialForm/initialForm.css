@@ -12,6 +12,15 @@
   overflow-y: visible;
   max-height: none;
   box-sizing: border-box;
+  position: relative;
+}
+
+.userProfile_container .layout_logo {
+  width: 3rem;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
 }
 
 .userProfile_container form {
@@ -216,6 +225,12 @@
     border-radius: 1rem;
   }
 
+  .userProfile_container .layout_logo {
+    width: 4rem;
+    left: 1.2rem;
+    top: 1.2rem;
+  }
+
   .profilePicContainer {
     width: 9rem;
     height: 9rem;
@@ -266,6 +281,12 @@
     border-radius: 1rem;
     max-height: none;
     overflow-y: visible;
+  }
+
+  .userProfile_container .layout_logo {
+    width: 4.5rem;
+    left: 1.5rem;
+    top: 1.5rem;
   }
 
   .profilePicContainer {

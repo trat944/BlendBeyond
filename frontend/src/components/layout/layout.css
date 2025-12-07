@@ -1,5 +1,13 @@
+/* Mobile & Tablet Layout */
+.layout_wrapper {
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+}
 
 .layout_container {
+    flex: 1;
     min-height: 100vh;
     height: 100vh;
     overflow: hidden;
@@ -8,35 +16,44 @@
     position: relative;
 }
 
-.layout_logo {
-    width: 3.5rem;
-    position: absolute;
-    left: 8%;
-    top: 5%;
-    font-weight: 700;
-    z-index: 10;
+.layout_content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 60px; /* Space for bottom menu on mobile/tablet */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.layout_content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
 }
 
 @media (min-width: 768px) {
-    .layout_logo {
-        width: 6rem;
-        left: 8%;
-        top: 4%;
+    .layout_content {
+        padding-bottom: 70px;
     }
 }
 
+/* Desktop Layout - Sidebar */
 @media (min-width: 1024px) {
-    .layout_logo {
-        width: 5rem;
-        left: 13%;
-        top: 5%;
+    .layout_wrapper {
+        flex-direction: row;
+    }
+    
+    .layout_container {
+        margin-left: 220px; /* Width of sidebar */
+        width: calc(100% - 220px);
+    }
+    
+    .layout_content {
+        padding-bottom: 0; /* No bottom menu on desktop */
     }
 }
 
 @media (min-width: 1440px) {
-    .layout_logo {
-        width: 5.5rem;
-        left: 13%;
-        top: 5%;
+    .layout_container {
+        margin-left: 240px;
+        width: calc(100% - 240px);
     }
 }

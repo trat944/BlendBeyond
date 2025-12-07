@@ -94,6 +94,7 @@ export const ProfileSumUp = ({user}: Props) => {
 
   return (
     <div className="userProfile_container">
+      <img className="layout_logo" src="/logo.webp" alt="" />
       <form onSubmit={onSubmit}>
         <div className="profilePicContainer">
           <label htmlFor="fileInput" className="profilePicContainer">

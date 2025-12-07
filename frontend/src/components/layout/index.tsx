@@ -4,11 +4,13 @@ import './layout.css'
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
     return (
-      <div className="layout_container">
-        <img className="layout_logo" src="/logo.webp" alt="" />
-        {children}
+      <div className="layout_wrapper">
         <Menu />
+        <div className="layout_container">
+          <div className="layout_content">
+            {children}
+          </div>
+        </div>
       </div>
-    
     );
   };
