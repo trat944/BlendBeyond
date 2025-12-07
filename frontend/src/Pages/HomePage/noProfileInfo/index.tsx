@@ -12,6 +12,7 @@ export const NoProfileInfoMessage = ({user}: Props) => {
   const [lookingForMissing, setLookingForMissing] = useState(false)
   const [birthdateMissing, setBirthdateMissing] = useState(false)
   const [ageMissing, setAgeMissing] = useState(false)
+  const [pictureMissing, setPictureMissing] = useState(false)
   
   const handleMissingInfo = () => {
     if (!user?.city) setCityMissing(true)
@@ -19,6 +20,7 @@ export const NoProfileInfoMessage = ({user}: Props) => {
     if (!user?.lookingFor || user?.lookingFor === 'select') setLookingForMissing(true)
     if (!user?.birthdate) setBirthdateMissing(true)
     if (!user?.age) setAgeMissing(true)
+    if (!user?.pictureUrl) setPictureMissing(true)
   }
 
   useEffect(() => {
@@ -27,6 +29,9 @@ export const NoProfileInfoMessage = ({user}: Props) => {
 
   return (
     <div className="noProfileInfo-container">
+      {pictureMissing && (
+        <span>Your profile picture is missing.</span>
+      )}
       {cityMissing && (
         <span>Your location is missing.</span>
       )}
@@ -42,7 +47,7 @@ export const NoProfileInfoMessage = ({user}: Props) => {
       {ageMissing && (
         <span>Your age is missing.</span>
       )}
-      <p>Please, go to your config page and fill the missing fields.</p>
+      <p>Please, go to your Profile to complete the missing information.</p>
     </div>
   )
 }
