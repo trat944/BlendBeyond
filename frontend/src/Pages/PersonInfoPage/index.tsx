@@ -2,12 +2,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { User } from '../../interfaces/userInterface'
 import './personInfoPage.css'
 import { MouseEventHandler, useContext, useEffect, useState } from 'react'
-import { Menu } from '../../components/menu'
+import { Layout } from '../../components/layout'
 import { LikeService } from '../../services/LikeService'
 import { UserContext } from '../../hooks/userContext'
 import { DislikeService } from '../../services/DislikeService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faComment, faHeart, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faComment, faHeart, faHeartCrack } from '@fortawesome/free-solid-svg-icons'
 import { StyledLink } from '../../styled_components/chatCard'
 
 type Props = {
@@ -57,29 +57,36 @@ export const PersonInfoPage = ({loggedUser}: Props) => {
   }, [])
 
   return (
-    <div className="personInfo-container">
-      <img src={user.pictureUrl || '/th.jpg'} alt="" />
-      <span className='person-age-name'>{user.name}, {user.age ? user.age : 'Age not available'}</span>
-      <span>Here you will have all the info, destinations, bucketlist, pictures...etc</span>
-      {matchedUser ? (
-        <StyledLink to={`/conversation/${user.id}`} state={{ user, loggedUserId }}>
-          <FontAwesomeIcon className='chat-button' icon={faComment} />
-        </StyledLink>
-      ) : (
-        <div className="like-dislike-container">
-          <FontAwesomeIcon 
-          className="action-button dislike-button" 
-          onClick={createDislike}
-          icon={faHeartCrack} />
-
-          <FontAwesomeIcon 
-          className="action-button like-button"
-          onClick={createLike}
-          icon={faHeart} />
+    <Layout>
+      <div className="personInfo-container">
+        <img src={user.pictureUrl || '/th.jpg'} alt={user.name} />
+        <div className='person-age-name-wrapper'>
+          <span className='person-age-name'>{user.name}, {user.age ? user.age : 'Age not available'}</span>
+          {matchedUser && (
+            <StyledLink to={`/conversation/${user.id}`} state={{ user, loggedUserId }}>
+              <FontAwesomeIcon className='chat-button' icon={faComment} />
+            </StyledLink>
+          )}
         </div>
-      )}
-      <FontAwesomeIcon className='retreat-button' onClick={goBack} icon={faChevronLeft} />
-      <Menu />
-    </div>
+        <span>Here you will have all the info, destinations, bucketlist, pictures...etc</span>
+        
+        {!matchedUser && (
+          <div className="like-dislike-container">
+            <FontAwesomeIcon 
+              className="action-button dislike-button" 
+              onClick={createDislike}
+              icon={faHeartCrack} 
+            />
+            <FontAwesomeIcon 
+              className="action-button like-button"
+              onClick={createLike}
+              icon={faHeart} 
+            />
+          </div>
+        )}
+        
+        <FontAwesomeIcon className='retreat-button' onClick={goBack} icon={faArrowLeft} />
+      </div>
+    </Layout>
   )
 }

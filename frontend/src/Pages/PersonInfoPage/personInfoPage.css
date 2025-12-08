@@ -1,43 +1,255 @@
 .personInfo-container {
-  width: 90%;
+  width: 80%;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
-  margin: 2rem auto 0;
-  position: relative;
+  background: white;
+  border-radius: 20px;
+  overflow: visible;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .personInfo-container img {
-  width: 100%; 
-  height: 500px; 
-  object-fit: cover; 
-  border-radius: 10%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 20px 20px 0 0;
 }
 
-.personInfo-container img:hover {
-  transform: scale(1.05);
+.personInfo-container > span {
+  background: white;
+  padding: 1.5rem;
+  margin: 0;
+}
+
+/* Wrapper para el nombre y botón de chat */
+.person-age-name-wrapper {
+  background: white;
+  position: relative;
+  border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
 }
 
 .personInfo-container .person-age-name {
-  color: #333;
-  margin: 1rem 0.5rem;
-  font-size: 1.5rem;
-  font-weight: 600;
+  color: #2d3748;
+  padding: 1.5rem 1.5rem 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
   text-align: left;
+  margin: 0;
+  display: block;
+}
+
+.personInfo-container > span:not(.person-age-name) {
+  color: #4a5568;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 0.5rem 1.5rem 1.5rem;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .chat-button {
-  width: fit-content;
-  font-size: 1.5rem;
-  margin: 1rem;
-  padding: 1rem;
-  background-color: white;
-  border-radius: 50%;
   position: absolute;
-  top: 60%;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  font-size: 1.3rem;
+  color: #5867aa;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.chat-button:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.chat-button:active {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.personInfo-container .like-dislike-container {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.personInfo-container .like-dislike-container .action-button {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.personInfo-container .like-dislike-container .dislike-button {
+  color: white;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+.personInfo-container .like-dislike-container .dislike-button:hover {
+  transform: scale(1.15) rotate(-5deg);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.personInfo-container .like-dislike-container .like-button {
+  color: white;
+  background: linear-gradient(135deg, #63B07E 0%, #7bc99c 100%);
+}
+
+.personInfo-container .like-dislike-container .like-button:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(99, 176, 126, 0.4);
 }
 
 .retreat-button {
-  font-size: 1.5rem;
+  position: fixed;
+  top: 1.5rem;
+  right: 1rem;
+  font-size: 1.8rem;
+  width: 30px;
+  height: 30px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 101;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.retreat-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.retreat-button:active {
+  transform: scale(0.95);
+}
+
+@media (min-width: 550px) {
+  .personInfo-container {
+    max-width: 600px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .personInfo-container img {
+    height: 450px;
+  }
+
+  .personInfo-container .person-age-name {
+    font-size: 2.2rem;
+    padding: 2rem 2.5rem 0.75rem;
+  }
+
+  .personInfo-container > span:not(.person-age-name) {
+    font-size: 1.1rem;
+    padding: 0.75rem 2.5rem 2rem;
+  }
+
+  .chat-button {
+    right: 2.5rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .personInfo-container .like-dislike-container {
+    position: absolute;
+    bottom: -9rem;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 2.5rem;
+  }
+
+  .personInfo-container .like-dislike-container .action-button {
+    width: 70px;
+    height: 70px;
+    font-size: 1.7rem;
+  }
+
+  .retreat-button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .personInfo-container {
+    max-width: 800px;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .retreat-button {
+    right: 4.5rem;
+  }
+
+  .personInfo-container img {
+    height: 500px;
+  }
+
+  .personInfo-container .person-age-name {
+    font-size: 2.5rem;
+    padding: 2.5rem 3rem 1rem;
+  }
+
+  .personInfo-container > span:not(.person-age-name) {
+    font-size: 1.2rem;
+    padding: 1rem 3rem 2.5rem;
+  }
+
+  .chat-button {
+    right: 3rem;
+    width: 55px;
+    height: 55px;
+    font-size: 1.6rem;
+  }
+
+  .personInfo-container .like-dislike-container {
+    position: absolute;
+    bottom: -11rem;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 3rem;
+  }
+
+  .personInfo-container .like-dislike-container .action-button {
+    width: 75px;
+    height: 75px;
+    font-size: 1.8rem;
+  }
 }
