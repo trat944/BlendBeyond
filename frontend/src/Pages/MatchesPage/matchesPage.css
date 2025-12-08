@@ -1,17 +1,107 @@
-.match-title {
-  width: 60%;
-  text-align: center;
-  margin: 3rem auto 0;
-  font-size: 1.5rem;
-  color: #121415; /* Matches the button color */
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-weight: 700;
-  letter-spacing: 2px;
-  line-height: 1.4;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-}
-
 .match-container {
   min-height: 25rem;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1rem 0.5rem 5rem;
+  box-sizing: border-box;
 }
+
+.match-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.5rem auto 2rem;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, rgba(76, 162, 205, 0.12) 0%, rgba(103, 178, 111, 0.12) 100%);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  max-width: 100%;
+}
+
+.match-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin: 0;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  animation: slideInDown 0.6s ease-out;
+  position: relative;
+}
+
+.match-title::after {
+  content: '💝';
+  display: inline-block;
+  font-size: 1.8rem;
+  margin-left: 0.5rem;
+  animation: pulse 2s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .match-container {
+    max-width: 800px;
+  }
+
+  .match-header {
+    padding: 2.5rem 2rem;
+    gap: 2rem;
+  }
+  
+  .match-title {
+    font-size: 2.2rem;
+  }
+
+  .match-title::after {
+    font-size: 2rem;
+  }
+  
+  .matches-list {
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .match-container {
+    max-width: 900px;
+    padding: 2rem 1.5rem 2rem;
+  }
+}
+
+
+

@@ -4,7 +4,7 @@ import './matchesPage.css'
 import { UserContext } from '../../hooks/userContext'
 import { getMatchedUsers } from '../../utils/petitionsToBackend'
 import { MatchCard } from './MatchCard'
-import { Menu } from '../../components/menu'
+import { Layout } from '../../components/layout'
 import { NoMatches } from './no-matches'
 import { BackAllUsersButton } from '../../styled_components/backAllUsersButton'
 import { goBackToMatches } from '../../utils/goBackToMatches'
@@ -14,38 +14,51 @@ export const MatchesPage = () => {
   const user: User | null = useContext(UserContext).state.user;
   const [matchedUsers, setMatchedUsers] = useState<User[]>([]);
   const [searcherTrigger, setSearcherTrigger] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    getMatchedUsers(user, setMatchedUsers);
+    const fetchMatches = async () => {
+      setIsLoading(true);
+      await getMatchedUsers(user, setMatchedUsers);
+      setIsLoading(false);
+    };
+    fetchMatches();
   }, [user]);
 
   return (
-      <>
-        <div className="match-container">
-        {matchedUsers && matchedUsers.length > 0 && user ? (
-          <div>
-            <h1 className='match-title'>Don’t make them wait!</h1>
+    <Layout>
+      <div className="match-container">
+        {!isLoading && matchedUsers && matchedUsers.length > 0 && user ? (
+          <>
+            <div className="match-header">
+              <h1 className='match-title'>Don't make them wait!</h1>
+              
+              {searcherTrigger ? (
+                <SearcherBarForUsers
+                  setSearcherTrigger={setSearcherTrigger} 
+                  users={matchedUsers} 
+                  setMatchedUsers={setMatchedUsers} 
+                />
+              ) : (
+                <BackAllUsersButton onClick={() => goBackToMatches(setSearcherTrigger, setMatchedUsers, user)}>
+                  ← Go back
+                </BackAllUsersButton>
+              )}
+            </div>
 
-            {searcherTrigger ? <SearcherBarForUsers
-            setSearcherTrigger={setSearcherTrigger} 
-            users={matchedUsers} 
-            setMatchedUsers={setMatchedUsers} /> :
-            (
-              <BackAllUsersButton onClick={() => goBackToMatches(setSearcherTrigger, setMatchedUsers, user)}>Go back</BackAllUsersButton>
-            )}
-
-            {matchedUsers.map(user => (
-              <MatchCard
-                key={user.id}
-                user={user}
-              />
-            ))}
-          </div>
-        ): (
-          <NoMatches/>
-        )}
-        </div>
-        <Menu />
-      </>
+            <div className="matches-list">
+              {matchedUsers.map(user => (
+                <MatchCard
+                  key={user.id}
+                  user={user}
+                />
+              ))}
+            </div>
+          </>
+        ): !isLoading ? (
+          <NoMatches />
+        ) : null}
+      </div>
+    </Layout>
   )
 }

@@ -1,5 +1,41 @@
 .icon-container {
   display: flex;
-  gap: 2rem;
-  font-size: 1.5rem;
+  gap: 1.2rem;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.icon-container a {
+  color: #4ca2cd;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(76, 162, 205, 0.08);
+  flex-shrink: 0;
+}
+
+.icon-container a:hover {
+  color: #67b26f;
+  background: rgba(103, 178, 111, 0.15);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.icon-container a:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .icon-container {
+    gap: 0.8rem;
+    font-size: 1.2rem;
+  }
+
+  .icon-container a {
+    width: 36px;
+    height: 36px;
+  }
 }
