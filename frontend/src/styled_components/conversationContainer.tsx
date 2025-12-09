@@ -88,8 +88,7 @@ export const MessageInputContainer = styled.div`
 `;
 
 export const MessageInput = styled.input`
-  flex: 1;
-  max-width: calc(100% - 60px);
+  flex-grow: 1;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   border: 1px solid #ffb3c1;
