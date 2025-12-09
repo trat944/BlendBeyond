@@ -1,17 +1,27 @@
 import styled from 'styled-components';
 
 export const ConversationContainer = styled.div`
-  margin: 2rem auto;
+  margin: 4rem auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 90%;
+  width: 90% !important;
+  min-width: 400px;
   height: 600px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   overflow: hidden;
   position: relative;
+
+  @media (min-width: 768px) {
+    width: 750px !important;
+    max-width: 750px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 1200px;
+  }
 `;
 
 export const ConversationHeader = styled.div`
@@ -78,7 +88,8 @@ export const MessageInputContainer = styled.div`
 `;
 
 export const MessageInput = styled.input`
-  flex-grow: 1;
+  flex: 1;
+  max-width: calc(100% - 60px);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   border: 1px solid #ffb3c1;
