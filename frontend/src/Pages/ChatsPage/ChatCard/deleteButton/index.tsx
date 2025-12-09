@@ -1,6 +1,7 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
+import { createPortal } from "react-dom"
 import { Modal } from "../../../../components/Modal"
 import { SecondaryButton } from "../../../../styled_components/logoutButton"
 import './deleteButton.css'
@@ -48,7 +49,7 @@ export const DeleteButton = ({conversationId, setUsersWithChatAndLastMessage, us
   return (
     <>
       <FontAwesomeIcon onClick={openDeleteModal} className="rubbish-icon" icon={faTrashCan} />
-      {openModal && (
+      {openModal && createPortal(
         <Modal trigger={trigger} onOpen={setOpenModal}>
           <div className="delete-button-container">
             <span>Are you sure you want to delete the conversation?</span>
@@ -61,7 +62,8 @@ export const DeleteButton = ({conversationId, setUsersWithChatAndLastMessage, us
                 <DangerButton className="delete-button" onClick={handleDelete}>Delete</DangerButton>
               </div>
           </div>
-        </Modal>
+        </Modal>,
+        document.body
       )}
     </>
     

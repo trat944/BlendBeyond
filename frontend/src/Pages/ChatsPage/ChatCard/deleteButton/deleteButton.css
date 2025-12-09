@@ -1,12 +1,51 @@
 .rubbish-icon {
   color: #ee8aa5;
-  position: absolute;
-  top: 10%;
-  left: 2%;
   cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.rubbish-icon:hover {
+  color: #d97290;
+  transform: scale(1.1);
+}
+
+@media (min-width: 768px) {
+  .rubbish-icon {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rubbish-icon {
+    font-size: 1.4rem;
+  }
 }
 
 .chat-button-container {
   display: flex;
   justify-content: center;
+  gap: 1rem;
+}
+
+.delete-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.delete-button-container > span {
+  color: #5a4fcf;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .delete-button-container > span {
+    font-size: 1.2rem;
+  }
 }

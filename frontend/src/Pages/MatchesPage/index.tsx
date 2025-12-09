@@ -56,7 +56,7 @@ export const MatchesPage = () => {
             </div>
           </>
         ): !isLoading ? (
-          <NoMatches />
+          <NoMatches user={user} />
         ) : null}
       </div>
     </Layout>

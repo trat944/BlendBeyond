@@ -9,49 +9,59 @@ import { NoChats } from "./no-chats";
 import { SearcherBarForUsers } from "../../components/SearcherBarForUsers";
 import { goBackToConversations } from "../../utils/goBackToConversations";
 import { BackAllUsersButton } from "../../styled_components/backAllUsersButton";
-import { Menu } from "../../components/menu";
+import { Layout } from "../../components/layout";
 
 export const ChatsPage = () => {
   const user: User | null = useContext(UserContext).state.user;
   const [usersWithChatAndLastMessage, setUsersWithChatAndLastMessage] = useState<UserWithLastMessage[]>([]);
   const [searcherTrigger, setSearcherTrigger] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-   getUsersWithChat(user, setUsersWithChatAndLastMessage)
+    const fetchChats = async () => {
+      setIsLoading(true);
+      await getUsersWithChat(user, setUsersWithChatAndLastMessage);
+      setIsLoading(false);
+    };
+    fetchChats();
   }, []);
 
   return (
-    <>
+    <Layout>
       <div className="chat-container">
-        {usersWithChatAndLastMessage && usersWithChatAndLastMessage.length > 0 && user ? (
-          <div>
-            <h1 className="chat-title">Conversations</h1>
+        {!isLoading && usersWithChatAndLastMessage && usersWithChatAndLastMessage.length > 0 && user ? (
+          <>
+            <div className="chat-header">
+              <h1 className="chat-title">Conversations 💬</h1>
 
-            {searcherTrigger ? <SearcherBarForUsers 
-            setSearcherTrigger={setSearcherTrigger} 
-            usersWithLastMessage={usersWithChatAndLastMessage} 
-            setUsersWithConversation={setUsersWithChatAndLastMessage} /> :
-            (
-              <BackAllUsersButton onClick={() => goBackToConversations(setSearcherTrigger, user, setUsersWithChatAndLastMessage)}>Go back</BackAllUsersButton>
-            )}
+              {searcherTrigger ? (
+                <SearcherBarForUsers 
+                  setSearcherTrigger={setSearcherTrigger} 
+                  usersWithLastMessage={usersWithChatAndLastMessage} 
+                  setUsersWithConversation={setUsersWithChatAndLastMessage} 
+                />
+              ) : (
+                <BackAllUsersButton onClick={() => goBackToConversations(setSearcherTrigger, user, setUsersWithChatAndLastMessage)}>
+                  ← Go back
+                </BackAllUsersButton>
+              )}
+            </div>
 
-            {usersWithChatAndLastMessage.map(userWithConversationAndLastMessage => (
-              <div key={userWithConversationAndLastMessage.user.id}>
+            <div className="chats-list">
+              {usersWithChatAndLastMessage.map(userWithConversationAndLastMessage => (
                 <ChatCard
+                  key={userWithConversationAndLastMessage.user.id}
                   loggedUserId={user.id}
                   userWithConversationAndLastMessage={userWithConversationAndLastMessage}
                   setUsersWithChatAndLastMessage={setUsersWithChatAndLastMessage}
                 />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <NoChats />
-        )}
+              ))}
+            </div>
+          </>
+        ) : !isLoading ? (
+          <NoChats user={user} />
+        ) : null}
       </div>
-      <Menu />
-    </>
+    </Layout>
   )
 }
-
-// WebSockets Integration: Implemented WebSockets to enhance real-time communication. Now, the user you are chatting with appears with a green indicator when they are online, and messages are updated in real-time in the chat interface.

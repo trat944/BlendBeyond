@@ -34,23 +34,24 @@ export const ChatCard = ({ loggedUserId, userWithConversationAndLastMessage, set
   }, [lastMessage]);
 
   return (
-    <>
-      <StyledLink to={`/conversation/${user.id}`} state={{ user, loggedUserId }}>
-        <ChatCardContainer>
-          <DeleteButton 
-            conversationId={conversationId}
-            setUsersWithChatAndLastMessage={setUsersWithChatAndLastMessage}
-            userName={user.name}
-          />
-          <div className="user-avatar">
-            <ChatProfilePic src={user.pictureUrl || '/th.jpg'} alt={user.name} />
-            {isOnline && <div className="online-indicator"></div>}
-          </div>
+    <StyledLink to={`/conversation/${user.id}`} state={{ user, loggedUserId }}>
+      <ChatCardContainer>
+        <div className="user-avatar">
+          <ChatProfilePic src={user.pictureUrl || '/th.jpg'} alt={user.name} />
+          {isOnline && <div className="online-indicator"></div>}
+        </div>
+        
+        <div className="chat-info">
           <ChatUserName>{user.name}</ChatUserName>
           {lastMessageText ? <ChatLastMessage>{lastMessageText}</ChatLastMessage> : <ChatLastMessage>No messages</ChatLastMessage>}
-        </ChatCardContainer>
-      </StyledLink>
+        </div>
 
-    </>
+        <DeleteButton 
+          conversationId={conversationId}
+          setUsersWithChatAndLastMessage={setUsersWithChatAndLastMessage}
+          userName={user.name}
+        />
+      </ChatCardContainer>
+    </StyledLink>
   );
 };
